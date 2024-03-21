@@ -1,11 +1,10 @@
 import React, { useState, useCallback } from "react";
-import { Image } from "expo-image";
-import { StyleSheet, View, Text, Pressable, Modal } from "react-native";
+import { StyleSheet, View, Pressable, Text, Modal } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Input } from "@rneui/themed";
 import DropDownPicker from "react-native-dropdown-picker";
 import { Datepicker as RNKDatepicker, Icon } from "@ui-kitten/components";
-import BrraSuperior from "../components/BrraSuperior";
+import { Image } from "expo-image";
 import SaveMessage from "../components/SaveMessage";
 import { Padding, Color, FontFamily, FontSize, Border } from "../GlobalStyles";
 
@@ -35,15 +34,8 @@ const EditProfile = ({ state, navigation }) => {
 
   return (
     <>
-      <View style={[styles.editProfile, styles.aboutmeFlexBox]}>
-        <BrraSuperior
-          wifi={require("../assets/wifi2.png")}
-          cellularConnection={require("../assets/cellular-connection.png")}
-          cap={require("../assets/cap.png")}
-          brraSuperiorPosition="unset"
-          brraSuperiorHeight="unset"
-        />
-        <View style={styles.fondoParent}>
+      <View style={styles.editProfile}>
+        <View style={[styles.fondoParent, styles.fondoParentPosition]}>
           <LinearGradient
             style={styles.fondo}
             locations={[0, 1]}
@@ -74,7 +66,7 @@ const EditProfile = ({ state, navigation }) => {
             containerStyle={styles.frameTextInputInput}
           />
         </View>
-        <View style={[styles.username, styles.namePosition]}>
+        <View style={[styles.username, styles.namePosition1]}>
           <Text style={[styles.name1, styles.name1Typo]}>Username</Text>
           <Input
             style={[styles.nameChild, styles.childBorder]}
@@ -86,7 +78,7 @@ const EditProfile = ({ state, navigation }) => {
             containerStyle={styles.frameTextInput1Input}
           />
         </View>
-        <View style={[styles.aboutme, styles.aboutmeFlexBox]}>
+        <View style={[styles.aboutme, styles.namePosition1]}>
           <Text style={[styles.name1, styles.name1Typo]}>About me</Text>
           <Input
             style={[styles.aboutmeChild, styles.childBorder]}
@@ -98,7 +90,7 @@ const EditProfile = ({ state, navigation }) => {
             containerStyle={styles.frameTextInput2Input}
           />
         </View>
-        <View style={[styles.enailaddress, styles.namePosition]}>
+        <View style={[styles.enailaddress, styles.namePosition1]}>
           <Text style={[styles.name1, styles.name1Typo]}>E-mail address</Text>
           <Input
             style={[styles.enailaddressChild, styles.childBorder]}
@@ -143,11 +135,11 @@ const EditProfile = ({ state, navigation }) => {
           />
           <Text style={[styles.birthday, styles.name1Typo]}>Birthday</Text>
         </View>
-        <View style={[styles.imgperfil, styles.namePosition]}>
+        <View style={styles.imgperfil}>
           <Image
             style={[styles.imgperfilChild, styles.imgperfilLayout]}
             contentFit="cover"
-            source={require("../assets/ellipse-53.png")}
+            source={require("../assets/ellipse-52.png")}
           />
           <Image
             style={[styles.imgperfilItem, styles.imgperfilLayout]}
@@ -204,23 +196,21 @@ const styles = StyleSheet.create({
   casillasDatePickerValue: {
     height: 34,
   },
-  aboutmeFlexBox: {
-    justifyContent: "center",
-    alignItems: "center",
+  fondoParentPosition: {
+    zIndex: 0,
+    flex: 1,
   },
   botoncancelFlexBox: {
     padding: Padding.p_3xs,
     flexDirection: "row",
-    top: 0,
+    top: 47,
     position: "absolute",
     justifyContent: "center",
     alignItems: "center",
   },
   namePosition: {
-    left: "50%",
+    zIndex: 1,
     position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
   },
   name1Typo: {
     textAlign: "center",
@@ -233,8 +223,15 @@ const styles = StyleSheet.create({
   childBorder: {
     borderWidth: 2,
     borderColor: Color.colorGray_100,
-    backgroundColor: Color.colorGray_200,
+    backgroundColor: Color.colorGray_300,
     borderStyle: "solid",
+  },
+  namePosition1: {
+    width: 233,
+    marginLeft: -116,
+    left: "50%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   genderLayout: {
     height: 64,
@@ -248,11 +245,11 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   fondo: {
+    top: 0,
     right: 0,
     bottom: 0,
     left: 0,
     backgroundColor: "transparent",
-    top: 0,
     position: "absolute",
   },
   botoncancel: {
@@ -275,9 +272,7 @@ const styles = StyleSheet.create({
     right: 6,
   },
   fondoParent: {
-    zIndex: 1,
     alignSelf: "stretch",
-    flex: 1,
   },
   name1: {
     alignSelf: "stretch",
@@ -285,7 +280,7 @@ const styles = StyleSheet.create({
   nameChild: {
     borderRadius: Border.br_3xs,
     borderColor: Color.colorGray_100,
-    backgroundColor: Color.colorGray_200,
+    backgroundColor: Color.colorGray_300,
     alignSelf: "stretch",
     justifyContent: "center",
     alignItems: "center",
@@ -293,33 +288,30 @@ const styles = StyleSheet.create({
   name: {
     top: 159,
     bottom: 434,
-    width: 92,
-    zIndex: 2,
-    marginLeft: -115,
+    width: 233,
+    marginLeft: -116,
     left: "50%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   username: {
     top: 220,
     bottom: 373,
-    width: 121,
-    zIndex: 3,
-    marginLeft: -115,
-    left: "50%",
+    zIndex: 2,
+    position: "absolute",
   },
   aboutmeChild: {
     borderRadius: Border.br_3xs,
     borderColor: Color.colorGray_100,
-    backgroundColor: Color.colorGray_200,
+    backgroundColor: Color.colorGray_300,
     alignSelf: "stretch",
     justifyContent: "center",
     alignItems: "center",
   },
   aboutme: {
     top: 292,
-    right: 20,
     bottom: 307,
-    left: 36,
-    zIndex: 4,
+    zIndex: 3,
     position: "absolute",
   },
   enailaddressChild: {
@@ -328,16 +320,15 @@ const styles = StyleSheet.create({
     marginTop: 11,
     borderRadius: Border.br_3xs,
     borderColor: Color.colorGray_100,
-    backgroundColor: Color.colorGray_200,
+    backgroundColor: Color.colorGray_300,
     alignSelf: "stretch",
     justifyContent: "center",
   },
   enailaddress: {
-    marginLeft: -155,
     top: 359,
     bottom: 223,
-    width: 218,
-    zIndex: 5,
+    zIndex: 4,
+    position: "absolute",
   },
   wrapper: {
     paddingHorizontal: 5,
@@ -352,7 +343,7 @@ const styles = StyleSheet.create({
   gender: {
     bottom: 19,
     left: 13,
-    zIndex: 6,
+    zIndex: 5,
   },
   casillas: {
     height: 34,
@@ -364,7 +355,7 @@ const styles = StyleSheet.create({
   bithday: {
     right: 4,
     bottom: 22,
-    zIndex: 7,
+    zIndex: 6,
   },
   imgperfilChild: {
     height: 97,
@@ -379,25 +370,29 @@ const styles = StyleSheet.create({
     bottom: "5.22%",
     left: "89.12%",
     maxHeight: "100%",
-    position: "absolute",
     zIndex: 1,
+    position: "absolute",
   },
   imgperfil: {
     marginLeft: -91,
     top: 42,
     width: 182,
     height: 90,
-    zIndex: 8,
-    flexDirection: "row",
+    zIndex: 7,
     left: "50%",
+    flexDirection: "row",
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
   },
   editProfile: {
     backgroundColor: Color.colorWhite,
     width: "100%",
     height: 654,
-    overflow: "hidden",
     justifyContent: "center",
+    overflow: "hidden",
     flex: 1,
+    alignItems: "center",
   },
 });
 

@@ -1,35 +1,21 @@
-import React, { useMemo } from "react";
+import * as React from "react";
 import { Image } from "expo-image";
 import { StyleSheet, ImageSourcePropType } from "react-native";
 
-const getStyleValue = (key, value) => {
-  if (value === undefined) return;
-  return { [key]: value === "unset" ? undefined : value };
-};
-const ImgHorizontalIcon = ({ dimensionId, propTop, propLeft }) => {
-  const imgHorizontalIconStyle = useMemo(() => {
-    return {
-      ...getStyleValue("top", propTop),
-      ...getStyleValue("left", propLeft),
-    };
-  }, [propTop, propLeft]);
-
+const ImgHorizontalIcon = ({ dimensionsCode }) => {
   return (
     <Image
-      style={[styles.imghorizontalIcon, imgHorizontalIconStyle]}
+      style={styles.imghorizontalIcon}
       contentFit="cover"
-      source={dimensionId}
+      source={dimensionsCode}
     />
   );
 };
 
 const styles = StyleSheet.create({
   imghorizontalIcon: {
-    position: "absolute",
-    top: 1688,
-    left: 0,
-    width: 185,
-    height: 182,
+    width: 340,
+    height: 160,
     overflow: "hidden",
   },
 });

@@ -7,7 +7,6 @@ import {
   Pressable,
   TouchableOpacity,
 } from "react-native";
-import BrraSuperior from "../components/BrraSuperior";
 import { useNavigation } from "@react-navigation/native";
 import { FontFamily, Color, Padding, FontSize } from "../GlobalStyles";
 
@@ -16,19 +15,12 @@ const FrontPage = () => {
 
   return (
     <View style={styles.frontPage}>
-      <BrraSuperior
-        wifi={require("../assets/wifi.png")}
-        cellularConnection={require("../assets/cellular-connection.png")}
-        cap={require("../assets/cap.png")}
-        brraSuperiorPosition="unset"
-        brraSuperiorHeight="unset"
-      />
       <Image
-        style={styles.frontPageChild}
+        style={[styles.frontPageChild, styles.frontPageChildFlexBox]}
         contentFit="cover"
         source={require("../assets/rectangle-1.png")}
       />
-      <View style={[styles.welcome, styles.introPosition]}>
+      <View style={[styles.welcome, styles.goPosition]}>
         <Image
           style={styles.advenscapeMesaDeTrabajo11}
           contentFit="cover"
@@ -55,7 +47,7 @@ const FrontPage = () => {
           source={require("../assets/ellipse-1.png")}
         />
         <TouchableOpacity
-          style={styles.go}
+          style={[styles.go, styles.goPosition]}
           activeOpacity={0.5}
           onLongPress={() => navigation.navigate("SignIn")}
         >
@@ -67,9 +59,16 @@ const FrontPage = () => {
 };
 
 const styles = StyleSheet.create({
+  frontPageChildFlexBox: {
+    alignSelf: "stretch",
+    flex: 1,
+  },
+  goPosition: {
+    zIndex: 1,
+    position: "absolute",
+  },
   introPosition: {
     left: "50%",
-    position: "absolute",
     alignItems: "center",
   },
   go1Typo: {
@@ -87,11 +86,10 @@ const styles = StyleSheet.create({
   frontPageChild: {
     maxWidth: "100%",
     maxHeight: "100%",
-    zIndex: 1,
-    alignSelf: "stretch",
+    zIndex: 0,
     overflow: "hidden",
     width: "100%",
-    flex: 1,
+    alignSelf: "stretch",
   },
   advenscapeMesaDeTrabajo11: {
     width: 308,
@@ -101,8 +99,9 @@ const styles = StyleSheet.create({
     marginLeft: -152,
     top: 32,
     width: 303,
-    zIndex: 2,
     height: 141,
+    left: "50%",
+    alignItems: "center",
     justifyContent: "center",
   },
   connect: {
@@ -114,10 +113,6 @@ const styles = StyleSheet.create({
   connectWithTravelersContainer: {
     fontSize: 30,
     alignSelf: "stretch",
-    textAlign: "center",
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-    letterSpacing: 0,
     flex: 1,
   },
   intro: {
@@ -127,7 +122,9 @@ const styles = StyleSheet.create({
     width: 327,
     height: 155,
     padding: Padding.p_3xs,
-    zIndex: 3,
+    zIndex: 2,
+    position: "absolute",
+    left: "50%",
     justifyContent: "center",
   },
   botongoChild: {
@@ -147,23 +144,23 @@ const styles = StyleSheet.create({
   go: {
     left: 0,
     top: 0,
-    position: "absolute",
-    zIndex: 1,
   },
   botongo: {
     marginLeft: -25,
     bottom: 53,
     justifyContent: "flex-end",
-    zIndex: 4,
+    zIndex: 3,
+    position: "absolute",
+    left: "50%",
   },
   frontPage: {
     backgroundColor: Color.colorWhite,
     height: 650,
     justifyContent: "center",
     alignItems: "center",
+    flex: 1,
     overflow: "hidden",
     width: "100%",
-    flex: 1,
   },
 });
 

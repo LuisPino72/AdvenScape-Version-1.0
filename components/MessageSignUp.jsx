@@ -12,7 +12,7 @@ const MessageSignUp = ({ onClose }) => {
       <Image
         style={styles.messageSignUpChild}
         contentFit="cover"
-        source={require("../assets/group-42.png")}
+        source={require("../assets/group-421.png")}
       />
       <View style={[styles.frame, styles.frameFlexBox]}>
         <Text style={[styles.accountCreated, styles.accountFlexBox]}>
@@ -22,12 +22,13 @@ const MessageSignUp = ({ onClose }) => {
           Your AdvenScape account has been successfully created, please sign in.
         </Text>
       </View>
-      <Pressable style={[styles.frame1, styles.frameFlexBox]} />
-      <Pressable
-        style={styles.accept}
-        onPress={() => navigation.navigate("Feed")}
-      >
-        <Text style={[styles.accept1, styles.accountFlexBox]}>Accept</Text>
+      <Pressable style={[styles.frame1, styles.frameFlexBox]}>
+        <Pressable
+          style={styles.accept}
+          onPress={() => navigation.navigate("Feed")}
+        >
+          <Text style={[styles.accept1, styles.accountFlexBox]}>Accept</Text>
+        </Pressable>
       </Pressable>
     </View>
   );
@@ -35,7 +36,7 @@ const MessageSignUp = ({ onClose }) => {
 
 const styles = StyleSheet.create({
   frameFlexBox: {
-    marginTop: 12,
+    marginTop: 7,
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",
@@ -47,7 +48,6 @@ const styles = StyleSheet.create({
   messageSignUpChild: {
     width: 58,
     height: 58,
-    zIndex: 0,
   },
   accountCreated: {
     color: Color.colorBlack,
@@ -68,19 +68,10 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
   },
   frame: {
-    width: 260,
-    zIndex: 1,
-  },
-  frame1: {
-    borderRadius: Border.br_3xs,
-    borderStyle: "solid",
-    borderColor: Color.colorGainsboro_200,
-    borderWidth: 2,
-    width: 227,
-    height: 45,
-    zIndex: 2,
+    width: 235,
   },
   accept1: {
+    marginTop: -14.5,
     marginLeft: -50,
     color: Color.colorGray_100,
     display: "flex",
@@ -96,18 +87,25 @@ const styles = StyleSheet.create({
   accept: {
     position: "absolute",
     left: "50%",
-    top: 197,
-    zIndex: 3,
+    top: "50%",
+    zIndex: 0,
+  },
+  frame1: {
+    borderRadius: Border.br_3xs,
+    borderStyle: "solid",
+    borderColor: Color.colorGainsboro_200,
+    borderWidth: 2,
+    width: 227,
+    height: 36,
   },
   messageSignUp: {
     borderRadius: Border.br_11xl,
     backgroundColor: Color.colorWhite,
-    width: 278,
-    height: 237,
-    paddingHorizontal: Padding.p_4xs,
-    paddingVertical: Padding.p_6xs,
+    paddingHorizontal: Padding.p_6xs,
+    paddingVertical: Padding.p_7xs,
     maxWidth: "100%",
     maxHeight: "100%",
+    justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",
   },

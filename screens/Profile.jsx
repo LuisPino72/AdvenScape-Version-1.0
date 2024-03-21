@@ -1,16 +1,15 @@
 import React, { useState, useCallback } from "react";
-import { Image } from "expo-image";
 import {
+  Text,
   StyleSheet,
   View,
-  Text,
   Pressable,
   ScrollView,
   Modal,
 } from "react-native";
+import { Image } from "expo-image";
 import { useNavigation } from "@react-navigation/native";
 import NueaPunlicacion from "../components/NueaPunlicacion";
-import BrraSuperior from "../components/BrraSuperior";
 import CoverContainer from "../components/CoverContainer";
 import BarraInferior from "../components/BarraInferior";
 import { Color, FontFamily, FontSize, Border, Padding } from "../GlobalStyles";
@@ -29,17 +28,10 @@ const Profile = () => {
 
   return (
     <>
-      <View style={[styles.profile, styles.profileBg]}>
-        <BrraSuperior
-          wifi={require("../assets/wifi1.png")}
-          cellularConnection={require("../assets/cellular-connection1.png")}
-          cap={require("../assets/cap1.png")}
-          brraSuperiorPosition="unset"
-          brraSuperiorHeight={32}
-        />
+      <View style={[styles.profile, styles.profileLayout]}>
         <CoverContainer />
-        <View style={styles.infouserprofile}>
-          <View style={[styles.infoseguidores, styles.botoneditprofFlexBox]}>
+        <View style={[styles.infouserprofile, styles.infouserprofilePosition]}>
+          <View style={[styles.infoseguidores, styles.imgguardadasFlexBox]}>
             <View style={styles.parent}>
               <Text style={[styles.text, styles.textFlexBox]}>8</Text>
               <Text style={[styles.post, styles.postTypo]}>post</Text>
@@ -56,21 +48,19 @@ const Profile = () => {
             </View>
           </View>
           <Pressable
-            style={[styles.botoneditprof, styles.infouserSpaceBlock]}
+            style={[styles.botoneditprof, styles.infouserFlexBox]}
             onPress={() => navigation.navigate("EditProfile")}
           >
             <Text style={[styles.editProfile, styles.editProfileTypo]}>
               Edit profile
             </Text>
           </Pressable>
-          <View style={[styles.infouser, styles.infouserSpaceBlock]}>
+          <View style={[styles.infouser, styles.infouserFlexBox]}>
             <View style={styles.isurname}>
               <Text style={[styles.nombre, styles.nombreFlexBox]}>
                 Thomas Weber
               </Text>
-              <Text style={[styles.username, styles.nombreFlexBox]}>
-                @th.Weber
-              </Text>
+              <Text style={[styles.username, styles.postTypo]}>@th.Weber</Text>
             </View>
             <Text style={[styles.descripcion, styles.editProfileTypo]}>
               A lover of unique experiences and unforgettable memories 🌟
@@ -78,30 +68,75 @@ const Profile = () => {
           </View>
         </View>
         <ScrollView
-          style={[styles.scrollprof, styles.profileBg]}
-          horizontal={false}
+          style={[styles.scrollprof, styles.scrollprofPosition]}
+          horizontal={true}
           showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
+          showsHorizontalScrollIndicator={true}
+          contentContainerStyle={styles.scrollProfScrollViewContent}
         >
-          <Image
-            style={styles.imgguardadasIcon}
-            contentFit="cover"
-            source={require("../assets/imgguardadas.png")}
-          />
+          <View style={[styles.imgguardadas, styles.scrollprofPosition]}>
+            <Image
+              style={styles.imgguardadasChild}
+              contentFit="cover"
+              source={require("../assets/rectangle-11.png")}
+            />
+            <Image
+              style={[styles.imgguardadasItem, styles.imgguardadasLayout]}
+              contentFit="cover"
+              source={require("../assets/rectangle-12.png")}
+            />
+            <Image
+              style={[styles.imgguardadasInner, styles.imgguardadasLayout]}
+              contentFit="cover"
+              source={require("../assets/rectangle-19.png")}
+            />
+            <Image
+              style={[styles.imgguardadasInner, styles.imgguardadasLayout]}
+              contentFit="cover"
+              source={require("../assets/rectangle-14.png")}
+            />
+            <Image
+              style={[styles.imgguardadasItem, styles.imgguardadasLayout]}
+              contentFit="cover"
+              source={require("../assets/rectangle-121.png")}
+            />
+            <Image
+              style={[styles.imgguardadasInner, styles.imgguardadasLayout]}
+              contentFit="cover"
+              source={require("../assets/rectangle-18.png")}
+            />
+            <Image
+              style={[styles.imgguardadasItem, styles.imgguardadasLayout]}
+              contentFit="cover"
+              source={require("../assets/rectangle-17.png")}
+            />
+            <Image
+              style={[styles.imgguardadasItem, styles.imgguardadasLayout]}
+              contentFit="cover"
+              source={require("../assets/rectangle-15.png")}
+            />
+            <Image
+              style={[styles.imgguardadasInner, styles.imgguardadasLayout]}
+              contentFit="cover"
+              source={require("../assets/rectangle-16.png")}
+            />
+          </View>
         </ScrollView>
-        <View style={styles.barrainferiorvariant6}>
+        <View
+          style={[styles.barrainferiorvariant6, styles.infouserprofilePosition]}
+        >
           <BarraInferior
-            ellipse4={require("../assets/ellipse-4.png")}
-            vector={require("../assets/vector21.png")}
-            vector1={require("../assets/vector31.png")}
-            ellipse5={require("../assets/ellipse-4.png")}
-            iconFavoritos={require("../assets/iconfavoritos1.png")}
-            ellipse7={require("../assets/ellipse-4.png")}
-            iconPublicar={require("../assets/iconpublicar1.png")}
-            ellipse71={require("../assets/ellipse-4.png")}
-            iconBuscar={require("../assets/iconbuscar1.png")}
-            ellipse9={require("../assets/ellipse-911.png")}
-            iconPofile={require("../assets/iconpofile1.png")}
+            ellipse4={require("../assets/ellipse-5.png")}
+            vector={require("../assets/vector5.png")}
+            vector1={require("../assets/vector6.png")}
+            ellipse5={require("../assets/ellipse-5.png")}
+            iconFavoritos={require("../assets/iconfavoritos.png")}
+            ellipse7={require("../assets/ellipse-5.png")}
+            iconPublicar={require("../assets/iconpublicar11.png")}
+            ellipse71={require("../assets/ellipse-5.png")}
+            iconBuscar={require("../assets/iconbuscar.png")}
+            ellipse9={require("../assets/ellipse-92.png")}
+            iconPofile={require("../assets/iconpofile11.png")}
             barraInferiorPosition="unset"
             barraInferiorWidth={360}
             barraInferiorHeight={50}
@@ -133,25 +168,36 @@ const Profile = () => {
 };
 
 const styles = StyleSheet.create({
-  profileBg: {
-    overflow: "hidden",
-    backgroundColor: Color.colorWhite,
-    flex: 1,
-  },
-  botoneditprofFlexBox: {
-    justifyContent: "center",
+  scrollProfScrollViewContent: {
     flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
+  profileLayout: {
+    width: "100%",
+    backgroundColor: Color.colorWhite,
+  },
+  infouserprofilePosition: {
+    alignItems: "center",
+    left: "50%",
+    marginLeft: -180,
+    position: "absolute",
+    justifyContent: "center",
+  },
+  imgguardadasFlexBox: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   textFlexBox: {
     height: 13,
-    textAlign: "center",
-    letterSpacing: 0,
     display: "flex",
+    textAlign: "center",
     color: Color.colorBlack,
-    left: "50%",
-    position: "absolute",
+    letterSpacing: 0,
     justifyContent: "center",
     alignItems: "center",
+    left: "50%",
+    position: "absolute",
   },
   postTypo: {
     fontFamily: FontFamily.poppinsLight,
@@ -163,13 +209,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: Color.colorBlack,
     letterSpacing: 0,
-    left: "50%",
-    position: "absolute",
     justifyContent: "center",
     alignItems: "center",
+    left: "50%",
+    position: "absolute",
   },
-  infouserSpaceBlock: {
+  infouserFlexBox: {
     marginTop: 6,
+    justifyContent: "center",
     alignItems: "center",
   },
   editProfileTypo: {
@@ -178,14 +225,20 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
   },
   nombreFlexBox: {
-    height: 27,
     display: "flex",
-    textAlign: "center",
     color: Color.colorBlack,
-    letterSpacing: 0,
-    position: "absolute",
     justifyContent: "center",
     alignItems: "center",
+  },
+  scrollprofPosition: {
+    top: "50%",
+    height: 163,
+    position: "absolute",
+  },
+  imgguardadasLayout: {
+    marginLeft: 10,
+    width: 164,
+    borderRadius: Border.br_xs,
   },
   iconPubContainerOverlay: {
     flex: 1,
@@ -214,14 +267,14 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_smi,
     fontWeight: "300",
     height: 13,
-    textAlign: "center",
-    letterSpacing: 0,
     display: "flex",
+    textAlign: "center",
     color: Color.colorBlack,
-    left: "50%",
-    position: "absolute",
+    letterSpacing: 0,
     justifyContent: "center",
     alignItems: "center",
+    left: "50%",
+    position: "absolute",
     width: 35,
   },
   parent: {
@@ -243,14 +296,14 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_smi,
     fontWeight: "300",
     height: 13,
-    textAlign: "center",
-    letterSpacing: 0,
     display: "flex",
+    textAlign: "center",
     color: Color.colorBlack,
-    left: "50%",
-    position: "absolute",
+    letterSpacing: 0,
     justifyContent: "center",
     alignItems: "center",
+    left: "50%",
+    position: "absolute",
   },
   group: {
     height: 25,
@@ -277,43 +330,58 @@ const styles = StyleSheet.create({
     width: 72,
   },
   infoseguidores: {
+    height: 34,
     width: 360,
+    justifyContent: "center",
   },
   editProfile: {
     fontWeight: "700",
     fontFamily: FontFamily.poppinsBold,
     color: Color.colorWhite,
-    fontSize: FontSize.size_xs,
     flex: 1,
   },
   botoneditprof: {
-    borderRadius: Border.br_xs,
     backgroundColor: Color.colorGray_100,
     width: 122,
-    height: 34,
+    height: 26,
     paddingHorizontal: Padding.p_3xs,
     paddingVertical: Padding.p_5xs,
-    justifyContent: "center",
+    borderRadius: Border.br_xs,
+    marginTop: 6,
     flexDirection: "row",
   },
   nombre: {
-    left: 0,
-    fontSize: FontSize.size_xl,
+    marginLeft: -112,
+    fontSize: FontSize.size_lg,
+    height: 22,
     width: 225,
+    textAlign: "center",
+    letterSpacing: 0,
+    display: "flex",
+    color: Color.colorBlack,
+    left: "50%",
+    position: "absolute",
     fontFamily: FontFamily.poppinsMedium,
     fontWeight: "500",
     top: 0,
   },
   username: {
-    top: 27,
-    left: 69,
+    marginLeft: -43,
+    top: 22,
     width: 87,
-    fontFamily: FontFamily.poppinsLight,
-    fontWeight: "300",
+    height: 27,
+    display: "flex",
+    color: Color.colorBlack,
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    letterSpacing: 0,
+    left: "50%",
+    position: "absolute",
     fontSize: FontSize.size_mini,
   },
   isurname: {
-    height: 54,
+    height: 46,
     width: 225,
   },
   descripcion: {
@@ -323,46 +391,57 @@ const styles = StyleSheet.create({
     fontWeight: "300",
     display: "flex",
     color: Color.colorBlack,
-    fontSize: FontSize.size_xs,
     justifyContent: "center",
     alignItems: "center",
+    fontSize: FontSize.size_xs,
   },
   infouser: {
     width: 360,
   },
   infouserprofile: {
-    zIndex: 2,
-    marginTop: 3,
-    alignItems: "center",
+    top: 244,
+    height: 187,
+    justifyContent: "center",
   },
-  imgguardadasIcon: {
-    top: 5,
-    left: 7,
-    width: 345,
-    height: 501,
-    position: "absolute",
+  imgguardadasChild: {
+    width: 164,
+    height: 163,
+    borderRadius: Border.br_xs,
+  },
+  imgguardadasItem: {
+    height: 163,
+  },
+  imgguardadasInner: {
+    height: 98,
+  },
+  imgguardadas: {
+    marginTop: -81.5,
+    right: 0,
+    left: 0,
+    zIndex: 0,
+    height: 163,
+    flexDirection: "row",
+    alignItems: "center",
   },
   scrollprof: {
-    width: 359,
-    maxWidth: 359,
-    zIndex: 3,
-    marginTop: 3,
+    marginTop: 112,
+    right: 7,
+    left: 8,
+    maxHeight: 163,
+    height: 163,
+    width: "100%",
+    backgroundColor: Color.colorWhite,
   },
   barrainferiorvariant6: {
-    marginLeft: -180,
     bottom: 0,
     height: 50,
-    zIndex: 4,
-    left: "50%",
-    position: "absolute",
-    justifyContent: "center",
     width: 360,
-    alignItems: "center",
+    justifyContent: "center",
   },
   profile: {
-    width: "100%",
     height: 650,
-    alignItems: "center",
+    overflow: "hidden",
+    flex: 1,
   },
 });
 

@@ -20,29 +20,29 @@ const CoverContainer = () => {
 
   return (
     <>
-      <View style={styles.cuadroportada}>
-        <View style={[styles.portada, styles.portadaSpaceBlock]}>
+      <View style={[styles.cuadroportada, styles.portadaLayout]}>
+        <View style={[styles.portada, styles.portadaPosition]}>
           <Image
             style={styles.portadaChild}
             contentFit="cover"
             source={require("../assets/rectangle-2.png")}
           />
         </View>
-        <View style={[styles.imgperfil, styles.portadaSpaceBlock]}>
+        <View style={[styles.imgperfil, styles.portadaPosition]}>
           <Image
             style={styles.imgperfilChild}
             contentFit="cover"
-            source={require("../assets/ellipse-5.png")}
+            source={require("../assets/ellipse-51.png")}
           />
         </View>
         <Pressable
-          style={styles.menupcionessalir}
+          style={[styles.menupcionessalir, styles.cuadroportadaPosition]}
           onPress={openMenuPcionesSalirContainer}
         >
           <Image
             style={styles.menupcionessalirChild}
             contentFit="cover"
-            source={require("../assets/ellipse-91.png")}
+            source={require("../assets/icon.png")}
           />
           <Image
             style={styles.mingcutegridLineIcon}
@@ -70,9 +70,19 @@ const CoverContainer = () => {
 };
 
 const styles = StyleSheet.create({
-  portadaSpaceBlock: {
+  portadaLayout: {
+    width: 360,
+    marginLeft: -180,
+  },
+  portadaPosition: {
     padding: Padding.p_3xs,
     alignItems: "center",
+    left: "50%",
+    position: "absolute",
+  },
+  cuadroportadaPosition: {
+    left: "50%",
+    position: "absolute",
   },
   portadaChild: {
     borderBottomRightRadius: Border.br_31xl,
@@ -81,16 +91,17 @@ const styles = StyleSheet.create({
     height: 167,
   },
   portada: {
+    top: 0,
     width: 360,
-    zIndex: 0,
+    marginLeft: -180,
   },
   imgperfilChild: {
     width: 110,
     height: 114,
   },
   imgperfil: {
-    marginTop: -72,
-    zIndex: 1,
+    marginLeft: -65,
+    top: 89,
   },
   menuPcionesSalirContainerOverlay: {
     flex: 1,
@@ -116,21 +127,19 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     overflow: "hidden",
-    position: "absolute",
     zIndex: 1,
+    position: "absolute",
   },
   menupcionessalir: {
     marginLeft: 147,
     top: 15,
-    left: "50%",
     flexDirection: "row",
-    zIndex: 2,
-    position: "absolute",
   },
   cuadroportada: {
-    marginTop: 3,
-    zIndex: 1,
-    alignItems: "center",
+    top: 31,
+    height: 223,
+    left: "50%",
+    position: "absolute",
   },
 });
 

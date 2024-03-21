@@ -8,18 +8,16 @@ const getStyleValue = (key, value) => {
   return { [key]: value === "unset" ? undefined : value };
 };
 const ResultBuscado = ({
-  countryCode,
-  venezuelaTag,
-  postCountText,
+  ellipse8,
+  venezuela,
+  mPosts,
   resultBuscadoPosition,
-  resultBuscadoWidth,
 }) => {
   const resultBuscadoStyle = useMemo(() => {
     return {
       ...getStyleValue("position", resultBuscadoPosition),
-      ...getStyleValue("width", resultBuscadoWidth),
     };
-  }, [resultBuscadoPosition, resultBuscadoWidth]);
+  }, [resultBuscadoPosition]);
 
   return (
     <View style={[styles.resultbuscado, resultBuscadoStyle]}>
@@ -27,16 +25,14 @@ const ResultBuscado = ({
         <Image
           style={styles.imgbuscadoChild}
           contentFit="cover"
-          source={countryCode}
+          source={ellipse8}
         />
       </View>
       <View style={styles.textbuscado}>
         <Text style={[styles.venezuela, styles.mPostsFlexBox]}>
-          {venezuelaTag}
+          {venezuela}
         </Text>
-        <Text style={[styles.mPosts, styles.mPostsFlexBox]}>
-          {postCountText}
-        </Text>
+        <Text style={[styles.mPosts, styles.mPostsFlexBox]}>{mPosts}</Text>
       </View>
     </View>
   );

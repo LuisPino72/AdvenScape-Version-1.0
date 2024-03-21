@@ -1,11 +1,16 @@
 import React, { useState, useCallback } from "react";
 import { Image } from "expo-image";
-import { StyleSheet, View, Text, Pressable, Modal } from "react-native";
-import { Input } from "@rneui/themed";
-import BrraSuperior from "../components/BrraSuperior";
+import {
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  TextInput,
+  Modal,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import MessageSignUp from "../components/MessageSignUp";
-import PasswordForm from "../components/PasswordForm";
+import UserCard from "../components/UserCard";
 import { Color, FontFamily, Border, FontSize, Padding } from "../GlobalStyles";
 
 const SignUp = () => {
@@ -22,86 +27,63 @@ const SignUp = () => {
 
   return (
     <>
-      <View style={[styles.signUp, styles.signFlexBox]}>
-        <BrraSuperior
-          wifi={require("../assets/wifi.png")}
-          cellularConnection={require("../assets/cellular-connection.png")}
-          cap={require("../assets/cap.png")}
-          brraSuperiorPosition="unset"
-          brraSuperiorHeight="unset"
-        />
+      <View style={[styles.signUp, styles.signUpFlexBox]}>
         <Image
           style={[styles.fondoIcon, styles.signUpLayout]}
           contentFit="cover"
-          source={require("../assets/fondo2.png")}
+          source={require("../assets/fondo1.png")}
         />
-        <View style={styles.returnsignin}>
-          <Text style={[styles.alreadyAMemberContainer, styles.name1FlexBox]}>
+        <View style={[styles.returnsignin, styles.botoncreatePosition]}>
+          <Text
+            style={[styles.alreadyAMemberContainer, styles.newPasswordFlexBox]}
+          >
             <Text style={styles.alreadyAMember}>Already a member</Text>
             <Text style={styles.textTypo}>{`? `}</Text>
           </Text>
-          <Pressable
-            style={styles.signIn}
-            onPress={() => navigation.navigate("SignIn")}
-          >
+          <Pressable onPress={() => navigation.navigate("SignIn")}>
             <Text style={[styles.signIn1, styles.signIn1Typo]}>Sign In</Text>
           </Pressable>
         </View>
-        <Pressable style={styles.botoncreate} onPress={openBotonCreate}>
+        <Pressable
+          style={[styles.botoncreate, styles.botoncreateLayout]}
+          onPress={openBotonCreate}
+        >
           <Text style={[styles.createAccount, styles.signIn1Typo]}>
             Create Account
           </Text>
         </Pressable>
-        <View style={[styles.name, styles.namePosition]}>
-          <Text style={[styles.name1, styles.textTypo]}>Name</Text>
-          <Input
-            style={styles.childBorder}
-            maxLength={25}
-            minLength={2}
-            required={true}
-            leftIcon={{ name: "account", type: "material-community" }}
-            inputStyle={{}}
-            containerStyle={styles.rectangleTextInputInput}
-          />
-        </View>
-        <View style={[styles.username, styles.namePosition]}>
-          <Text style={[styles.name1, styles.textTypo]}>Username</Text>
-          <Input
-            style={styles.childBorder}
-            maxLength={15}
-            minLength={2}
-            required={true}
-            leftIcon={{ name: "account", type: "material-community" }}
-            inputStyle={{}}
-            containerStyle={styles.rectangleTextInput1Input}
-          />
-        </View>
-        <View style={[styles.email, styles.namePosition]}>
-          <Text style={[styles.name1, styles.textTypo]}>E-mail address</Text>
-          <Input
-            style={[styles.emailChild, styles.childBorder]}
-            placeholder="Example@gmail.com"
-            maxLength={25}
-            minLength={15}
-            required={true}
-            leftIcon={{ name: "email", type: "material-community" }}
-            inputStyle={{}}
-            containerStyle={styles.frameTextInputInput}
-          />
-        </View>
-        <PasswordForm passwordInputValue="Password" />
-        <PasswordForm
-          passwordInputValue="Confirm Password"
-          inputPlaceholderText="default"
-          propMarginTop={127}
-          propMarginTop1="unset"
-          propFlex={1}
-        />
         <View style={styles.intro}>
           <Image
             style={styles.advenscapeMesaDeTrabajo11}
             contentFit="cover"
             source={require("../assets/advenscape-mesa-de-trabajo-1-12.png")}
+          />
+        </View>
+        <UserCard displayName="Name" />
+        <UserCard displayName="Username" propMarginTop={-113} />
+        <UserCard
+          displayName="E-mail"
+          userInfoText="example@gmail.com"
+          propMarginTop={-35}
+        />
+        <View style={[styles.password, styles.passwordPosition]}>
+          <Text style={[styles.newPassword, styles.textTypo]}>
+            New Password
+          </Text>
+          <TextInput
+            style={[styles.passwordChild, styles.botoncreateLayout]}
+            keyboardType="default"
+            secureTextEntry={true}
+          />
+        </View>
+        <View style={[styles.password1, styles.passwordPosition]}>
+          <Text style={[styles.newPassword, styles.textTypo]}>
+            Confim Password
+          </Text>
+          <TextInput
+            style={[styles.passwordChild, styles.botoncreateLayout]}
+            keyboardType="default"
+            secureTextEntry={true}
           />
         </View>
       </View>
@@ -117,62 +99,56 @@ const SignUp = () => {
 };
 
 const styles = StyleSheet.create({
-  rectangleTextInputInput: {
-    height: 38,
-    position: "relative",
-  },
-  rectangleTextInput1Input: {
-    height: 38,
-    position: "relative",
-  },
-  frameTextInputInput: {
-    height: 38,
-  },
-  signFlexBox: {
-    alignItems: "center",
+  signUpFlexBox: {
     justifyContent: "center",
+    alignItems: "center",
   },
   signUpLayout: {
     overflow: "hidden",
     width: "100%",
     flex: 1,
   },
-  name1FlexBox: {
+  botoncreatePosition: {
+    flexDirection: "row",
+    left: "50%",
+    position: "absolute",
+  },
+  newPasswordFlexBox: {
     textAlign: "center",
-    color: Color.colorBlack,
     letterSpacing: 0,
+    color: Color.colorBlack,
   },
   signIn1Typo: {
-    color: Color.colorWhite,
+    display: "flex",
     fontFamily: FontFamily.poppinsBold,
     fontWeight: "700",
     textAlign: "center",
     letterSpacing: 0,
-    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  namePosition: {
+  botoncreateLayout: {
+    borderRadius: Border.br_3xs,
+    alignSelf: "stretch",
+  },
+  passwordPosition: {
+    height: 64,
+    width: 233,
     top: "50%",
-    marginLeft: -144,
+    marginLeft: -117,
     left: "50%",
     position: "absolute",
-    alignSelf: "stretch",
+    justifyContent: "center",
+    alignItems: "center",
   },
   textTypo: {
     fontFamily: FontFamily.poppinsMedium,
     fontWeight: "500",
   },
-  childBorder: {
-    borderWidth: 2,
-    borderColor: Color.colorGray_100,
-    borderStyle: "solid",
-    backgroundColor: Color.colorGray_200,
-    borderRadius: Border.br_3xs,
-    alignSelf: "stretch",
-  },
   fondoIcon: {
     maxWidth: "100%",
     maxHeight: "100%",
-    zIndex: 1,
+    zIndex: 0,
     alignSelf: "stretch",
   },
   alreadyAMember: {
@@ -180,28 +156,23 @@ const styles = StyleSheet.create({
   },
   alreadyAMemberContainer: {
     fontSize: FontSize.size_xs,
-    flex: 1,
-    color: Color.colorBlack,
     letterSpacing: 0,
+    flex: 1,
   },
   signIn1: {
-    display: "flex",
     height: 36,
+    color: Color.colorBlack,
+    display: "flex",
+    fontFamily: FontFamily.poppinsBold,
+    fontWeight: "700",
     fontSize: FontSize.size_xs,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  signIn: {
-    marginLeft: -5,
+    flex: 1,
   },
   returnsignin: {
     marginLeft: -100,
     bottom: 8,
     paddingBottom: Padding.p_9xs,
-    zIndex: 2,
-    flexDirection: "row",
-    left: "50%",
-    position: "absolute",
+    zIndex: 1,
     alignSelf: "stretch",
   },
   botonCreateOverlay: {
@@ -219,44 +190,22 @@ const styles = StyleSheet.create({
   },
   createAccount: {
     fontSize: FontSize.size_lg,
+    color: Color.colorWhite,
+    width: 166,
   },
   botoncreate: {
-    marginLeft: -143,
-    bottom: 58,
+    marginLeft: -109,
+    bottom: 71,
     backgroundColor: Color.colorGray_100,
+    height: 47,
     paddingHorizontal: 52,
     paddingVertical: 11,
-    zIndex: 3,
-    borderRadius: Border.br_3xs,
+    zIndex: 2,
     flexDirection: "row",
     left: "50%",
     position: "absolute",
-    alignSelf: "stretch",
     justifyContent: "center",
     alignItems: "center",
-  },
-  name1: {
-    fontSize: FontSize.size_mini,
-    textAlign: "center",
-    color: Color.colorBlack,
-    letterSpacing: 0,
-    alignSelf: "stretch",
-  },
-  name: {
-    marginTop: -183,
-    zIndex: 4,
-  },
-  username: {
-    marginTop: -119,
-    alignItems: "flex-end",
-    zIndex: 5,
-  },
-  emailChild: {
-    justifyContent: "center",
-  },
-  email: {
-    marginTop: -49,
-    zIndex: 6,
   },
   advenscapeMesaDeTrabajo11: {
     width: 224,
@@ -266,17 +215,38 @@ const styles = StyleSheet.create({
     marginLeft: -129,
     top: 31,
     height: 95,
-    zIndex: 9,
+    zIndex: 3,
     left: "50%",
     position: "absolute",
     alignSelf: "stretch",
     justifyContent: "center",
     alignItems: "center",
   },
+  newPassword: {
+    fontSize: FontSize.size_mini,
+    textAlign: "center",
+    letterSpacing: 0,
+    color: Color.colorBlack,
+    alignSelf: "stretch",
+  },
+  passwordChild: {
+    borderStyle: "solid",
+    borderColor: Color.colorGray_100,
+    borderWidth: 2,
+    height: 38,
+    marginTop: 10,
+  },
+  password: {
+    marginTop: 44,
+    zIndex: 7,
+  },
+  password1: {
+    marginTop: 121,
+    zIndex: 8,
+  },
   signUp: {
     backgroundColor: Color.colorWhite,
     height: 650,
-    justifyContent: "center",
     overflow: "hidden",
     width: "100%",
     flex: 1,

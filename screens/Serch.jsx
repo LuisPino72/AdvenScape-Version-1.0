@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { Image } from "expo-image";
 import {
   StyleSheet,
+  TextInput,
   View,
   Text,
   ImageBackground,
@@ -10,10 +11,9 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import NueaPunlicacion from "../components/NueaPunlicacion";
-import BrraSuperior from "../components/BrraSuperior";
 import ResultBuscado from "../components/ResultBuscado";
 import BarraInferior from "../components/BarraInferior";
-import { FontFamily, Color, FontSize, Padding } from "../GlobalStyles";
+import { FontSize, FontFamily, Padding, Color } from "../GlobalStyles";
 
 const Serch = () => {
   const [iconPubContainerVisible, setIconPubContainerVisible] = useState(false);
@@ -30,125 +30,100 @@ const Serch = () => {
   return (
     <>
       <View style={styles.serch}>
-        <BrraSuperior
-          wifi={require("../assets/wifi1.png")}
-          cellularConnection={require("../assets/cellular-connection1.png")}
-          cap={require("../assets/cap1.png")}
-          brraSuperiorPosition="unset"
-          brraSuperiorHeight={32}
-        />
-        <View style={styles.buscar}>
+        <View style={[styles.buscar, styles.buscarPosition]}>
           <Image
             style={styles.vectorIcon}
             contentFit="cover"
-            source={require("../assets/vector10.png")}
+            source={require("../assets/vector7.png")}
           />
-          <Text style={[styles.search, styles.searchFlexBox]}>Search</Text>
+          <TextInput
+            style={[styles.search, styles.searchTypo]}
+            placeholder="Search"
+            placeholderTextColor="#fff"
+          />
         </View>
-        <View style={[styles.recent, styles.recentFlexBox]}>
-          <Text style={[styles.recent1, styles.mPostsTypo]}>Recent</Text>
+        <View style={[styles.recent, styles.buscarPosition]}>
+          <Text style={[styles.recent1, styles.searchTypo]}>Recent</Text>
         </View>
-        <View style={styles.resultadosbuscados}>
+        <View style={[styles.resultadosbuscados, styles.buscarPosition]}>
           <View style={styles.property1default}>
             <ResultBuscado
-              countryCode={require("../assets/ellipse-81.png")}
-              venezuelaTag="venezuela"
-              postCountText="5.7M posts"
+              ellipse8={require("../assets/ellipse-81.png")}
+              venezuela="venezuela"
+              mPosts="5.7M posts"
               resultBuscadoPosition="unset"
-              resultBuscadoWidth={359}
             />
           </View>
           <View style={styles.property1default1}>
             <ResultBuscado
-              countryCode={require("../assets/ellipse-81.png")}
-              venezuelaTag="Moscú"
-              postCountText="144k posts"
+              ellipse8={require("../assets/ellipse-81.png")}
+              venezuela="Moscú"
+              mPosts="144k posts"
               resultBuscadoPosition="unset"
-              resultBuscadoWidth={359}
             />
           </View>
           <View style={styles.property1default1}>
             <ResultBuscado
-              countryCode={require("../assets/ellipse-81.png")}
-              venezuelaTag="NewYorkCity"
-              postCountText="35.8M posts"
+              ellipse8={require("../assets/ellipse-81.png")}
+              venezuela="NewYorkCity"
+              mPosts="35.8M posts"
               resultBuscadoPosition="unset"
-              resultBuscadoWidth={359}
-            />
-          </View>
-          <View style={styles.property1default1}>
-            <View style={[styles.resultbuscado, styles.recentFlexBox]}>
-              <ImageBackground
-                style={styles.property1default1}
-                resizeMode="cover"
-                source={require("../assets/imgbuscado.png")}
-              >
-                <Image
-                  style={styles.imgbuscadoChild}
-                  contentFit="cover"
-                  source={require("../assets/ellipse-82.png")}
-                />
-              </ImageBackground>
-              <View style={styles.textbuscado}>
-                <Text style={[styles.venezuela, styles.mPostsTypo]}>
-                  Sidney_Bruen43
-                </Text>
-                <Text style={[styles.mPosts, styles.mPostsTypo]}>
-                  Sidney Violet Bruen
-                </Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.property1default1}>
-            <ResultBuscado
-              countryCode={require("../assets/ellipse-83.png")}
-              venezuelaTag="Bobbie.traveler"
-              postCountText="Bobbie Jackon 🐾"
-              resultBuscadoPosition="unset"
-              resultBuscadoWidth={359}
             />
           </View>
           <View style={styles.property1default1}>
             <ResultBuscado
-              countryCode={require("../assets/ellipse-84.png")}
-              venezuelaTag="Francisco_Keeling"
-              postCountText="Frann Kelling"
+              ellipse8={require("../assets/ellipse-811.png")}
+              venezuela="Sidney_Bruen43"
+              mPosts="Sidney Violet Bruen"
               resultBuscadoPosition="unset"
-              resultBuscadoWidth={359}
             />
           </View>
           <View style={styles.property1default1}>
             <ResultBuscado
-              countryCode={require("../assets/ellipse-85.png")}
-              venezuelaTag="#Alanna36"
-              postCountText="Alanna Sucker"
+              ellipse8={require("../assets/ellipse-82.png")}
+              venezuela="Bobbie.traveler"
+              mPosts="Bobbie Jackon 🐾"
               resultBuscadoPosition="unset"
-              resultBuscadoWidth={359}
             />
           </View>
           <View style={styles.property1default1}>
             <ResultBuscado
-              countryCode={require("../assets/ellipse-86.png")}
-              venezuelaTag="travel_agency_kit"
-              postCountText="Kit"
+              ellipse8={require("../assets/ellipse-83.png")}
+              venezuela="Francisco_Keeling"
+              mPosts="Frann Kelling"
               resultBuscadoPosition="unset"
-              resultBuscadoWidth={359}
+            />
+          </View>
+          <View style={styles.property1default1}>
+            <ResultBuscado
+              ellipse8={require("../assets/ellipse-84.png")}
+              venezuela="#Alanna36"
+              mPosts="Alanna Sucker"
+              resultBuscadoPosition="unset"
+            />
+          </View>
+          <View style={styles.property1default1}>
+            <ResultBuscado
+              ellipse8={require("../assets/ellipse-85.png")}
+              venezuela="travel_agency_kit"
+              mPosts="Kit"
+              resultBuscadoPosition="unset"
             />
           </View>
         </View>
-        <View style={styles.barrainferiorvariant6}>
+        <View style={[styles.barrainferiorvariant6, styles.buscarPosition]}>
           <BarraInferior
-            ellipse4={require("../assets/ellipse-4.png")}
-            vector={require("../assets/vector21.png")}
-            vector1={require("../assets/vector31.png")}
-            ellipse5={require("../assets/ellipse-4.png")}
-            iconFavoritos={require("../assets/iconfavoritos1.png")}
-            ellipse7={require("../assets/ellipse-4.png")}
-            iconPublicar={require("../assets/iconpublicar3.png")}
-            ellipse71={require("../assets/ellipse-54.png")}
-            iconBuscar={require("../assets/iconbuscar4.png")}
+            ellipse4={require("../assets/ellipse-5.png")}
+            vector={require("../assets/vector5.png")}
+            vector1={require("../assets/vector6.png")}
+            ellipse5={require("../assets/ellipse-5.png")}
+            iconFavoritos={require("../assets/iconfavoritos.png")}
+            ellipse7={require("../assets/ellipse-5.png")}
+            iconPublicar={require("../assets/iconpublicar.png")}
+            ellipse71={require("../assets/ellipse-4.png")}
+            iconBuscar={require("../assets/iconbuscar1.png")}
             ellipse9={require("../assets/ellipse-93.png")}
-            iconPofile={require("../assets/iconpofile4.png")}
+            iconPofile={require("../assets/iconpofile2.png")}
             barraInferiorPosition="unset"
             barraInferiorWidth={360}
             barraInferiorHeight={50}
@@ -180,20 +155,16 @@ const Serch = () => {
 };
 
 const styles = StyleSheet.create({
-  searchFlexBox: {
-    display: "flex",
-    alignItems: "center",
+  buscarPosition: {
+    justifyContent: "center",
+    left: "50%",
+    position: "absolute",
   },
-  recentFlexBox: {
-    width: 359,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  mPostsTypo: {
-    textAlign: "left",
+  searchTypo: {
+    fontSize: FontSize.size_mini,
     fontFamily: FontFamily.robotoMedium,
     fontWeight: "500",
-    letterSpacing: 0,
+    flex: 1,
   },
   iconPubContainerOverlay: {
     flex: 1,
@@ -213,40 +184,39 @@ const styles = StyleSheet.create({
     height: 24,
   },
   search: {
-    color: Color.colorWhite,
-    textAlign: "center",
-    height: 19,
     marginLeft: 6,
-    justifyContent: "center",
-    fontFamily: FontFamily.robotoMedium,
-    fontWeight: "500",
-    letterSpacing: 0,
-    fontSize: FontSize.size_mini,
-    display: "flex",
-    flex: 1,
   },
   buscar: {
+    marginLeft: -174,
+    top: 31,
     borderRadius: 15,
     backgroundColor: "#c1cebd",
     width: 349,
+    height: 45,
     paddingHorizontal: 14,
     paddingVertical: Padding.p_4xs,
-    zIndex: 1,
-    marginTop: 5,
-    flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
+    left: "50%",
+    position: "absolute",
+    flexDirection: "row",
   },
   recent1: {
+    letterSpacing: 0,
     color: Color.colorBlack,
-    textAlign: "left",
-    fontSize: FontSize.size_mini,
-    flex: 1,
+    textAlign: "center",
   },
   recent: {
+    marginLeft: -179,
+    top: 79,
+    width: 359,
+    height: 40,
     padding: Padding.p_3xs,
-    zIndex: 2,
+    alignItems: "center",
     justifyContent: "center",
-    marginTop: 5,
+    left: "50%",
+    position: "absolute",
+    flexDirection: "row",
   },
   property1default: {
     width: 340,
@@ -255,65 +225,35 @@ const styles = StyleSheet.create({
   property1default1: {
     flexDirection: "row",
   },
-  imgbuscadoChild: {
-    width: 30,
-    height: 30,
-  },
-  venezuela: {
-    height: 46,
-    alignSelf: "stretch",
-    color: Color.colorBlack,
-    textAlign: "left",
-    fontSize: FontSize.size_mini,
-    display: "flex",
-    alignItems: "center",
-  },
-  mPosts: {
-    fontSize: FontSize.size_3xs,
-    color: Color.colorGainsboro_200,
-    height: 12,
-    alignSelf: "stretch",
-    display: "flex",
-    alignItems: "center",
-  },
-  textbuscado: {
-    alignSelf: "stretch",
-    justifyContent: "center",
-    flex: 1,
-  },
-  resultbuscado: {
-    height: 56,
-    backgroundColor: Color.colorWhite,
-  },
   resultadosbuscados: {
+    marginLeft: -171,
+    top: 125,
     borderRadius: 5,
     width: 342,
-    height: 473,
+    height: 475,
     paddingHorizontal: 0,
     paddingVertical: 20,
-    zIndex: 3,
     justifyContent: "center",
-    marginTop: 5,
+    left: "50%",
+    position: "absolute",
     overflow: "hidden",
   },
   barrainferiorvariant6: {
-    position: "absolute",
     marginLeft: -180,
     bottom: 0,
-    left: "50%",
     width: 360,
     height: 50,
-    zIndex: 4,
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
+    left: "50%",
+    position: "absolute",
   },
   serch: {
+    backgroundColor: Color.colorWhite,
     width: "100%",
     height: 650,
-    alignItems: "center",
     overflow: "hidden",
     flex: 1,
-    backgroundColor: Color.colorWhite,
   },
 });
 

@@ -3,14 +3,13 @@ import { Image } from "expo-image";
 import {
   StyleSheet,
   View,
-  Text,
   Pressable,
   ScrollView,
+  Text,
   Modal,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import NueaPunlicacion from "../components/NueaPunlicacion";
-import BrraSuperior from "../components/BrraSuperior";
 import BarraInferior from "../components/BarraInferior";
 import { Color, FontSize, FontFamily, Border, Padding } from "../GlobalStyles";
 
@@ -29,26 +28,19 @@ const Feed = () => {
   return (
     <>
       <View style={styles.feed}>
-        <BrraSuperior
-          wifi={require("../assets/wifi1.png")}
-          cellularConnection={require("../assets/cellular-connection1.png")}
-          cap={require("../assets/cap1.png")}
-          brraSuperiorPosition="unset"
-          brraSuperiorHeight={32}
-        />
-        <View style={[styles.barrainferiorvariant6, styles.imgpubliPosition]}>
+        <View style={[styles.barrainferiorvariant6, styles.scrollPosition1]}>
           <BarraInferior
-            ellipse4={require("../assets/ellipse-54.png")}
-            vector={require("../assets/vector12.png")}
-            vector1={require("../assets/vector13.png")}
-            ellipse5={require("../assets/ellipse-4.png")}
-            iconFavoritos={require("../assets/iconfavoritos1.png")}
-            ellipse7={require("../assets/ellipse-4.png")}
-            iconPublicar={require("../assets/iconpublicar3.png")}
-            ellipse71={require("../assets/ellipse-4.png")}
-            iconBuscar={require("../assets/iconbuscar1.png")}
-            ellipse9={require("../assets/ellipse-94.png")}
-            iconPofile={require("../assets/iconpofile5.png")}
+            ellipse4={require("../assets/ellipse-4.png")}
+            vector={require("../assets/vector2.png")}
+            vector1={require("../assets/vector3.png")}
+            ellipse5={require("../assets/ellipse-5.png")}
+            iconFavoritos={require("../assets/iconfavoritos.png")}
+            ellipse7={require("../assets/ellipse-5.png")}
+            iconPublicar={require("../assets/iconpublicar.png")}
+            ellipse71={require("../assets/ellipse-5.png")}
+            iconBuscar={require("../assets/iconbuscar.png")}
+            ellipse9={require("../assets/ellipse-9.png")}
+            iconPofile={require("../assets/iconpofile.png")}
             barraInferiorPosition="absolute"
             barraInferiorWidth={360}
             barraInferiorHeight={50}
@@ -66,23 +58,23 @@ const Feed = () => {
         </View>
         <View style={[styles.scroll, styles.scrollPosition]}>
           <ScrollView
-            style={[styles.publicaciones, styles.fondoPosition]}
+            style={[styles.publicaciones, styles.scrollPosition1]}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.publicacionesScrollViewContent}
           >
-            <View style={[styles.publicacion, styles.infolikedFlexBox]}>
-              <View style={[styles.fondo, styles.fondoPosition]}>
+            <View style={[styles.publicacion, styles.userFlexBox]}>
+              <View style={styles.fondo}>
                 <View style={styles.fondopubli} />
               </View>
-              <View style={[styles.imgpubli, styles.imgpubliPosition]}>
+              <View style={[styles.imgpubli, styles.scrollPosition]}>
                 <Image
                   style={styles.imgpubliChild}
                   contentFit="cover"
                   source={require("../assets/rectangle-7.png")}
                 />
               </View>
-              <View style={[styles.iconinteractivos, styles.likedPosition]}>
+              <View style={[styles.iconinteractivos, styles.likedPosition1]}>
                 <Image
                   style={styles.mdiheartIcon}
                   contentFit="cover"
@@ -101,10 +93,10 @@ const Feed = () => {
                 <Image
                   style={styles.iconLayout}
                   contentFit="cover"
-                  source={require("../assets/vector.png")}
+                  source={require("../assets/vector4.png")}
                 />
               </View>
-              <View style={styles.userdescrip}>
+              <View style={[styles.userdescrip, styles.userdescripPosition]}>
                 <Text style={[styles.alanna36, styles.alannaLayout]}>
                   Alanna36
                 </Text>
@@ -113,7 +105,7 @@ const Feed = () => {
                 >{`Paseo por las calles de New York
 `}</Text>
               </View>
-              <View style={[styles.comments, styles.commentsPosition]}>
+              <View style={[styles.comments, styles.likedPosition]}>
                 <Text style={styles.viewAll12}>View all 12 comments</Text>
               </View>
               <View style={[styles.liked, styles.likedPosition]}>
@@ -122,7 +114,7 @@ const Feed = () => {
                   contentFit="cover"
                   source={require("../assets/imgliked.png")}
                 />
-                <View style={[styles.infoliked, styles.infolikedFlexBox]}>
+                <View style={[styles.infoliked, styles.userFlexBox]}>
                   <Text style={styles.likedByGonzalo99Container}>
                     <Text style={styles.likedBy}>Liked by</Text>
                     <Text style={styles.gonzalo99}> gonzalo99</Text>
@@ -133,8 +125,8 @@ const Feed = () => {
                   </Text>
                 </View>
               </View>
-              <View style={[styles.rectsuperior, styles.commentsPosition]}>
-                <View style={styles.user}>
+              <View style={[styles.rectsuperior, styles.userFlexBox]}>
+                <View style={[styles.user, styles.userFlexBox]}>
                   <Image
                     style={styles.imguserIcon}
                     contentFit="cover"
@@ -147,18 +139,18 @@ const Feed = () => {
                 <Text style={styles.textTypo}>...</Text>
               </View>
             </View>
-            <View style={[styles.publicacion, styles.infolikedFlexBox]}>
-              <View style={[styles.fondo, styles.fondoPosition]}>
+            <View style={[styles.publicacion, styles.userFlexBox]}>
+              <View style={styles.fondo}>
                 <View style={styles.fondopubli} />
               </View>
-              <View style={[styles.imgpubli, styles.imgpubliPosition]}>
+              <View style={[styles.imgpubli, styles.scrollPosition]}>
                 <Image
                   style={styles.imgpubliChild}
                   contentFit="cover"
                   source={require("../assets/rectangle-71.png")}
                 />
               </View>
-              <View style={[styles.iconinteractivos, styles.likedPosition]}>
+              <View style={[styles.iconinteractivos, styles.likedPosition1]}>
                 <Image
                   style={styles.mdiheartIcon}
                   contentFit="cover"
@@ -177,10 +169,10 @@ const Feed = () => {
                 <Image
                   style={styles.iconLayout}
                   contentFit="cover"
-                  source={require("../assets/vector.png")}
+                  source={require("../assets/vector4.png")}
                 />
               </View>
-              <View style={styles.userdescrip}>
+              <View style={[styles.userdescrip, styles.userdescripPosition]}>
                 <Text style={[styles.alanna36, styles.alannaLayout]}>
                   Halle_Kunze
                 </Text>
@@ -188,7 +180,7 @@ const Feed = () => {
                   style={[styles.paseoPorLas, styles.alanna36FlexBox]}
                 >{`Quebec city `}</Text>
               </View>
-              <View style={[styles.comments, styles.commentsPosition]}>
+              <View style={[styles.comments, styles.likedPosition]}>
                 <Text style={styles.viewAll12}>View all 7 comments</Text>
               </View>
               <View style={[styles.liked, styles.likedPosition]}>
@@ -197,7 +189,7 @@ const Feed = () => {
                   contentFit="cover"
                   source={require("../assets/imgliked.png")}
                 />
-                <View style={[styles.infoliked, styles.infolikedFlexBox]}>
+                <View style={[styles.infoliked, styles.userFlexBox]}>
                   <Text style={styles.likedByGonzalo99Container}>
                     <Text style={styles.likedBy}>Liked by</Text>
                     <Text style={styles.gonzalo99}> gonzalo99</Text>
@@ -208,8 +200,8 @@ const Feed = () => {
                   </Text>
                 </View>
               </View>
-              <View style={[styles.rectsuperior, styles.commentsPosition]}>
-                <View style={styles.user}>
+              <View style={[styles.rectsuperior, styles.userFlexBox]}>
+                <View style={[styles.user, styles.userFlexBox]}>
                   <Image
                     style={styles.imguserIcon}
                     contentFit="cover"
@@ -222,18 +214,18 @@ const Feed = () => {
                 <Text style={styles.textTypo}>...</Text>
               </View>
             </View>
-            <View style={[styles.publicacion, styles.infolikedFlexBox]}>
-              <View style={[styles.fondo, styles.fondoPosition]}>
+            <View style={[styles.publicacion, styles.userFlexBox]}>
+              <View style={styles.fondo}>
                 <View style={styles.fondopubli} />
               </View>
-              <View style={[styles.imgpubli, styles.imgpubliPosition]}>
+              <View style={[styles.imgpubli, styles.scrollPosition]}>
                 <Image
                   style={styles.imgpubliChild}
                   contentFit="cover"
                   source={require("../assets/rectangle-72.png")}
                 />
               </View>
-              <View style={[styles.iconinteractivos, styles.likedPosition]}>
+              <View style={[styles.iconinteractivos, styles.likedPosition1]}>
                 <Image
                   style={styles.mdiheartIcon}
                   contentFit="cover"
@@ -252,10 +244,10 @@ const Feed = () => {
                 <Image
                   style={styles.iconLayout}
                   contentFit="cover"
-                  source={require("../assets/vector.png")}
+                  source={require("../assets/vector4.png")}
                 />
               </View>
-              <View style={styles.userdescrip}>
+              <View style={[styles.userdescrip, styles.userdescripPosition]}>
                 <Text style={[styles.alanna362, styles.alanna362Typo]}>
                   Beatrice
                 </Text>
@@ -263,7 +255,7 @@ const Feed = () => {
                   omg, the beauty of the valley of monuments
                 </Text>
               </View>
-              <View style={[styles.comments, styles.commentsPosition]}>
+              <View style={[styles.comments, styles.likedPosition]}>
                 <Text style={styles.viewAll12}>View all 111 comments</Text>
               </View>
               <View style={[styles.liked, styles.likedPosition]}>
@@ -272,7 +264,7 @@ const Feed = () => {
                   contentFit="cover"
                   source={require("../assets/imgliked1.png")}
                 />
-                <View style={[styles.infoliked, styles.infolikedFlexBox]}>
+                <View style={[styles.infoliked, styles.userFlexBox]}>
                   <Text style={styles.likedByGonzalo99Container}>
                     <Text style={styles.likedBy}>Liked by</Text>
                     <Text style={styles.gonzalo99}> Alanna36</Text>
@@ -283,8 +275,8 @@ const Feed = () => {
                   </Text>
                 </View>
               </View>
-              <View style={[styles.rectsuperior, styles.commentsPosition]}>
-                <View style={styles.user}>
+              <View style={[styles.rectsuperior, styles.userFlexBox]}>
+                <View style={[styles.user, styles.userFlexBox]}>
                   <Image
                     style={styles.imguserIcon}
                     contentFit="cover"
@@ -297,18 +289,18 @@ const Feed = () => {
                 <Text style={styles.textTypo}>...</Text>
               </View>
             </View>
-            <View style={[styles.publicacion, styles.infolikedFlexBox]}>
-              <View style={[styles.fondo, styles.fondoPosition]}>
+            <View style={[styles.publicacion, styles.userFlexBox]}>
+              <View style={styles.fondo}>
                 <View style={styles.fondopubli} />
               </View>
-              <View style={[styles.imgpubli, styles.imgpubliPosition]}>
+              <View style={[styles.imgpubli, styles.scrollPosition]}>
                 <Image
                   style={styles.imgpubliChild}
                   contentFit="cover"
                   source={require("../assets/rectangle-73.png")}
                 />
               </View>
-              <View style={[styles.iconinteractivos, styles.likedPosition]}>
+              <View style={[styles.iconinteractivos, styles.likedPosition1]}>
                 <Image
                   style={styles.mdiheartIcon}
                   contentFit="cover"
@@ -327,10 +319,10 @@ const Feed = () => {
                 <Image
                   style={styles.iconLayout}
                   contentFit="cover"
-                  source={require("../assets/vector.png")}
+                  source={require("../assets/vector4.png")}
                 />
               </View>
-              <View style={styles.userdescrip}>
+              <View style={[styles.userdescrip, styles.userdescripPosition]}>
                 <Text style={[styles.alanna362, styles.alanna362Typo]}>
                   Francisco_Keeling
                 </Text>
@@ -338,7 +330,7 @@ const Feed = () => {
                   Happy Place ♡
                 </Text>
               </View>
-              <View style={[styles.comments, styles.commentsPosition]}>
+              <View style={[styles.comments, styles.likedPosition]}>
                 <Text style={styles.viewAll12}>View all 53 comments</Text>
               </View>
               <View style={[styles.liked, styles.likedPosition]}>
@@ -347,7 +339,7 @@ const Feed = () => {
                   contentFit="cover"
                   source={require("../assets/imgliked.png")}
                 />
-                <View style={[styles.infoliked, styles.infolikedFlexBox]}>
+                <View style={[styles.infoliked, styles.userFlexBox]}>
                   <Text style={styles.likedByGonzalo99Container}>
                     <Text style={styles.likedBy}>Liked by</Text>
                     <Text style={styles.gonzalo99}> gonzalo99</Text>
@@ -358,8 +350,8 @@ const Feed = () => {
                   </Text>
                 </View>
               </View>
-              <View style={[styles.rectsuperior, styles.commentsPosition]}>
-                <View style={styles.user}>
+              <View style={[styles.rectsuperior, styles.userFlexBox]}>
+                <View style={[styles.user, styles.userFlexBox]}>
                   <Image
                     style={styles.imguserIcon}
                     contentFit="cover"
@@ -395,37 +387,33 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
   },
-  imgpubliPosition: {
-    zIndex: 1,
-    justifyContent: "center",
-    position: "absolute",
-    alignItems: "center",
+  scrollPosition1: {
+    width: 360,
+    marginLeft: -180,
+    left: "50%",
   },
   scrollPosition: {
-    width: 360,
-    left: "50%",
-    marginLeft: -180,
-  },
-  fondoPosition: {
-    zIndex: 0,
-    flex: 1,
-  },
-  infolikedFlexBox: {
-    justifyContent: "center",
-    flexDirection: "row",
-    alignSelf: "stretch",
+    zIndex: 1,
+    position: "absolute",
     alignItems: "center",
   },
-  likedPosition: {
+  userFlexBox: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  likedPosition1: {
     left: 21,
     flexDirection: "row",
-    position: "absolute",
   },
   iconLayout: {
     marginLeft: 70,
     width: 25,
     maxHeight: "100%",
     alignSelf: "stretch",
+  },
+  userdescripPosition: {
+    right: 15,
+    position: "absolute",
   },
   alannaLayout: {
     width: 120,
@@ -439,9 +427,8 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_smi,
     alignItems: "center",
   },
-  commentsPosition: {
-    left: 19,
-    justifyContent: "center",
+  likedPosition: {
+    right: 145,
     position: "absolute",
     alignItems: "center",
   },
@@ -470,23 +457,28 @@ const styles = StyleSheet.create({
   },
   barrainferiorvariant6: {
     height: 50,
-    width: 360,
-    left: "50%",
-    marginLeft: -180,
+    zIndex: 0,
+    justifyContent: "center",
     bottom: 0,
+    position: "absolute",
+    width: 360,
+    marginLeft: -180,
+    alignItems: "center",
   },
   fondopubli: {
+    backgroundColor: Color.colorWhite,
     borderStyle: "solid",
     borderColor: Color.colorGainsboro_100,
     borderWidth: 1,
     height: 350,
     borderRadius: Border.br_base,
     alignSelf: "stretch",
-    backgroundColor: Color.colorWhite,
   },
   fondo: {
     padding: Padding.p_3xs,
     alignSelf: "stretch",
+    zIndex: 0,
+    flex: 1,
   },
   imgpubliChild: {
     borderRadius: Border.br_xs,
@@ -504,6 +496,7 @@ const styles = StyleSheet.create({
     height: 214,
     top: "50%",
     padding: Padding.p_3xs,
+    justifyContent: "center",
   },
   mdiheartIcon: {
     width: 25,
@@ -519,9 +512,10 @@ const styles = StyleSheet.create({
   iconinteractivos: {
     marginTop: 78,
     height: 24,
-    right: 15,
-    top: "50%",
     zIndex: 2,
+    right: 15,
+    position: "absolute",
+    top: "50%",
   },
   alanna36: {
     display: "flex",
@@ -551,10 +545,9 @@ const styles = StyleSheet.create({
     left: 14,
     zIndex: 3,
     height: 32,
-    right: 15,
     flexDirection: "row",
-    position: "absolute",
     alignItems: "center",
+    justifyContent: "center",
   },
   viewAll12: {
     height: 16,
@@ -570,10 +563,11 @@ const styles = StyleSheet.create({
   },
   comments: {
     bottom: 11,
+    left: 19,
     height: 19,
     zIndex: 4,
-    right: 145,
     padding: Padding.p_3xs,
+    justifyContent: "center",
   },
   imglikedIcon: {
     width: 15,
@@ -584,7 +578,7 @@ const styles = StyleSheet.create({
     color: Color.colorSilver,
   },
   gonzalo99: {
-    color: Color.colorGray_300,
+    color: Color.colorGray_200,
   },
   text: {
     color: Color.colorGainsboro_200,
@@ -601,16 +595,16 @@ const styles = StyleSheet.create({
   },
   infoliked: {
     padding: Padding.p_3xs,
-    flexDirection: "row",
     alignSelf: "stretch",
+    justifyContent: "center",
     flex: 1,
   },
   liked: {
     bottom: 55,
     height: 22,
     zIndex: 5,
-    right: 145,
-    alignItems: "center",
+    left: 21,
+    flexDirection: "row",
   },
   imguserIcon: {
     width: 34,
@@ -619,12 +613,10 @@ const styles = StyleSheet.create({
   },
   nombreuser: {
     width: 193,
-    height: 11,
+    height: 26,
   },
   user: {
-    flexDirection: "row",
     alignSelf: "stretch",
-    alignItems: "center",
     flex: 1,
   },
   textTypo: {
@@ -647,15 +639,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   rectsuperior: {
-    top: 22,
-    right: 19,
+    marginLeft: -155,
+    top: 12,
+    width: 310,
+    height: 42,
     zIndex: 6,
+    justifyContent: "center",
+    left: "50%",
     flexDirection: "row",
+    position: "absolute",
   },
   publicacion: {
     height: 370,
-    flexDirection: "row",
     alignSelf: "stretch",
+    justifyContent: "center",
   },
   alanna362: {
     width: 120,
@@ -664,24 +661,24 @@ const styles = StyleSheet.create({
   publicaciones: {
     top: 0,
     maxWidth: 360,
-    width: 360,
-    left: "50%",
-    marginLeft: -180,
+    zIndex: 0,
     bottom: 0,
     position: "absolute",
+    width: 360,
+    marginLeft: -180,
     overflow: "hidden",
+    flex: 1,
   },
   scroll: {
-    top: 32,
-    bottom: 53,
+    top: 31,
+    bottom: 52,
     backgroundColor: Color.colorGray_100,
     paddingHorizontal: Padding.p_8xs,
     paddingVertical: 0,
-    zIndex: 2,
-    left: "50%",
+    width: 360,
     marginLeft: -180,
-    position: "absolute",
-    alignItems: "center",
+    left: "50%",
+    zIndex: 1,
     overflow: "hidden",
   },
   feed: {
@@ -690,7 +687,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     width: "100%",
     flex: 1,
-    backgroundColor: Color.colorWhite,
   },
 });
 

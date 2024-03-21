@@ -59,7 +59,13 @@ const BarraInferior = ({
   }, [iconPofileTop, iconPofileBottom]);
 
   return (
-    <View style={[styles.barrainferior, barraInferiorStyle]}>
+    <View
+      style={[
+        styles.barrainferior,
+        styles.iconhome1FlexBox,
+        barraInferiorStyle,
+      ]}
+    >
       <Pressable style={styles.iconhome} onPress={onIconHomePress}>
         <View style={[styles.iconhome1, styles.iconhomeFlexBox]}>
           <Image
@@ -158,6 +164,10 @@ const BarraInferior = ({
 };
 
 const styles = StyleSheet.create({
+  iconhome1FlexBox: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
   iconhomeFlexBox: {
     overflow: "hidden",
     flex: 1,
@@ -231,9 +241,13 @@ const styles = StyleSheet.create({
   iconhome1: {
     height: 33,
     flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   iconhome: {
     width: 40,
+    justifyContent: "center",
+    alignItems: "center",
     flexDirection: "row",
   },
   iconfavoritos: {
@@ -279,7 +293,6 @@ const styles = StyleSheet.create({
     backgroundColor: Color.colorWhite,
     width: 361,
     height: 47,
-    alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
   },

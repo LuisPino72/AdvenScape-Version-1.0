@@ -2,16 +2,15 @@ import React, { useState, useCallback } from "react";
 import { Image } from "expo-image";
 import {
   StyleSheet,
-  View,
-  Text,
   Pressable,
+  Text,
   TextInput,
+  View,
   Modal,
 } from "react-native";
-import BrraSuperior from "../components/BrraSuperior";
 import MessageEmail from "../components/MessageEmail";
 import { useNavigation } from "@react-navigation/native";
-import { Border, Color, FontFamily, FontSize, Padding } from "../GlobalStyles";
+import { Border, FontFamily, FontSize, Color, Padding } from "../GlobalStyles";
 
 const ForgotPassword = () => {
   const [botonSendVisible, setBotonSendVisible] = useState(false);
@@ -28,17 +27,10 @@ const ForgotPassword = () => {
   return (
     <>
       <View style={[styles.forgotPassword, styles.emailoruserFlexBox]}>
-        <BrraSuperior
-          wifi={require("../assets/wifi2.png")}
-          cellularConnection={require("../assets/cellular-connection.png")}
-          cap={require("../assets/cap.png")}
-          brraSuperiorPosition="unset"
-          brraSuperiorHeight="unset"
-        />
         <Image
           style={[styles.fondoIcon, styles.fondoIconLayout]}
           contentFit="cover"
-          source={require("../assets/fondo3.png")}
+          source={require("../assets/fondo2.png")}
         />
         <Pressable
           style={[styles.botonsend, styles.barraFlexBox]}
@@ -114,7 +106,6 @@ const styles = StyleSheet.create({
   backFlexBox: {
     display: "flex",
     textAlign: "center",
-    color: Color.colorWhite,
     fontFamily: FontFamily.poppinsBold,
     fontWeight: "700",
     letterSpacing: 0,
@@ -143,8 +134,9 @@ const styles = StyleSheet.create({
   },
   fondoIcon: {
     maxHeight: "100%",
-    zIndex: 1,
+    zIndex: 0,
     flex: 1,
+    maxWidth: "100%",
   },
   botonSendOverlay: {
     flex: 1,
@@ -163,6 +155,11 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_lg,
     width: 161,
     height: 43,
+    color: Color.colorWhite,
+    textAlign: "center",
+    fontFamily: FontFamily.poppinsBold,
+    fontWeight: "700",
+    letterSpacing: 0,
   },
   botonsend: {
     marginTop: 137,
@@ -171,7 +168,7 @@ const styles = StyleSheet.create({
     height: 45,
     paddingHorizontal: 0,
     paddingVertical: Padding.p_3xs,
-    zIndex: 2,
+    zIndex: 1,
     left: "50%",
     position: "absolute",
     alignSelf: "stretch",
@@ -207,7 +204,7 @@ const styles = StyleSheet.create({
   emailoruser: {
     marginTop: 49,
     marginLeft: -116,
-    zIndex: 3,
+    zIndex: 2,
     top: "50%",
     left: "50%",
     position: "absolute",
@@ -216,6 +213,11 @@ const styles = StyleSheet.create({
   },
   back: {
     fontSize: FontSize.size_smi,
+    color: Color.colorBlack,
+    textAlign: "center",
+    fontFamily: FontFamily.poppinsBold,
+    fontWeight: "700",
+    letterSpacing: 0,
     alignSelf: "stretch",
     flex: 1,
   },
@@ -224,7 +226,7 @@ const styles = StyleSheet.create({
     bottom: 26,
     height: 20,
     justifyContent: "flex-end",
-    zIndex: 4,
+    zIndex: 3,
     position: "absolute",
     left: "50%",
     alignItems: "center",
@@ -254,7 +256,7 @@ const styles = StyleSheet.create({
     marginLeft: -133,
     top: 32,
     height: 261,
-    zIndex: 5,
+    zIndex: 4,
     position: "absolute",
     left: "50%",
     alignItems: "center",

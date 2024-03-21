@@ -23,7 +23,7 @@ const MenuProfile = ({ onClose }) => {
         <Image
           style={[styles.fondoIcon, styles.iconLayout]}
           contentFit="cover"
-          source={require("../assets/fondo.png")}
+          source={require("../assets/fondo3.png")}
         />
         <View style={[styles.logo, styles.logoPosition]}>
           <Image
@@ -40,7 +40,7 @@ const MenuProfile = ({ onClose }) => {
         <Image
           style={[styles.menuprofileChild, styles.logoPosition]}
           contentFit="cover"
-          source={require("../assets/ellipse-5.png")}
+          source={require("../assets/ellipse-51.png")}
         />
         <Pressable
           style={[styles.signout, styles.signoutFlexBox]}

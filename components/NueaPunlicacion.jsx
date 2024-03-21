@@ -27,7 +27,7 @@ const NueaPunlicacion = ({ onClose }) => {
   }, []);
 
   return (
-    <View style={styles.nueapunlicacion}>
+    <View style={[styles.nueapunlicacion, styles.publicarFlexBox1]}>
       <View style={styles.descrioncuadro}>
         <Text style={styles.descripcin}>Descripción</Text>
         <View style={styles.descrioncuadroChild} />
@@ -60,6 +60,10 @@ const NueaPunlicacion = ({ onClose }) => {
 };
 
 const styles = StyleSheet.create({
+  publicarFlexBox1: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   publicarFlexBox: {
     flex: 1,
     textAlign: "center",
@@ -67,14 +71,14 @@ const styles = StyleSheet.create({
   },
   botonguardarBorder: {
     paddingVertical: Padding.p_5xs,
+    height: 36,
     borderColor: Color.colorGainsboro_200,
-    justifyContent: "center",
     flexDirection: "row",
     borderWidth: 2,
     borderStyle: "solid",
     borderRadius: Border.br_3xs,
+    justifyContent: "center",
     alignItems: "center",
-    alignSelf: "stretch",
     overflow: "hidden",
   },
   descripcin: {
@@ -87,7 +91,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   descrioncuadroChild: {
-    backgroundColor: Color.colorGray_200,
+    backgroundColor: Color.colorGray_300,
     borderColor: Color.colorGray_100,
     height: 86,
     marginTop: 1,
@@ -97,8 +101,8 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
   },
   descrioncuadro: {
-    alignItems: "center",
     alignSelf: "stretch",
+    alignItems: "center",
   },
   fotovideo: {
     color: Color.colorBlack,
@@ -111,14 +115,14 @@ const styles = StyleSheet.create({
     width: 149,
     paddingHorizontal: Padding.p_9xs,
     paddingVertical: 0,
+    height: 36,
     borderColor: Color.colorGainsboro_200,
-    justifyContent: "center",
     flexDirection: "row",
     borderWidth: 2,
     borderStyle: "solid",
     borderRadius: Border.br_3xs,
+    justifyContent: "center",
     alignItems: "center",
-    alignSelf: "stretch",
     overflow: "hidden",
   },
   publicar: {
@@ -126,6 +130,10 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontFamily: FontFamily.poppinsBold,
     color: Color.colorGray_100,
+    display: "flex",
+    height: 23,
+    justifyContent: "center",
+    alignItems: "center",
   },
   botonguardar: {
     width: 102,
@@ -136,25 +144,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: Padding.p_3xs,
   },
   botonesDeAbajo: {
-    width: 240,
+    width: 230,
+    height: 99,
     flexWrap: "wrap",
     marginTop: 4,
-    justifyContent: "center",
     flexDirection: "row",
-    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
   nueapunlicacion: {
     borderRadius: Border.br_11xl,
     backgroundColor: Color.colorWhite,
-    width: 269,
-    height: 235,
-    alignItems: "flex-end",
+    width: 250,
+    height: 230,
     paddingVertical: Padding.p_8xs,
     maxWidth: "100%",
     maxHeight: "100%",
     paddingHorizontal: Padding.p_3xs,
     overflow: "hidden",
+    alignItems: "center",
   },
 });
 

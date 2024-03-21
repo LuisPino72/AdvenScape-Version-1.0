@@ -2,13 +2,12 @@ import React, { useState, useCallback } from "react";
 import { Image } from "expo-image";
 import {
   StyleSheet,
-  View,
-  Text,
   Pressable,
+  Text,
   TextInput,
+  View,
   Modal,
 } from "react-native";
-import BrraSuperior from "../components/BrraSuperior";
 import MessageChangePassword from "../components/MessageChangePassword";
 import { useNavigation } from "@react-navigation/native";
 import { Border, Color, FontFamily, FontSize, Padding } from "../GlobalStyles";
@@ -28,27 +27,20 @@ const ChangePassword = () => {
   return (
     <>
       <View style={[styles.changePassword, styles.logoFlexBox]}>
-        <BrraSuperior
-          wifi={require("../assets/wifi2.png")}
-          cellularConnection={require("../assets/cellular-connection.png")}
-          cap={require("../assets/cap.png")}
-          brraSuperiorPosition="unset"
-          brraSuperiorHeight="unset"
-        />
         <Image
           style={[styles.changePasswordChild, styles.changeLayout]}
           contentFit="cover"
-          source={require("../assets/fondo3.png")}
+          source={require("../assets/fondo2.png")}
         />
         <Pressable
           style={[styles.botonconfirm, styles.botonconfirmLayout]}
           onPress={openBotonConfirm}
         >
-          <Text style={[styles.confirm, styles.confirmTypo]}>Confirm</Text>
+          <Text style={[styles.confirm, styles.confirmFlexBox]}>Confirm</Text>
         </Pressable>
         <View style={[styles.password, styles.passwordPosition]}>
-          <Text style={[styles.confirmPassword, styles.setYourNewTypo]}>
-            Confirm Password
+          <Text style={[styles.newPassword, styles.newFlexBox]}>
+            New Password
           </Text>
           <TextInput
             style={[styles.passwordChild, styles.botonconfirmLayout]}
@@ -57,8 +49,8 @@ const ChangePassword = () => {
           />
         </View>
         <View style={[styles.password1, styles.passwordPosition]}>
-          <Text style={[styles.confirmPassword, styles.setYourNewTypo]}>
-            New Password
+          <Text style={[styles.newPassword, styles.newFlexBox]}>
+            Confirm Password
           </Text>
           <TextInput
             style={[styles.passwordChild, styles.botonconfirmLayout]}
@@ -75,10 +67,10 @@ const ChangePassword = () => {
             />
           </View>
           <View style={[styles.descrip, styles.logoFlexBox]}>
-            <Text style={[styles.setYourNew, styles.setYourNewTypo]}>
+            <Text style={[styles.setYourNew, styles.newFlexBox]}>
               Set your new password
             </Text>
-            <Text style={styles.yourNewPassword}>
+            <Text style={[styles.yourNewPassword, styles.yourTypo]}>
               Your new password should be different from the password previously
               used
             </Text>
@@ -94,7 +86,7 @@ const ChangePassword = () => {
             source={require("../assets/arrow.png")}
           />
           <View style={[styles.text, styles.logoFlexBox]}>
-            <Text style={[styles.returnToThe, styles.confirmTypo]}>
+            <Text style={[styles.returnToThe, styles.newFlexBox]}>
               Return to the login screen
             </Text>
           </View>
@@ -128,26 +120,23 @@ const styles = StyleSheet.create({
     borderRadius: Border.br_3xs,
     alignSelf: "stretch",
   },
-  confirmTypo: {
+  confirmFlexBox: {
     textAlign: "center",
     color: Color.colorWhite,
-    fontFamily: FontFamily.poppinsBold,
-    fontWeight: "700",
     letterSpacing: 0,
   },
   passwordPosition: {
     height: 64,
-    marginLeft: -81,
+    width: 233,
+    marginLeft: -116,
     left: "50%",
     top: "50%",
     position: "absolute",
     justifyContent: "center",
     alignItems: "center",
   },
-  setYourNewTypo: {
+  newFlexBox: {
     color: Color.colorBlack,
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
     textAlign: "center",
     letterSpacing: 0,
     alignSelf: "stretch",
@@ -158,10 +147,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  yourTypo: {
+    fontFamily: FontFamily.poppinsMedium,
+    fontWeight: "500",
+  },
   changePasswordChild: {
     maxWidth: "100%",
     maxHeight: "100%",
-    zIndex: 1,
+    zIndex: 0,
     alignSelf: "stretch",
     overflow: "hidden",
   },
@@ -183,6 +176,8 @@ const styles = StyleSheet.create({
     display: "flex",
     width: 215,
     height: 27,
+    fontFamily: FontFamily.poppinsBold,
+    fontWeight: "700",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -193,7 +188,7 @@ const styles = StyleSheet.create({
     height: 47,
     paddingHorizontal: 0,
     paddingVertical: Padding.p_3xs,
-    zIndex: 2,
+    zIndex: 1,
     left: "50%",
     position: "absolute",
     justifyContent: "center",
@@ -201,9 +196,10 @@ const styles = StyleSheet.create({
     top: "50%",
     borderRadius: Border.br_3xs,
   },
-  confirmPassword: {
+  newPassword: {
+    fontFamily: FontFamily.poppinsMedium,
+    fontWeight: "500",
     fontSize: FontSize.size_mini,
-    color: Color.colorBlack,
   },
   passwordChild: {
     borderStyle: "solid",
@@ -213,14 +209,12 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   password: {
-    marginTop: 64,
-    zIndex: 3,
-    alignSelf: "stretch",
+    marginTop: -21,
+    zIndex: 2,
   },
   password1: {
-    marginTop: -21,
-    width: 163,
-    zIndex: 4,
+    marginTop: 75,
+    zIndex: 3,
   },
   advenscapeMesaDeTrabajo11: {
     width: 230,
@@ -233,11 +227,12 @@ const styles = StyleSheet.create({
   },
   setYourNew: {
     fontSize: FontSize.size_xl,
-  },
-  yourNewPassword: {
     fontFamily: FontFamily.poppinsMedium,
     fontWeight: "500",
+  },
+  yourNewPassword: {
     fontSize: FontSize.size_mini,
+    fontWeight: "500",
     textAlign: "center",
     color: Color.colorWhite,
     letterSpacing: 0,
@@ -251,7 +246,7 @@ const styles = StyleSheet.create({
     top: 32,
     width: 269,
     height: 219,
-    zIndex: 5,
+    zIndex: 4,
     left: "50%",
     position: "absolute",
   },
@@ -262,7 +257,8 @@ const styles = StyleSheet.create({
   },
   returnToThe: {
     fontSize: FontSize.size_sm,
-    alignSelf: "stretch",
+    fontFamily: FontFamily.poppinsBold,
+    fontWeight: "700",
   },
   text: {
     flex: 1,
@@ -270,10 +266,10 @@ const styles = StyleSheet.create({
   },
   return: {
     marginLeft: -115,
-    bottom: 14,
+    bottom: 48,
     height: 21,
     flexDirection: "row",
-    zIndex: 6,
+    zIndex: 5,
     left: "50%",
     position: "absolute",
     alignSelf: "stretch",

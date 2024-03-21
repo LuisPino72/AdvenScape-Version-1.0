@@ -1,35 +1,21 @@
-import React, { useMemo } from "react";
+import * as React from "react";
 import { Image } from "expo-image";
 import { StyleSheet, ImageSourcePropType } from "react-native";
 
-const getStyleValue = (key, value) => {
-  if (value === undefined) return;
-  return { [key]: value === "unset" ? undefined : value };
-};
-const ImgVerticalIcon = ({ imageDimensionsId, propTop, propLeft }) => {
-  const imgVerticalIconStyle = useMemo(() => {
-    return {
-      ...getStyleValue("top", propTop),
-      ...getStyleValue("left", propLeft),
-    };
-  }, [propTop, propLeft]);
-
+const ImgVerticalIcon = ({ dimensionsCode }) => {
   return (
     <Image
-      style={[styles.imgverticalIcon, imgVerticalIconStyle]}
+      style={styles.imgverticalIcon}
       contentFit="cover"
-      source={imageDimensionsId}
+      source={dimensionsCode}
     />
   );
 };
 
 const styles = StyleSheet.create({
   imgverticalIcon: {
-    position: "absolute",
-    top: 1688,
-    left: 185,
-    width: 164,
-    height: 240,
+    width: 340,
+    height: 160,
     overflow: "hidden",
   },
 });

@@ -1,29 +1,20 @@
 import * as React from "react";
 import { Image } from "expo-image";
-import { StyleSheet, View, Text, Pressable, TextInput } from "react-native";
-import BrraSuperior from "../components/BrraSuperior";
+import { StyleSheet, Text, Pressable, View, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import PasswordFormInputGroup from "../components/PasswordFormInputGroup";
-import { FontSize, Color, FontFamily, Padding, Border } from "../GlobalStyles";
+import { Color, FontSize, FontFamily, Border, Padding } from "../GlobalStyles";
 
 const SignIn = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={[styles.signIn, styles.loginFlexBox]}>
-      <BrraSuperior
-        wifi={require("../assets/wifi2.png")}
-        cellularConnection={require("../assets/cellular-connection.png")}
-        cap={require("../assets/cap.png")}
-        brraSuperiorPosition="unset"
-        brraSuperiorHeight="unset"
-      />
+    <View style={styles.signIn}>
       <Image
-        style={[styles.fondoIcon, styles.fondoIconLayout]}
+        style={[styles.fondoIcon, styles.fondoIconPosition]}
         contentFit="cover"
-        source={require("../assets/fondo1.png")}
+        source={require("../assets/fondo.png")}
       />
-      <View style={[styles.signip, styles.emailPosition]}>
+      <View style={[styles.signip, styles.signipPosition]}>
         <Text
           style={[styles.dontHaveAn, styles.signUp1Layout]}
         >{`Don’t have an account? `}</Text>
@@ -35,18 +26,18 @@ const SignIn = () => {
         </Pressable>
       </View>
       <Pressable
-        style={[styles.login, styles.loginPosition]}
+        style={styles.login}
         onPress={() => navigation.navigate("Feed")}
       >
         <Text style={[styles.login1, styles.login1Typo]}>Login</Text>
       </Pressable>
       <View style={[styles.email, styles.emailPosition]}>
-        <Text style={[styles.eMailAddress, styles.welcomeToFlexBox]}>
+        <Text style={[styles.eMailAddress, styles.passwordTypo]}>
           E-mail address
         </Text>
-        <View style={[styles.cajaDeEmail, styles.forgotpassFlexBox]}>
+        <View style={[styles.cajaDeEmail, styles.barraBorder]}>
           <TextInput
-            style={styles.examplegmailcom}
+            style={[styles.examplegmailcom, styles.examplegmailcomTypo]}
             placeholder="example@gmail.com"
             keyboardType="email-address"
             placeholderTextColor="#000"
@@ -54,7 +45,7 @@ const SignIn = () => {
         </View>
       </View>
       <Pressable
-        style={[styles.forgotpass, styles.forgotpassFlexBox]}
+        style={[styles.forgotpass, styles.barraPosition]}
         onPress={() => navigation.navigate("ForgotPassword")}
       >
         <Pressable onPress={() => navigation.navigate("ForgotPassword")}>
@@ -63,12 +54,31 @@ const SignIn = () => {
           </Text>
         </Pressable>
       </Pressable>
-      <PasswordFormInputGroup />
-      <View style={[styles.welcome, styles.emailPosition]}>
+      <View style={[styles.cintrasea, styles.emailPosition]}>
+        <View style={[styles.contrasea, styles.fondoIconPosition]}>
+          <Text style={styles.passwordTypo}>Password</Text>
+        </View>
+        <View style={[styles.barra, styles.barraBorder]}>
+          <TextInput
+            style={styles.examplegmailcomTypo}
+            placeholder="Enter your Password"
+            secureTextEntry={true}
+            placeholderTextColor="#000"
+          />
+          <View style={styles.mdieyeOutline}>
+            <Image
+              style={styles.vectorIcon}
+              contentFit="cover"
+              source={require("../assets/vector.png")}
+            />
+          </View>
+        </View>
+      </View>
+      <View style={[styles.welcome, styles.signipPosition]}>
         <Text style={[styles.welcomeTo, styles.welcomeToFlexBox]}>{`Welcome 
 to  `}</Text>
         <Image
-          style={styles.fondoIconLayout}
+          style={[styles.advenscapeMesaDeTrabajo11, styles.fondoIconLayout]}
           contentFit="cover"
           source={require("../assets/advenscape-mesa-de-trabajo-1-11.png")}
         />
@@ -78,31 +88,22 @@ to  `}</Text>
 };
 
 const styles = StyleSheet.create({
-  loginFlexBox: {
-    alignItems: "center",
-    overflow: "hidden",
-    justifyContent: "center",
-  },
-  fondoIconLayout: {
-    maxHeight: "100%",
-    maxWidth: "100%",
+  fondoIconPosition: {
+    zIndex: 0,
     alignSelf: "stretch",
-    overflow: "hidden",
-    width: "100%",
-    flex: 1,
   },
-  emailPosition: {
+  signipPosition: {
     left: "50%",
     position: "absolute",
     alignItems: "center",
   },
   signUp1Layout: {
     height: 36,
+    color: Color.colorBlack,
     fontSize: FontSize.size_xs,
     alignSelf: "stretch",
   },
   login1Typo: {
-    color: Color.colorWhite,
     fontFamily: FontFamily.poppinsBold,
     fontWeight: "700",
     display: "flex",
@@ -111,41 +112,74 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  loginPosition: {
+  emailPosition: {
+    width: 252,
+    marginLeft: -132,
+    left: "50%",
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  passwordTypo: {
+    fontSize: FontSize.size_mini,
+    textAlign: "center",
+    color: Color.colorBlack,
+    fontFamily: FontFamily.poppinsMedium,
+    fontWeight: "500",
+    letterSpacing: 0,
+  },
+  barraBorder: {
+    height: 38,
+    borderWidth: 2,
+    borderColor: Color.colorGray_100,
+    borderStyle: "solid",
+    backgroundColor: Color.colorGray_300,
+    borderRadius: Border.br_3xs,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  examplegmailcomTypo: {
+    fontSize: FontSize.size_sm,
+    fontFamily: FontFamily.poppinsLight,
+    fontWeight: "300",
+  },
+  barraPosition: {
     top: "50%",
     left: "50%",
     position: "absolute",
   },
   welcomeToFlexBox: {
     display: "flex",
-    textAlign: "center",
-    color: Color.colorBlack,
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-    letterSpacing: 0,
     justifyContent: "center",
     alignItems: "center",
   },
-  forgotpassFlexBox: {
-    height: 38,
-    justifyContent: "center",
-    alignItems: "center",
+  fondoIconLayout: {
+    maxHeight: "100%",
+    maxWidth: "100%",
+    overflow: "hidden",
+    width: "100%",
+    flex: 1,
   },
   fondoIcon: {
-    zIndex: 1,
+    maxHeight: "100%",
+    maxWidth: "100%",
+    overflow: "hidden",
+    width: "100%",
+    flex: 1,
   },
   dontHaveAn: {
     display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     textAlign: "center",
-    color: Color.colorBlack,
     fontFamily: FontFamily.poppinsMedium,
     fontWeight: "500",
     letterSpacing: 0,
-    justifyContent: "center",
-    alignItems: "center",
+    height: 36,
   },
   signUp1: {
     height: 36,
+    color: Color.colorBlack,
     fontSize: FontSize.size_xs,
     alignSelf: "stretch",
   },
@@ -154,13 +188,14 @@ const styles = StyleSheet.create({
   },
   signip: {
     marginLeft: -93,
-    bottom: 6,
+    bottom: 19,
     width: 187,
     justifyContent: "flex-end",
-    zIndex: 2,
+    zIndex: 1,
   },
   login1: {
     fontSize: FontSize.size_lg,
+    color: Color.colorWhite,
     width: 116,
     height: 27,
   },
@@ -172,94 +207,125 @@ const styles = StyleSheet.create({
     height: 47,
     paddingHorizontal: 101,
     paddingVertical: Padding.p_3xs,
-    zIndex: 3,
+    zIndex: 2,
     borderRadius: Border.br_3xs,
+    top: "50%",
+    left: "50%",
+    position: "absolute",
     justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",
   },
   eMailAddress: {
-    fontSize: FontSize.size_mini,
     height: 23,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     alignSelf: "stretch",
-    textAlign: "center",
-    color: Color.colorBlack,
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-    letterSpacing: 0,
   },
   examplegmailcom: {
     top: 9,
     left: 6,
-    fontWeight: "300",
-    fontFamily: FontFamily.poppinsLight,
-    fontSize: FontSize.size_sm,
-    zIndex: 0,
     position: "absolute",
+    fontSize: FontSize.size_sm,
+    fontFamily: FontFamily.poppinsLight,
+    fontWeight: "300",
+    zIndex: 0,
     flex: 1,
   },
   cajaDeEmail: {
-    backgroundColor: Color.colorGray_200,
-    borderStyle: "solid",
-    borderColor: Color.colorGray_100,
-    borderWidth: 2,
     width: 238,
     marginTop: 12,
-    borderRadius: Border.br_3xs,
   },
   email: {
-    marginLeft: -132,
     top: 243,
     bottom: 334,
-    width: 252,
-    zIndex: 4,
-    justifyContent: "center",
+    zIndex: 3,
   },
   forgotThePassword: {
     height: 18,
-    fontSize: FontSize.size_xs,
     textAlign: "center",
-    color: Color.colorBlack,
     fontFamily: FontFamily.poppinsMedium,
     fontWeight: "500",
     letterSpacing: 0,
+    display: "flex",
+    color: Color.colorBlack,
     alignSelf: "stretch",
+    fontSize: FontSize.size_xs,
   },
   forgotpass: {
     marginTop: 160,
-    marginLeft: 85,
+    marginLeft: 21,
     width: 92,
+    height: 59,
     padding: Padding.p_3xs,
-    zIndex: 5,
+    zIndex: 4,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  contrasea: {
+    height: 68,
+    alignItems: "center",
+  },
+  vectorIcon: {
+    width: 36,
+    height: 15,
+  },
+  mdieyeOutline: {
+    height: 24,
+    alignItems: "flex-end",
+    paddingHorizontal: 2,
+    paddingVertical: Padding.p_8xs,
+    marginLeft: 27,
+    justifyContent: "center",
+    overflow: "hidden",
+  },
+  barra: {
+    marginTop: -4,
+    marginLeft: -119,
+    flexDirection: "row",
     top: "50%",
     left: "50%",
     position: "absolute",
+    zIndex: 1,
+    alignSelf: "stretch",
+    overflow: "hidden",
+  },
+  cintrasea: {
+    top: 324,
+    bottom: 258,
+    zIndex: 5,
   },
   welcomeTo: {
     fontSize: 28,
     lineHeight: 33,
-    alignSelf: "stretch",
     textAlign: "center",
-    color: Color.colorBlack,
     fontFamily: FontFamily.poppinsMedium,
     fontWeight: "500",
     letterSpacing: 0,
+    display: "flex",
+    color: Color.colorBlack,
+    alignSelf: "stretch",
     flex: 1,
+  },
+  advenscapeMesaDeTrabajo11: {
+    alignSelf: "stretch",
   },
   welcome: {
     marginLeft: -111,
     top: 31,
     width: 222,
     height: 141,
-    zIndex: 7,
+    zIndex: 6,
     justifyContent: "center",
   },
   signIn: {
     backgroundColor: Color.colorWhite,
     height: 650,
     justifyContent: "center",
-    width: "100%",
+    alignItems: "center",
     overflow: "hidden",
+    width: "100%",
     flex: 1,
   },
 });

@@ -8,36 +8,35 @@ const SignOutMessage = ({ onClose }) => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.signOutMessage}>
+    <View style={[styles.signOutMessage, styles.frameFlexBox]}>
       <Image
         style={styles.signOutMessageChild}
         contentFit="cover"
-        source={require("../assets/group-421.png")}
+        source={require("../assets/group-422.png")}
       />
-      <View style={[styles.frame, styles.frameSpaceBlock]}>
+      <View style={[styles.frame, styles.frameFlexBox]}>
         <Text style={styles.signOutOf}>Sign out of your account?</Text>
       </View>
-      <View style={[styles.frame1, styles.frameSpaceBlock]}>
-        <View style={styles.frame2}>
-          <Pressable onPress={() => navigation.navigate("MenuProfile")}>
-            <Text style={[styles.cancel1, styles.cancel1Typo]}>Cancel</Text>
-          </Pressable>
-          <Pressable
-            style={styles.signOut}
-            onPress={() => navigation.navigate("SignIn")}
-          >
-            <Text style={[styles.signOut1, styles.cancel1Typo]}>Sign out</Text>
-          </Pressable>
-        </View>
-      </View>
+      <Pressable
+        style={styles.cancel}
+        onPress={() => navigation.navigate("Profile")}
+      >
+        <Text style={[styles.cancel1, styles.cancel1Typo]}>Cancel</Text>
+      </Pressable>
+      <Pressable
+        style={styles.cancel}
+        onPress={() => navigation.navigate("SignIn")}
+      >
+        <Text style={[styles.signOut1, styles.cancel1Typo]}>Sign out</Text>
+      </Pressable>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  frameSpaceBlock: {
-    marginTop: 33,
+  frameFlexBox: {
     justifyContent: "center",
+    alignItems: "center",
     overflow: "hidden",
   },
   cancel1Typo: {
@@ -66,47 +65,26 @@ const styles = StyleSheet.create({
   },
   frame: {
     width: 170,
+    height: 54,
+    marginTop: 8,
   },
   cancel1: {
     width: 65,
     height: 41,
   },
+  cancel: {
+    marginTop: 8,
+  },
   signOut1: {
     width: 85,
-  },
-  signOut: {
-    marginLeft: 56,
-  },
-  frame2: {
-    borderRadius: Border.br_3xs,
-    borderStyle: "solid",
-    borderColor: Color.colorGainsboro_200,
-    borderWidth: 2,
-    width: 229,
-    height: 37,
-    flexDirection: "row",
-    paddingHorizontal: 0,
-    paddingVertical: 12,
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
-  },
-  frame1: {
-    width: 243,
-    height: 32,
-    alignItems: "center",
   },
   signOutMessage: {
     borderRadius: Border.br_11xl,
     backgroundColor: Color.colorWhite,
-    width: 277,
-    height: 230,
-    paddingHorizontal: 17,
+    paddingHorizontal: 40,
     paddingVertical: Padding.p_3xs,
     maxWidth: "100%",
     maxHeight: "100%",
-    alignItems: "center",
-    overflow: "hidden",
   },
 });
 

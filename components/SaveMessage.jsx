@@ -12,7 +12,7 @@ const SaveMessage = ({ onClose }) => {
       <Image
         style={styles.saveMessageChild}
         contentFit="cover"
-        source={require("../assets/group-42.png")}
+        source={require("../assets/group-421.png")}
       />
       <View style={[styles.frame, styles.frameFlexBox]}>
         <Text style={[styles.savedChanges, styles.changesFlexBox]}>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
   },
   frame: {
-    width: 260,
+    width: 239,
   },
   continue1: {
     color: Color.colorGray_100,
@@ -90,17 +90,16 @@ const styles = StyleSheet.create({
     borderColor: Color.colorGainsboro_200,
     borderWidth: 2,
     width: 228,
-    height: 49,
+    height: 36,
   },
   saveMessage: {
     borderRadius: Border.br_11xl,
     backgroundColor: Color.colorWhite,
-    width: 278,
-    height: 226,
-    paddingHorizontal: Padding.p_4xs,
-    paddingVertical: Padding.p_10xs,
+    paddingHorizontal: Padding.p_7xs,
+    paddingVertical: Padding.p_8xs,
     maxWidth: "100%",
     maxHeight: "100%",
+    justifyContent: "center",
     alignItems: "center",
     overflow: "hidden",
   },

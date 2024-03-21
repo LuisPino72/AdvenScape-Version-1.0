@@ -2,26 +2,25 @@ const Stack = createNativeStackNavigator();
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
+import SignIn from "./screens/SignIn";
+import Feed from "./screens/Feed";
+import ResultBuscado from "./components/ResultBuscado";
 import FrontPage from "./screens/FrontPage";
-import NueaPunlicacion from "./components/NueaPunlicacion";
-import MenuProfile from "./components/MenuProfile";
-import EditProfile from "./screens/EditProfile";
-import SaveMessage from "./components/SaveMessage";
 import SignUp from "./screens/SignUp";
-import MessageSignUp from "./components/MessageSignUp";
 import ForgotPassword from "./screens/ForgotPassword";
 import MessageEmail from "./components/MessageEmail";
-import Feed from "./screens/Feed";
+import NueaPunlicacion from "./components/NueaPunlicacion";
+import EditProfile from "./screens/EditProfile";
 import ChangePassword from "./screens/ChangePassword";
 import MessageChangePassword from "./components/MessageChangePassword";
+import Serch from "./screens/Serch";
+import Fovorite from "./screens/Fovorite";
+import SaveMessage from "./components/SaveMessage";
+import MessageSignUp from "./components/MessageSignUp";
+import MenuProfile from "./components/MenuProfile";
 import SignOutMessage from "./components/SignOutMessage";
-import ResultBuscado from "./components/ResultBuscado";
 import BarraInferior from "./components/BarraInferior";
 import Profile from "./screens/Profile";
-import SignIn from "./screens/SignIn";
-import Fovorite from "./screens/Fovorite";
-import Serch from "./screens/Serch";
-import BrraSuperior from "./components/BrraSuperior";
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { IconRegistry, ApplicationProvider } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
@@ -84,9 +83,19 @@ const App = () => {
         <NavigationContainer>
           {hideSplashScreen ? (
             <Stack.Navigator
-              initialRouteName="Feed"
+              initialRouteName="FrontPage"
               screenOptions={{ headerShown: false }}
             >
+              <Stack.Screen
+                name="SignIn"
+                component={SignIn}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Feed"
+                component={Feed}
+                options={{ headerShown: false }}
+              />
               <Stack.Screen
                 name="FrontPage"
                 component={FrontPage}
@@ -103,23 +112,13 @@ const App = () => {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="Feed"
-                component={Feed}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
                 name="ChangePassword"
                 component={ChangePassword}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="Profile"
-                component={Profile}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="SignIn"
-                component={SignIn}
+                name="Serch"
+                component={Serch}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
@@ -128,8 +127,8 @@ const App = () => {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="Serch"
-                component={Serch}
+                name="Profile"
+                component={Profile}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>

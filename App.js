@@ -131,6 +131,11 @@ const App = () => {
                 component={Profile}
                 options={{ headerShown: false }}
               />
+              <Stack.Screen
+                name="EditProfile"
+                component={EditProfile}
+                options={{ headerShown: false }}
+              />
             </Stack.Navigator>
           ) : null}
         </NavigationContainer>

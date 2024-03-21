@@ -206,13 +206,16 @@ const styles = StyleSheet.create({
     backgroundColor: Color.colorGray_100,
     width: 241,
     height: 38,
-    alignContent: "center",
     paddingHorizontal: 101,
     paddingVertical: Padding.p_3xs,
     zIndex: 2,
     borderRadius: Border.br_3xs,
     top: "50%",
-    left: 170,
+    left: "170",
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden",
   },
   eMailAddress: {
     height: 23,
@@ -231,6 +234,7 @@ const styles = StyleSheet.create({
     width: 225,
     zIndex: 0,
     flex: 1,
+
   },
   cajaDeEmail: {
     width: 230,
@@ -253,6 +257,7 @@ const styles = StyleSheet.create({
     color: Color.colorBlack,
     alignSelf: "stretch",
     fontSize: FontSize.size_xs,
+
   },
   forgotpass: {
     marginTop: 160,
@@ -280,7 +285,9 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_8xs,
     marginLeft: 27,
     justifyContent: "center",
-    overflow: "hidden",
+    overflow:"hidden",
+
+
   },
   mdieyeOutline: {
     height: 24,
@@ -289,7 +296,8 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_8xs,
     marginLeft: 27,
     justifyContent: "center",
-    overflow: "hidden",
+    overflow: "hidden",
+
   },
   mdieyeOutline: {
     height: 24,
@@ -312,7 +320,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     overflow: "hidden",
     width: 241,
-    height: 38,
+    height: 38,
   },
   cintrasea: {
     top: 324,

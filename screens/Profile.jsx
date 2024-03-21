@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   },
   imgguardadasFlexBox: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "center"
   },
   textFlexBox: {
     height: 13,
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
   scrollprofPosition: {
     top: "50%",
     height: 163,
-    position: "absolute",
+    position: "relative",
   },
   imgguardadasLayout: {
     marginLeft: 10,
@@ -415,7 +415,7 @@ const styles = StyleSheet.create({
     height: 98,
   },
   imgguardadas: {
-    marginTop: -81.5,
+    marginTop: -200,
     right: 0,
     left: 0,
     zIndex: 0,
@@ -424,9 +424,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   scrollprof: {
-    marginTop: 112,
-    right: 7,
-    left: 8,
+    marginTop: 330,
+    right: 0,
+    left: 0,
     maxHeight: 163,
     height: 163,
     width: "100%",

@@ -206,16 +206,13 @@ const styles = StyleSheet.create({
     backgroundColor: Color.colorGray_100,
     width: 241,
     height: 38,
+    alignContent: "center",
     paddingHorizontal: 101,
     paddingVertical: Padding.p_3xs,
     zIndex: 2,
     borderRadius: Border.br_3xs,
     top: "50%",
-    left: "170",
-    position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
+    left: 170,
   },
   eMailAddress: {
     height: 23,
@@ -231,7 +228,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_sm,
     fontFamily: FontFamily.poppinsLight,
     fontWeight: "300",
-    width:225,
+    width: 225,
     zIndex: 0,
     flex: 1,
   },
@@ -256,7 +253,6 @@ const styles = StyleSheet.create({
     color: Color.colorBlack,
     alignSelf: "stretch",
     fontSize: FontSize.size_xs,
-
   },
   forgotpass: {
     marginTop: 160,
@@ -275,7 +271,7 @@ const styles = StyleSheet.create({
   vectorIcon: {
     width: 25,
     height: 9.5,
-    marginRight: 11,
+    marginRight: 15,
   },
   mdieyeOutline: {
     height: 24,
@@ -284,8 +280,7 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_8xs,
     marginLeft: 27,
     justifyContent: "center",
-    overflow: "hidden",
-
+    overflow: "hidden",
   },
   mdieyeOutline: {
     height: 24,
@@ -294,8 +289,7 @@ const styles = StyleSheet.create({
     paddingVertical: Padding.p_8xs,
     marginLeft: 27,
     justifyContent: "center",
-    overflow: "hidden",
-
+    overflow: "hidden",
   },
   mdieyeOutline: {
     height: 24,
@@ -308,14 +302,17 @@ const styles = StyleSheet.create({
   },
   barra: {
     marginTop: -4,
-    marginLeft: -115,
+    marginLeft: -120,
     flexDirection: "row",
+    paddingLeft: "4%",
     top: "50%",
     left: "50%",
     position: "absolute",
     zIndex: 1,
     alignSelf: "stretch",
     overflow: "hidden",
+    width: 241,
+    height: 38,
   },
   cintrasea: {
     top: 324,

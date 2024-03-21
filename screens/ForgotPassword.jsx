@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
-    left: -50,
+    left:-5,
 
   },
   examplegmailcom: {

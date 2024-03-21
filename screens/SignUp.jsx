@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   signIn1Typo: {
     display: "flex",
     fontFamily: FontFamily.poppinsBold,
-    fontWeight: "700",
+    fontWeight: "500",
     textAlign: "center",
     letterSpacing: 0,
     justifyContent: "center",
@@ -161,8 +161,9 @@ const styles = StyleSheet.create({
   },
   signIn1: {
     height: 36,
+    marginRight:270,
     color: Color.colorBlack,
-    display: "flex",
+    display:"flex",
     fontFamily: FontFamily.poppinsBold,
     fontWeight: "700",
     fontSize: FontSize.size_xs,
@@ -170,7 +171,7 @@ const styles = StyleSheet.create({
   },
   returnsignin: {
     marginLeft: -100,
-    bottom: 8,
+    bottom: 5,
     paddingBottom: Padding.p_9xs,
     zIndex: 1,
     alignSelf: "stretch",
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
     width: 166,
   },
   botoncreate: {
-    marginLeft: -109,
+    marginLeft: -134,
     bottom: 71,
     backgroundColor: Color.colorGray_100,
     height: 47,

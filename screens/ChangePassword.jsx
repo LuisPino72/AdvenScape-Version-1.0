@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   botonconfirm: {
-    marginTop: 155,
+    marginTop: 50,
     marginLeft: -109,
     backgroundColor: Color.colorGray_100,
     height: 47,
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     justifyContent: "center",
     alignItems: "center",
-    top: "50%",
+    top: "70%",
     borderRadius: Border.br_3xs,
   },
   newPassword: {
@@ -243,9 +243,9 @@ const styles = StyleSheet.create({
   },
   intro: {
     marginLeft: -134,
-    top: 32,
+    top: 5,
     width: 269,
-    height: 219,
+    height: 220,
     zIndex: 4,
     left: "50%",
     position: "absolute",
@@ -259,14 +259,15 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_sm,
     fontFamily: FontFamily.poppinsBold,
     fontWeight: "700",
+    marginRight: -250,
   },
   text: {
     flex: 1,
     alignItems: "center",
   },
   return: {
-    marginLeft: -115,
-    bottom: 48,
+    marginLeft: -150,
+    bottom: 20,
     height: 21,
     flexDirection: "row",
     zIndex: 5,

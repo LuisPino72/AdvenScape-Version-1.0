@@ -153,8 +153,8 @@ const styles = StyleSheet.create({
   },
   sendAccessLink: {
     fontSize: FontSize.size_lg,
-    width: 161,
-    height: 43,
+    width: 170,
+    height: 27,
     color: Color.colorWhite,
     textAlign: "center",
     fontFamily: FontFamily.poppinsBold,
@@ -173,6 +173,11 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignSelf: "stretch",
     top: "50%",
+    width: 241,
+    height: 38,
+    left: 160,
+    textAlign: "center",
+
   },
   eMailOrUsername: {
     color: Color.colorBlack,
@@ -186,12 +191,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flex: 1,
+    left: -50,
+
   },
   examplegmailcom: {
+    paddingLeft: 10,
     fontWeight: "300",
     fontFamily: FontFamily.poppinsLight,
     fontSize: FontSize.size_sm,
-    alignSelf: "stretch",
+    alignSelf: "stretch",
+
   },
   barra: {
     borderStyle: "solid",

@@ -1,14 +1,19 @@
 import React, { useState, useCallback } from "react";
-import { Image } from "expo-image";
-import { StyleSheet, View, Pressable, ScrollView, Modal } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Pressable,
+  TouchableOpacity,
+  Image,
+  Modal,
+  ScrollView,
+  Text,
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
-import NueaPunlicacion from "../components/NueaPunlicacion";
-import BarraInferior from "../components/BarraInferior";
-import ImgHorizontalIcon from "../components/ImgHorizontalIcon";
-import ImgVerticalIcon from "../components/ImgVerticalIcon";
-import { Color, Padding } from "../GlobalStyles";
+import BottomBar from "../components/BottomBar";
 
-const Fovorite = () => {
+const Favorites = () => {
   const [iconPubContainerVisible, setIconPubContainerVisible] = useState(false);
   const navigation = useNavigation();
 
@@ -20,102 +25,66 @@ const Fovorite = () => {
     setIconPubContainerVisible(false);
   }, []);
 
+  const favoritesData = [
+    {
+      id: "1",
+      user: "NF",
+      profileImage: require("../assets/imguser.png"),
+      image: require("../assets/rectangle-7.png"),
+      title: "Let You Down",
+      time: "12h ago",
+      //
+    },
+    {
+      id: "2",
+      user: "Juan Pablo Isaza",
+      profileImage: require("../assets/imguser1.png"),
+      image: require("../assets/rectangle-72.png"),
+      title: "Cuando nadie ve",
+    },
+    {
+      id: "3",
+      user: "Christopher Martin",
+      profileImage: require("../assets/imguser1.png"),
+      image: require("../assets/img1.jpg"),
+      title: "The Scientist",
+      time: "2w ago",
+    },
+    { id: 4, image: require("../assets/img3.jpg") },
+    { id: 5, image: require("../assets/rectangle-71.png") },
+    { id: 6, image: require("../assets/img4.jpg") },
+    { id: 7, image: require("../assets/img5.jpg") },
+    { id: 8, image: require("../assets/img6.jpg") },
+    { id: 9, image: require("../assets/img7.jpg") },
+    { id: 10, image: require("../assets/img8.jpg") },
+    { id: 11, image: require("../assets/img9.jpg") },
+    { id: 12, image: require("../assets/rectangle-14.png") },
+  ];
+
+  const goToPostDetail = (item) => {
+    navigation.navigate("Post", { post: item });
+  };
+
   return (
-    <>
-      <View style={styles.fovorite}>
-        <View style={[styles.barrainferiorvariant6, styles.scrollfavPosition]}>
-          <BarraInferior
-            ellipse4={require("../assets/ellipse-5.png")}
-            vector={require("../assets/vector5.png")}
-            vector1={require("../assets/vector6.png")}
-            ellipse5={require("../assets/ellipse-4.png")}
-            iconFavoritos={require("../assets/iconfavoritos1.png")}
-            ellipse7={require("../assets/ellipse-5.png")}
-            iconPublicar={require("../assets/iconpublicar.png")}
-            ellipse71={require("../assets/ellipse-5.png")}
-            iconBuscar={require("../assets/iconbuscar.png")}
-            ellipse9={require("../assets/ellipse-93.png")}
-            iconPofile={require("../assets/iconpofile2.png")}
-            barraInferiorPosition="unset"
-            barraInferiorWidth={360}
-            barraInferiorHeight={50}
-            barraInferiorMarginLeft="unset"
-            barraInferiorBottom="unset"
-            barraInferiorLeft="unset"
-            iconPofileTop="12.12%"
-            iconPofileBottom="15.15%"
-            onIconHomePress={() => navigation.navigate("Feed")}
-            onIconFavPress={() => navigation.navigate("Fovorite")}
-            onIconPubPress={openIconPubContainer}
-            onIconBusPress={() => navigation.navigate("Serch")}
-            onIconProfPress={() => navigation.navigate("Profile")}
-          />
-        </View>
-        <View style={[styles.scrollfav, styles.scrollfavPosition]}>
-          <ScrollView
-            style={styles.scrollfav1}
-            horizontal={false}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.scrollFavScrollViewContent}
-          >
-            <ImgHorizontalIcon
-              dimensionsCode={require("../assets/imghorizontal.png")}
-            />
-            <ImgVerticalIcon
-              dimensionsCode={require("../assets/imgvertical.png")}
-            />
-            <ImgVerticalIcon
-              dimensionsCode={require("../assets/imgvertical1.png")}
-            />
-            <ImgHorizontalIcon
-              dimensionsCode={require("../assets/imghorizontal1.png")}
-            />
-            <ImgHorizontalIcon
-              dimensionsCode={require("../assets/imghorizontal2.png")}
-            />
-            <ImgVerticalIcon
-              dimensionsCode={require("../assets/imgvertical2.png")}
-            />
-            <ImgVerticalIcon
-              dimensionsCode={require("../assets/imgvertical3.png")}
-            />
-            <ImgHorizontalIcon
-              dimensionsCode={require("../assets/imghorizontal3.png")}
-            />
-            <ImgVerticalIcon
-              dimensionsCode={require("../assets/imgvertical4.png")}
-            />
-            <ImgHorizontalIcon
-              dimensionsCode={require("../assets/imghorizontal4.png")}
-            />
-            <ImgHorizontalIcon
-              dimensionsCode={require("../assets/imghorizontal5.png")}
-            />
-            <ImgVerticalIcon
-              dimensionsCode={require("../assets/imgvertical5.png")}
-            />
-            <ImgHorizontalIcon
-              dimensionsCode={require("../assets/imghorizontal6.png")}
-            />
-            <ImgVerticalIcon
-              dimensionsCode={require("../assets/imgvertical6.png")}
-            />
-            <ImgVerticalIcon
-              dimensionsCode={require("../assets/imgvertical7.png")}
-            />
-            <ImgHorizontalIcon
-              dimensionsCode={require("../assets/imghorizontal7.png")}
-            />
-            <ImgHorizontalIcon
-              dimensionsCode={require("../assets/imghorizontal8.png")}
-            />
-            <ImgVerticalIcon
-              dimensionsCode={require("../assets/imgvertical8.png")}
-            />
-          </ScrollView>
-        </View>
+    <LinearGradient colors={["#6e7f62", "white"]} style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Favorite Section</Text>
       </View>
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.postsContainer}>
+            {favoritesData.map((item) => (
+              <TouchableOpacity
+                key={item.id}
+                style={styles.postItem}
+                onPress={() => goToPostDetail(item)}
+              >
+                <Image source={item.image} style={styles.postImage} />
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      </ScrollView>
 
       <Modal animationType="fade" transparent visible={iconPubContainerVisible}>
         <View style={styles.iconPubContainerOverlay}>
@@ -123,71 +92,60 @@ const Fovorite = () => {
             style={styles.iconPubContainerBg}
             onPress={closeIconPubContainer}
           />
-          <NueaPunlicacion onClose={closeIconPubContainer} />
         </View>
       </Modal>
-    </>
+      <BottomBar navigation={navigation} />
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollFavScrollViewContent: {
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
-  scrollfavPosition: {
-    alignItems: "center",
-    marginLeft: -180,
-    left: "50%",
-    position: "absolute",
-  },
-  iconPubContainerOverlay: {
+  container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "rgba(113, 113, 113, 0.3)",
   },
-  iconPubContainerBg: {
-    position: "absolute",
+  header: {
+    backgroundColor: "white",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderBottomWidth: -1,
+    width: 400,
+    height: 50,
+  },
+  title: {
+    color: "#6e7f62",
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    top: 5,
+  },
+  postsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    paddingHorizontal: 10,
+    marginBottom: 2,
+    marginTop: 20,
+  },
+  postItem: {
+    width: 180,
+    height: 140,
+
+    aspectRatio: 1,
+    marginVertical: -10,
+    marginHorizontal: 3,
+    margin: 10,
+  },
+  postImage: {
     width: "100%",
     height: "100%",
-    left: 0,
-    top: 0,
-  },
-  barrainferiorvariant6: {
-    bottom: -1,
-    width: 360,
-    height: 50,
+    width: 180,
+    height: 150,
+    borderRadius: 15,
+    right: 1,
     justifyContent: "center",
-  },
-  scrollfav1: {
-    marginLeft: -174.5,
-    top: 0,
-    bottom: 0,
-    backgroundColor: Color.colorGray_100,
-    width: 349,
-    maxWidth: 349,
-    zIndex: 0,
-    left: "50%",
-    position: "absolute",
-    overflow: "hidden",
-    flex: 1,
-  },
-  scrollfav: {
-    top: 31,
-    bottom: 52,
-    width: 359,
-    paddingHorizontal: Padding.p_8xs,
-    paddingVertical: 0,
-    overflow: "hidden",
-  },
-  fovorite: {
-    width: "100%",
-    height: 650,
-    overflow: "hidden",
-    flex: 1,
+    alignItems: "center",
+    resizeMode: "cover",
   },
 });
 
-export default Fovorite;
+export default Favorites;

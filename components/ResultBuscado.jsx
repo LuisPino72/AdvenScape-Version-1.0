@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   imgbuscadoChild: {
     width: 30,
     height: 30,
+    top: 8,
   },
   imgbuscado: {
     flexDirection: "row",
@@ -59,11 +60,14 @@ const styles = StyleSheet.create({
     fontSize: FontSize.size_mini,
     color: Color.colorBlack,
     height: 46,
+    top: 19,
+    left: 10,
   },
   mPosts: {
     fontSize: FontSize.size_3xs,
     color: Color.colorGainsboro_200,
     height: 12,
+    left: 10,
   },
   textbuscado: {
     flex: 1,

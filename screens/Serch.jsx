@@ -10,10 +10,9 @@ import {
   Modal,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import NueaPunlicacion from "../components/NueaPunlicacion";
 import ResultBuscado from "../components/ResultBuscado";
-import BarraInferior from "../components/BarraInferior";
 import { FontSize, FontFamily, Padding, Color } from "../GlobalStyles";
+import BottomBar from "../components/BottomBar";
 
 const Serch = () => {
   const [iconPubContainerVisible, setIconPubContainerVisible] = useState(false);
@@ -48,7 +47,7 @@ const Serch = () => {
         <View style={[styles.resultadosbuscados, styles.buscarPosition]}>
           <View style={styles.property1default}>
             <ResultBuscado
-              ellipse8={require("../assets/ellipse-81.png")}
+              ellipse8={require("../assets/ha.png")}
               venezuela="venezuela"
               mPosts="5.7M posts"
               resultBuscadoPosition="unset"
@@ -56,7 +55,7 @@ const Serch = () => {
           </View>
           <View style={styles.property1default1}>
             <ResultBuscado
-              ellipse8={require("../assets/ellipse-81.png")}
+              ellipse8={require("../assets/ha.png")}
               venezuela="Moscú"
               mPosts="144k posts"
               resultBuscadoPosition="unset"
@@ -64,7 +63,7 @@ const Serch = () => {
           </View>
           <View style={styles.property1default1}>
             <ResultBuscado
-              ellipse8={require("../assets/ellipse-81.png")}
+              ellipse8={require("../assets/ha.png")}
               venezuela="NewYorkCity"
               mPosts="35.8M posts"
               resultBuscadoPosition="unset"
@@ -88,7 +87,7 @@ const Serch = () => {
           </View>
           <View style={styles.property1default1}>
             <ResultBuscado
-              ellipse8={require("../assets/ellipse-83.png")}
+              ellipse8={require("../assets/profile4.png")}
               venezuela="Francisco_Keeling"
               mPosts="Frann Kelling"
               resultBuscadoPosition="unset"
@@ -96,8 +95,8 @@ const Serch = () => {
           </View>
           <View style={styles.property1default1}>
             <ResultBuscado
-              ellipse8={require("../assets/ellipse-84.png")}
-              venezuela="#Alanna36"
+              ellipse8={require("../assets/imguser.png")}
+              venezuela="Alanna36"
               mPosts="Alanna Sucker"
               resultBuscadoPosition="unset"
             />
@@ -111,34 +110,6 @@ const Serch = () => {
             />
           </View>
         </View>
-        <View style={[styles.barrainferiorvariant6, styles.buscarPosition]}>
-          <BarraInferior
-            ellipse4={require("../assets/ellipse-5.png")}
-            vector={require("../assets/vector5.png")}
-            vector1={require("../assets/vector6.png")}
-            ellipse5={require("../assets/ellipse-5.png")}
-            iconFavoritos={require("../assets/iconfavoritos.png")}
-            ellipse7={require("../assets/ellipse-5.png")}
-            iconPublicar={require("../assets/iconpublicar.png")}
-            ellipse71={require("../assets/ellipse-4.png")}
-            iconBuscar={require("../assets/iconbuscar1.png")}
-            ellipse9={require("../assets/ellipse-93.png")}
-            iconPofile={require("../assets/iconpofile2.png")}
-            barraInferiorPosition="unset"
-            barraInferiorWidth={360}
-            barraInferiorHeight={50}
-            barraInferiorMarginLeft="unset"
-            barraInferiorBottom="unset"
-            barraInferiorLeft="unset"
-            iconPofileTop="12.12%"
-            iconPofileBottom="15.15%"
-            onIconHomePress={() => navigation.navigate("Feed")}
-            onIconFavPress={() => navigation.navigate("Fovorite")}
-            onIconPubPress={openIconPubContainer}
-            onIconBusPress={() => navigation.navigate("Serch")}
-            onIconProfPress={() => navigation.navigate("Profile")}
-          />
-        </View>
       </View>
 
       <Modal animationType="fade" transparent visible={iconPubContainerVisible}>
@@ -147,9 +118,9 @@ const Serch = () => {
             style={styles.iconPubContainerBg}
             onPress={closeIconPubContainer}
           />
-          <NueaPunlicacion onClose={closeIconPubContainer} />
         </View>
       </Modal>
+      <BottomBar navigation={navigation} />
     </>
   );
 };
@@ -188,7 +159,7 @@ const styles = StyleSheet.create({
   },
   buscar: {
     marginLeft: -174,
-    top: 31,
+    top: 30,
     borderRadius: 15,
     backgroundColor: "#c1cebd",
     width: 349,
@@ -205,10 +176,12 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     color: Color.colorBlack,
     textAlign: "center",
+    top: -5,
+    left: -150,
   },
   recent: {
     marginLeft: -179,
-    top: 79,
+    top: 90,
     width: 359,
     height: 40,
     padding: Padding.p_3xs,
@@ -221,13 +194,14 @@ const styles = StyleSheet.create({
   property1default: {
     width: 340,
     flexDirection: "row",
+    left: -2,
   },
   property1default1: {
     flexDirection: "row",
   },
   resultadosbuscados: {
     marginLeft: -171,
-    top: 125,
+    top: 100,
     borderRadius: 5,
     width: 342,
     height: 475,
@@ -238,16 +212,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     overflow: "hidden",
   },
-  barrainferiorvariant6: {
-    marginLeft: -180,
-    bottom: 0,
-    width: 360,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    left: "50%",
-    position: "absolute",
-  },
+
   serch: {
     backgroundColor: Color.colorWhite,
     width: "100%",

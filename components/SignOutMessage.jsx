@@ -19,7 +19,7 @@ const SignOutMessage = ({ onClose }) => {
       </View>
       <Pressable
         style={styles.cancel}
-        onPress={() => navigation.navigate("Profile")}
+        onPress={() => navigation.navigate("Feed")}
       >
         <Text style={[styles.cancel1, styles.cancel1Typo]}>Cancel</Text>
       </Pressable>

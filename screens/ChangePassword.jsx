@@ -1,285 +1,279 @@
-import React, { useState, useCallback } from "react";
-import { Image } from "expo-image";
+import React, { useState } from "react";
 import {
-  StyleSheet,
-  Pressable,
+  View,
   Text,
   TextInput,
-  View,
-  Modal,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+  Image,
 } from "react-native";
-import MessageChangePassword from "../components/MessageChangePassword";
-import { useNavigation } from "@react-navigation/native";
-import { Border, Color, FontFamily, FontSize, Padding } from "../GlobalStyles";
+import CustomModal from "../components/CustomModal";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const ChangePassword = () => {
-  const [botonConfirmVisible, setBotonConfirmVisible] = useState(false);
-  const navigation = useNavigation();
+const ChangePassword = ({ navigation }) => {
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const openBotonConfirm = useCallback(() => {
-    setBotonConfirmVisible(true);
-  }, []);
+  const handleSignIn = () => {
+    navigation.navigate("SignIn");
+  };
 
-  const closeBotonConfirm = useCallback(() => {
-    setBotonConfirmVisible(false);
-  }, []);
+  const savePasswordToStorage = async (password) => {
+    try {
+      await AsyncStorage.setItem("password", password);
+    } catch (error) {
+      console.error("Error saving password:", error);
+    }
+  };
+
+  const handleContinue = () => {
+    if (!validateInputs()) {
+      return;
+    }
+    savePasswordToStorage(newPassword);
+    setIsModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+    navigation.navigate("SignIn");
+  };
+
+  const validateInputs = () => {
+    if (!newPassword.trim() || !confirmPassword.trim()) {
+      setErrorMessage("All fields are required");
+      return false;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setErrorMessage("Passwords do not match");
+      return false;
+    }
+
+    setErrorMessage("");
+    return true;
+  };
 
   return (
-    <>
-      <View style={[styles.changePassword, styles.logoFlexBox]}>
-        <Image
-          style={[styles.changePasswordChild, styles.changeLayout]}
-          contentFit="cover"
-          source={require("../assets/fondo2.png")}
-        />
-        <Pressable
-          style={[styles.botonconfirm, styles.botonconfirmLayout]}
-          onPress={openBotonConfirm}
-        >
-          <Text style={[styles.confirm, styles.confirmFlexBox]}>Confirm</Text>
-        </Pressable>
-        <View style={[styles.password, styles.passwordPosition]}>
-          <Text style={[styles.newPassword, styles.newFlexBox]}>
-            New Password
-          </Text>
-          <TextInput
-            style={[styles.passwordChild, styles.botonconfirmLayout]}
-            keyboardType="default"
-            secureTextEntry={true}
-          />
-        </View>
-        <View style={[styles.password1, styles.passwordPosition]}>
-          <Text style={[styles.newPassword, styles.newFlexBox]}>
-            Confirm Password
-          </Text>
-          <TextInput
-            style={[styles.passwordChild, styles.botonconfirmLayout]}
-            keyboardType="default"
-            secureTextEntry={true}
-          />
-        </View>
-        <View style={[styles.intro, styles.introPosition]}>
-          <View style={[styles.logo, styles.logoFlexBox]}>
-            <Image
-              style={styles.advenscapeMesaDeTrabajo11}
-              contentFit="cover"
-              source={require("../assets/advenscape-mesa-de-trabajo-1-14.png")}
-            />
-          </View>
-          <View style={[styles.descrip, styles.logoFlexBox]}>
-            <Text style={[styles.setYourNew, styles.newFlexBox]}>
-              Set your new password
-            </Text>
-            <Text style={[styles.yourNewPassword, styles.yourTypo]}>
-              Your new password should be different from the password previously
-              used
-            </Text>
-          </View>
-        </View>
-        <Pressable
-          style={[styles.return, styles.introPosition]}
-          onPress={() => navigation.navigate("SignIn")}
-        >
+    <ImageBackground
+      source={require("../assets/fondo2.png")}
+      style={styles.backgroundImage}
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Set your new password</Text>
+        <View style={styles.logoContainer}>
           <Image
-            style={styles.arrowIcon}
-            contentFit="cover"
-            source={require("../assets/arrow.png")}
+            source={require("../assets/advenscape-mesa-de-trabajo-1-13.png")}
+            style={styles.image}
           />
-          <View style={[styles.text, styles.logoFlexBox]}>
-            <Text style={[styles.returnToThe, styles.newFlexBox]}>
-              Return to the login screen
-            </Text>
-          </View>
-        </Pressable>
-      </View>
-
-      <Modal animationType="fade" transparent visible={botonConfirmVisible}>
-        <View style={styles.botonConfirmOverlay}>
-          <Pressable
-            style={styles.botonConfirmBg}
-            onPress={closeBotonConfirm}
-          />
-          <MessageChangePassword onClose={closeBotonConfirm} />
         </View>
-      </Modal>
-    </>
+        <Text style={styles.title2}>
+          Your new password should be different from{" "}
+        </Text>
+        <Text style={styles.title3}> the password previously used</Text>
+        {errorMessage !== "" && (
+          <Text style={styles.errorText}>{errorMessage}</Text>
+        )}
+
+        <View style={styles.inputTitleContainer}>
+          <View style={styles.inputContainer}>
+            <Image
+              source={require("../assets/password-icon.png")}
+              style={styles.icon}
+            />
+            <Text style={styles.inputTitle}>New Password</Text>
+          </View>
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={(styles.input, styles.box)}
+            placeholder="   Password"
+            placeholderTextColor="#5e5e5e"
+            value={newPassword}
+            secureTextEntry={true}
+            onChangeText={(text) => setNewPassword(text)}
+          />
+        </View>
+
+        <View style={styles.inputTitleContainer}>
+          <View style={styles.inputContainer}>
+            <Image
+              source={require("../assets/password-icon.png")}
+              style={styles.icon2}
+            />
+            <Text style={styles.inputTitle2}>Confirm Password</Text>
+          </View>
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={(styles.input, styles.box)}
+            placeholder="  Confirm Password"
+            placeholderTextColor="#5e5e5e"
+            value={confirmPassword}
+            secureTextEntry={true}
+            onChangeText={(text) => setConfirmPassword(text)}
+          />
+        </View>
+
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: "#6e7f62" }]}
+          onPress={handleContinue}
+        >
+          <Text style={styles.buttonText}>Change</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleSignIn}>
+          <Text style={styles.signInLink}>Return to the Sign In</Text>
+        </TouchableOpacity>
+        {isModalVisible && (
+          <CustomModal
+            isVisible={isModalVisible}
+            onClose={handleCloseModal}
+            title="Password Changed!"
+            description="Your password has been successfully reset, click below to continue your access."
+            buttonText="Continue"
+          />
+        )}
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  logoFlexBox: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  changeLayout: {
-    width: "100%",
-    overflow: "hidden",
+  backgroundImage: {
     flex: 1,
-  },
-  botonconfirmLayout: {
-    borderRadius: Border.br_3xs,
-    alignSelf: "stretch",
-  },
-  confirmFlexBox: {
-    textAlign: "center",
-    color: Color.colorWhite,
-    letterSpacing: 0,
-  },
-  passwordPosition: {
-    height: 64,
-    width: 233,
-    marginLeft: -116,
-    left: "50%",
-    top: "50%",
-    position: "absolute",
+    resizeMode: "cover",
     justifyContent: "center",
     alignItems: "center",
   },
-  newFlexBox: {
-    color: Color.colorBlack,
-    textAlign: "center",
-    letterSpacing: 0,
-    alignSelf: "stretch",
-  },
-  introPosition: {
-    left: "50%",
-    position: "absolute",
-    justifyContent: "center",
+  container: {
+    width: "90%",
+    padding: 16,
+    backgroundColor: "transparent",
     alignItems: "center",
   },
-  yourTypo: {
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-  },
-  changePasswordChild: {
-    maxWidth: "100%",
-    maxHeight: "100%",
-    zIndex: 0,
-    alignSelf: "stretch",
-    overflow: "hidden",
-  },
-  botonConfirmOverlay: {
-    flex: 1,
-    alignItems: "center",
+  title: {
+    color: "black",
+    fontSize: 25,
     justifyContent: "center",
-    backgroundColor: "rgba(113, 113, 113, 0.3)",
+    alignContent: "center",
+    top: 70,
   },
-  botonConfirmBg: {
-    position: "absolute",
-    width: "100%",
+  title2: {
+    color: "white",
+    fontSize: 15,
+    justifyContent: "center",
+    alignContent: "center",
+    fontWeight: "bold",
+    bottom: 80,
+  },
+  title3: {
+    color: "white",
+    fontSize: 15,
+    justifyContent: "center",
+    alignContent: "center",
+    fontWeight: "bold",
+    marginBottom: 20,
+    bottom: 80,
+  },
+
+  image: {
+    width: 300,
     height: "100%",
-    left: 0,
-    top: 0,
   },
-  confirm: {
-    fontSize: FontSize.size_lg,
-    display: "flex",
-    width: 215,
-    height: 27,
-    fontFamily: FontFamily.poppinsBold,
-    fontWeight: "700",
-    justifyContent: "center",
+
+  logoContainer: {
+    width: 300,
+    height: 100,
+    marginBottom: 25,
+    marginTop: 40,
+    bottom: 120,
+    left: -5,
+  },
+
+  button: {
+    borderRadius: 12,
+    padding: 10,
     alignItems: "center",
-  },
-  botonconfirm: {
-    marginTop: 155,
-    marginLeft: -109,
-    backgroundColor: Color.colorGray_100,
-    height: 47,
-    paddingHorizontal: 0,
-    paddingVertical: Padding.p_3xs,
-    zIndex: 1,
-    left: "50%",
-    position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
-    top: "50%",
-    borderRadius: Border.br_3xs,
-  },
-  newPassword: {
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-    fontSize: FontSize.size_mini,
-  },
-  passwordChild: {
-    borderStyle: "solid",
-    borderColor: Color.colorGray_100,
-    borderWidth: 2,
-    height: 38,
-    marginTop: 3,
-  },
-  password: {
-    marginTop: -21,
-    zIndex: 2,
-  },
-  password1: {
-    marginTop: 75,
-    zIndex: 3,
-  },
-  advenscapeMesaDeTrabajo11: {
-    width: 230,
-    height: 111,
-  },
-  logo: {
-    width: 267,
-    height: 131,
-    padding: Padding.p_3xs,
-  },
-  setYourNew: {
-    fontSize: FontSize.size_xl,
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-  },
-  yourNewPassword: {
-    fontSize: FontSize.size_mini,
-    fontWeight: "500",
-    textAlign: "center",
-    color: Color.colorWhite,
-    letterSpacing: 0,
-    alignSelf: "stretch",
-  },
-  descrip: {
-    alignSelf: "stretch",
-  },
-  intro: {
-    marginLeft: -134,
-    top: 32,
-    width: 269,
-    height: 219,
-    zIndex: 4,
-    left: "50%",
-    position: "absolute",
-  },
-  arrowIcon: {
-    width: 32,
-    height: 20,
-    overflow: "hidden",
-  },
-  returnToThe: {
-    fontSize: FontSize.size_sm,
-    fontFamily: FontFamily.poppinsBold,
-    fontWeight: "700",
-  },
-  text: {
-    flex: 1,
-    alignItems: "center",
-  },
-  return: {
-    marginLeft: -115,
-    bottom: 48,
-    height: 21,
     flexDirection: "row",
-    zIndex: 5,
-    left: "50%",
-    position: "absolute",
-    alignSelf: "stretch",
-  },
-  changePassword: {
-    backgroundColor: Color.colorWhite,
-    height: 650,
-    overflow: "hidden",
+    justifyContent: "center",
     width: "100%",
-    flex: 1,
+    marginTop: 30,
+    bottom: 10,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+    fontFamily: "Roboto",
+  },
+
+  signInLink: {
+    color: "#6e7f62",
+    fontWeight: "bold",
+    marginLeft: 5,
+    marginTop: 45,
+    top: 30,
+  },
+
+  errorText: {
+    color: "#6e7f62",
+    fontSize: 14,
+    fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  inputTitleContainer: {
+    width: "100%",
+    marginBottom: 5,
+    right: 25,
+  },
+  inputTitle: {
+    color: "black",
+    fontWeight: "bold",
+    fontSize: 16,
+    right: 85,
+    bottom: -8,
+  },
+  inputTitle2: {
+    color: "black",
+    fontWeight: "bold",
+    fontSize: 16,
+    right: 70,
+    bottom: -8,
+  },
+  inputContainer: {
+    flexDirection: "row",
+    margin: 2,
+    width: "100%",
+    justifyContent: "center",
+    left: 9,
+  },
+  icon: {
+    marginTop: 8,
+    width: 20,
+    height: 20,
+    right: 80,
+    marginRight: 10,
+  },
+  icon2: {
+    marginTop: 8,
+    width: 20,
+    height: 20,
+    right: 65,
+    marginRight: 10,
+  },
+  box: {
+    borderStyle: "solid",
+    borderColor: "#6e7f62",
+    borderWidth: 2,
+    height: 45,
+    width: 223,
+    width: "100%",
+    right: 10,
+    borderRadius: 10,
   },
 });
 

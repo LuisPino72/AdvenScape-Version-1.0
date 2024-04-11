@@ -1,255 +1,360 @@
-import React, { useState, useCallback } from "react";
-import { Image } from "expo-image";
+import React, { useState } from "react";
 import {
-  StyleSheet,
-  Text,
-  Pressable,
   View,
+  Text,
   TextInput,
-  Modal,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+  Image,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import MessageSignUp from "../components/MessageSignUp";
-import UserCard from "../components/UserCard";
-import { Color, FontFamily, Border, FontSize, Padding } from "../GlobalStyles";
 
-const SignUp = () => {
-  const navigation = useNavigation();
-  const [botonCreateVisible, setBotonCreateVisible] = useState(false);
+import CustomModal from "../components/CustomModal";
+import { register } from '../api/Auth';
 
-  const openBotonCreate = useCallback(() => {
-    setBotonCreateVisible(true);
-  }, []);
+const SignUp = ({ navigation }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [name, setname] = useState("");
 
-  const closeBotonCreate = useCallback(() => {
-    setBotonCreateVisible(false);
-  }, []);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const validateInputs = () => {
+    if (
+      !username.trim() ||
+      !password.trim() ||
+      !email.trim() ||
+      !name.trim() ||
+      !confirmPassword.trim()
+    ) {
+      setErrorMessage("All fields are required");
+      return false;
+    }
+
+    if (!isValidEmail(email)) {
+      setErrorMessage("Invalid email format");
+      return false;
+    }
+    setErrorMessage("");
+    return true;
+  };
+
+  const handleContinue = async () => {
+    if (!validateInputs()) {
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setErrorMessage("Passwords do not match");
+      return;
+    }
+    const userData = {
+      username,
+      name,
+      email,
+      password,
+    };
+
+    try {
+      const response = await register(userData);
+
+      console.info(response);
+
+      if (response?.Message === "User created") {
+        console.log("Register successful!");
+        setIsModalVisible(true);
+      } else {
+        setErrorMessage(response?.Message || "Register failed");
+      }
+    } catch (error) {
+      console.error("Error in:", error);
+      setErrorMessage("Network Error");
+    }
+  };
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  const handleSignIn = () => {
+    navigation.navigate("SignIn");
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+    navigation.navigate("Feed");
+  };
 
   return (
-    <>
-      <View style={[styles.signUp, styles.signUpFlexBox]}>
-        <Image
-          style={[styles.fondoIcon, styles.signUpLayout]}
-          contentFit="cover"
-          source={require("../assets/fondo1.png")}
-        />
-        <View style={[styles.returnsignin, styles.botoncreatePosition]}>
-          <Text
-            style={[styles.alreadyAMemberContainer, styles.newPasswordFlexBox]}
-          >
-            <Text style={styles.alreadyAMember}>Already a member</Text>
-            <Text style={styles.textTypo}>{`? `}</Text>
-          </Text>
-          <Pressable onPress={() => navigation.navigate("SignIn")}>
-            <Text style={[styles.signIn1, styles.signIn1Typo]}>Sign In</Text>
-          </Pressable>
-        </View>
-        <Pressable
-          style={[styles.botoncreate, styles.botoncreateLayout]}
-          onPress={openBotonCreate}
-        >
-          <Text style={[styles.createAccount, styles.signIn1Typo]}>
-            Create Account
-          </Text>
-        </Pressable>
-        <View style={styles.intro}>
+    <ImageBackground
+      source={require("../assets/fondo.png")}
+      style={styles.backgroundImage}
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Sign up</Text>
+        <Text style={styles.title}>To</Text>
+        <View style={styles.logoContainer}>
           <Image
-            style={styles.advenscapeMesaDeTrabajo11}
-            contentFit="cover"
-            source={require("../assets/advenscape-mesa-de-trabajo-1-12.png")}
+            source={require("../assets/advenscape-mesa-de-trabajo-1-11.png")}
+            style={styles.image}
           />
         </View>
-        <UserCard displayName="Name" />
-        <UserCard displayName="Username" propMarginTop={-113} />
-        <UserCard
-          displayName="E-mail"
-          userInfoText="example@gmail.com"
-          propMarginTop={-35}
-        />
-        <View style={[styles.password, styles.passwordPosition]}>
-          <Text style={[styles.newPassword, styles.textTypo]}>
-            New Password
-          </Text>
-          <TextInput
-            style={[styles.passwordChild, styles.botoncreateLayout]}
-            keyboardType="default"
-            secureTextEntry={true}
-          />
-        </View>
-        <View style={[styles.password1, styles.passwordPosition]}>
-          <Text style={[styles.newPassword, styles.textTypo]}>
-            Confim Password
-          </Text>
-          <TextInput
-            style={[styles.passwordChild, styles.botoncreateLayout]}
-            keyboardType="default"
-            secureTextEntry={true}
-          />
-        </View>
-      </View>
 
-      <Modal animationType="fade" transparent visible={botonCreateVisible}>
-        <View style={styles.botonCreateOverlay}>
-          <Pressable style={styles.botonCreateBg} onPress={closeBotonCreate} />
-          <MessageSignUp onClose={closeBotonCreate} />
+        <Text style={styles.title2}>
+          Please enter the following information
+        </Text>
+        {errorMessage !== "" && (
+          <Text style={styles.errorText}>{errorMessage}</Text>
+        )}
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Username</Text>
+          <TextInput
+            style={(styles.input, styles.box)}
+            placeholder="  Enter username"
+            keyboardType="default"
+            placeholderTextColor="#5e5e5e"
+            value={username}
+            onChangeText={(text) => setUsername(text)}
+          />
         </View>
-      </Modal>
-    </>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Name</Text>
+          <TextInput
+            style={(styles.input, styles.box)}
+            placeholder="  Enter your name"
+            placeholderTextColor="#5e5e5e"
+            value={name}
+            onChangeText={(text) => setname(text)}
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>E-mail</Text>
+          <TextInput
+            style={(styles.input, styles.box)}
+            placeholder="  Enter your e-mail"
+            placeholderTextColor="#5e5e5e"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Password</Text>
+          <View style={styles.passwordContainer}>
+            <TextInput
+              style={(styles.input2, styles.box)}
+              placeholder="  Enter your password"
+              placeholderTextColor="#5e5e5e"
+              value={password}
+              secureTextEntry={!showPassword}
+              onChangeText={(text) => setPassword(text)}
+            />
+            <TouchableOpacity
+              onPress={() => setShowPassword(!showPassword)}
+              style={styles.eyeIconContainer}
+            ></TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Confirm Password</Text>
+          <View style={styles.passwordContainer}>
+            <TextInput
+              style={(styles.input2, styles.box)}
+              placeholder="  Confirm your password"
+              placeholderTextColor="#5e5e5e"
+              value={confirmPassword}
+              secureTextEntry={!showConfirmPassword}
+              onChangeText={(text) => setConfirmPassword(text)}
+            />
+            <TouchableOpacity
+              onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+              style={styles.eyeIconContainer}
+            ></TouchableOpacity>
+          </View>
+        </View>
+
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: "#6e7f62" }]}
+          onPress={handleContinue}
+        >
+          <Text style={styles.buttonText}>Create Account</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.signInText}>
+        Already a member?{" "}
+        <TouchableOpacity onPress={handleSignIn}>
+          <Text style={styles.signInLink}>Sign In</Text>
+        </TouchableOpacity>
+      </Text>
+      {isModalVisible && (
+        <CustomModal
+          isVisible={isModalVisible}
+          onClose={handleCloseModal}
+          title="Account Created"
+          description="Your AdvenScape account has been successfully created."
+          buttonText="Accept"
+        />
+      )}
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  signUpFlexBox: {
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
     justifyContent: "center",
     alignItems: "center",
   },
-  signUpLayout: {
-    overflow: "hidden",
+  container: {
+    width: "90%",
+    padding: 16,
+    backgroundColor: "transparent",
+    alignItems: "center",
+  },
+  title: {
+    color: "black",
+    top: 20,
+    fontSize: 30,
+    justifyContent: "center",
+    alignContent: "center",
+    fontFamily: "Roboto",
+  },
+  title2: {
+    //please enter your....
+    color: "black",
+    justifyContent: "center",
+    alignContent: "center",
+    fontWeight: "bold",
+    fontSize: 14,
+    marginBottom: 10,
+    textAlign: "center",
+    bottom: 65,
+  },
+  inputContainer: {
+    marginBottom: 40,
+    top: -70,
+    height: 45,
     width: "100%",
-    flex: 1,
+    left: 10,
   },
-  botoncreatePosition: {
+  input: {
+    height: 30,
+    borderColor: "transparent",
+    backgroundColor: "transparent",
+    color: "white",
+    flex: 1,
+
+    padding: 10,
+  },
+  // input2: {
+  //   height: 25,
+  //   borderColor: "transparent",
+  //   backgroundColor: "transparent",
+  //   color: "white",
+  //   flex: 1,
+  // },
+
+  button: {
+    borderRadius: 12,
+    padding: 10,
+
+    alignItems: "center",
     flexDirection: "row",
-    left: "50%",
-    position: "absolute",
-  },
-  newPasswordFlexBox: {
-    textAlign: "center",
-    letterSpacing: 0,
-    color: Color.colorBlack,
-  },
-  signIn1Typo: {
-    display: "flex",
-    fontFamily: FontFamily.poppinsBold,
-    fontWeight: "700",
-    textAlign: "center",
-    letterSpacing: 0,
     justifyContent: "center",
-    alignItems: "center",
-  },
-  botoncreateLayout: {
-    borderRadius: Border.br_3xs,
-    alignSelf: "stretch",
-  },
-  passwordPosition: {
-    height: 64,
-    width: 233,
-    top: "50%",
-    marginLeft: -117,
-    left: "50%",
-    position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  textTypo: {
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-  },
-  fondoIcon: {
-    maxWidth: "100%",
-    maxHeight: "100%",
-    zIndex: 0,
-    alignSelf: "stretch",
-  },
-  alreadyAMember: {
-    fontFamily: FontFamily.poppinsRegular,
-  },
-  alreadyAMemberContainer: {
-    fontSize: FontSize.size_xs,
-    letterSpacing: 0,
-    flex: 1,
-  },
-  signIn1: {
-    height: 36,
-    color: Color.colorBlack,
-    display: "flex",
-    fontFamily: FontFamily.poppinsBold,
-    fontWeight: "700",
-    fontSize: FontSize.size_xs,
-    flex: 1,
-  },
-  returnsignin: {
-    marginLeft: -100,
-    bottom: 8,
-    paddingBottom: Padding.p_9xs,
-    zIndex: 1,
-    alignSelf: "stretch",
-  },
-  botonCreateOverlay: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "rgba(113, 113, 113, 0.3)",
-  },
-  botonCreateBg: {
-    position: "absolute",
     width: "100%",
-    height: "100%",
-    left: 0,
-    top: 0,
+    marginTop: 10,
+    top: -55,
   },
-  createAccount: {
-    fontSize: FontSize.size_lg,
-    color: Color.colorWhite,
-    width: 166,
+  buttonText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+    fontFamily: "Roboto",
   },
-  botoncreate: {
-    marginLeft: -109,
-    bottom: 71,
-    backgroundColor: Color.colorGray_100,
-    height: 47,
-    paddingHorizontal: 52,
-    paddingVertical: 11,
-    zIndex: 2,
+  signUpText: {
+    color: "white",
+    fontSize: 14,
+    marginTop: 10,
     flexDirection: "row",
-    left: "50%",
-    position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
+    alignItems: "baseline",
   },
-  advenscapeMesaDeTrabajo11: {
-    width: 224,
-    height: 105,
+
+  signUpLink: {
+    color: "#FF4500",
+    fontWeight: "bold",
+    marginLeft: 5,
+    marginTop: 1,
+    paddingTop: 15,
   },
-  intro: {
-    marginLeft: -129,
-    top: 31,
-    height: 95,
-    zIndex: 3,
-    left: "50%",
-    position: "absolute",
-    alignSelf: "stretch",
-    justifyContent: "center",
-    alignItems: "center",
+  label: {
+    color: "black",
+    fontSize: 15,
+    fontWeight: "bold",
+    marginTop: 10,
+    marginBottom: 10,
   },
-  newPassword: {
-    fontSize: FontSize.size_mini,
+
+  errorText: {
+    color: "#6E7F62",
+    fontWeight: "bold",
+    fontSize: 14,
+    marginBottom: 10,
     textAlign: "center",
-    letterSpacing: 0,
-    color: Color.colorBlack,
-    alignSelf: "stretch",
+    bottom: 70,
   },
-  passwordChild: {
-    borderStyle: "solid",
-    borderColor: Color.colorGray_100,
-    borderWidth: 2,
-    height: 38,
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    height: 30,
+    width: "100%",
+  },
+
+  logoContainer: {
+    width: 300,
+    height: 100,
+    marginBottom: 25,
     marginTop: 10,
   },
-  password: {
-    marginTop: 44,
-    zIndex: 7,
+  image: {
+    width: 300,
+    height: "100%",
+    top: -45,
   },
-  password1: {
-    marginTop: 121,
-    zIndex: 8,
-  },
-  signUp: {
-    backgroundColor: Color.colorWhite,
-    height: 650,
-    overflow: "hidden",
+  box: {
+    borderStyle: "solid",
+    borderColor: "#6e7f62",
+    borderWidth: 2,
+    height: 45,
+    width: 223,
     width: "100%",
-    flex: 1,
+    right: 10,
+    borderRadius: 10,
+  },
+  signInText: {
+    color: "black",
+    fontWeight: "bold",
+    fontSize: 14,
+    marginTop: 20,
+    bottom: 40,
+    left: -7,
+    textAlign: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  signInLink: {
+    color: "#6e7f62",
+    fontWeight: "bold",
+    left: 5,
+    bottom: -4,
   },
 });
 

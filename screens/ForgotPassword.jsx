@@ -1,273 +1,246 @@
-import React, { useState, useCallback } from "react";
-import { Image } from "expo-image";
+import React, { useState } from "react";
 import {
-  StyleSheet,
-  Pressable,
+  View,
   Text,
   TextInput,
-  View,
-  Modal,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+  Image,
 } from "react-native";
-import MessageEmail from "../components/MessageEmail";
-import { useNavigation } from "@react-navigation/native";
-import { Border, FontFamily, FontSize, Color, Padding } from "../GlobalStyles";
+import CustomModal from "../components/CustomModal";
 
-const ForgotPassword = () => {
-  const [botonSendVisible, setBotonSendVisible] = useState(false);
-  const navigation = useNavigation();
+const ForgotPassword = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const openBotonSend = useCallback(() => {
-    setBotonSendVisible(true);
-  }, []);
+  const handleSignIn = () => {
+    navigation.navigate("SignIn");
+  };
 
-  const closeBotonSend = useCallback(() => {
-    setBotonSendVisible(false);
-  }, []);
+  const handleContinue = () => {
+    if (!validateInputs()) {
+      return;
+    }
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+    navigation.navigate("ChangePassword");
+  };
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateInputs = () => {
+    if (!email.trim()) {
+      setErrorMessage("E-mail are required");
+      return false;
+    }
+
+    if (!isValidEmail(email)) {
+      setErrorMessage("Invalid e-mail format");
+      return false;
+    }
+
+    setErrorMessage("");
+    return true;
+  };
 
   return (
-    <>
-      <View style={[styles.forgotPassword, styles.emailoruserFlexBox]}>
-        <Image
-          style={[styles.fondoIcon, styles.fondoIconLayout]}
-          contentFit="cover"
-          source={require("../assets/fondo2.png")}
-        />
-        <Pressable
-          style={[styles.botonsend, styles.barraFlexBox]}
-          onPress={openBotonSend}
-        >
-          <Text style={[styles.sendAccessLink, styles.backFlexBox]}>
-            Send access link
-          </Text>
-        </Pressable>
-        <View style={[styles.emailoruser, styles.introPosition]}>
-          <Text style={styles.eMailOrUsername}>E-mail or username</Text>
-          <View style={[styles.barra, styles.barraFlexBox]}>
-            <TextInput
-              style={styles.examplegmailcom}
-              placeholder="example@gmail.com"
-              keyboardType="email-address"
-              placeholderTextColor="#000"
-            />
-          </View>
+    <ImageBackground
+      source={require("../assets/fondo2.png")}
+      style={styles.backgroundImage}
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Recover your account</Text>
+        <View style={styles.logoContainer}>
+          <Image
+            source={require("../assets/advenscape-mesa-de-trabajo-1-13.png")}
+            style={styles.image}
+          />
         </View>
-        <Pressable
-          style={[styles.botonback, styles.introPosition]}
-          onPress={() => navigation.navigate("SignIn")}
-        >
-          <Text style={[styles.back, styles.backFlexBox]}>Back</Text>
-        </Pressable>
-        <View style={[styles.intro, styles.introPosition]}>
-          <View style={[styles.logo, styles.logoFlexBox]}>
-            <Image
-              style={[styles.advenscapeMesaDeTrabajo11, styles.fondoIconLayout]}
-              contentFit="cover"
-              source={require("../assets/advenscape-mesa-de-trabajo-1-13.png")}
-            />
-          </View>
-          <View style={[styles.descrip, styles.logoFlexBox]}>
-            <Text style={[styles.recoverYourAccount, styles.yourFlexBox]}>
-              Recover your account
-            </Text>
-            <Text style={[styles.enterYourEmail, styles.yourFlexBox]}>
-              Enter your email or username and we'll send you a link to log back
-              into your account.
-            </Text>
-          </View>
-        </View>
-      </View>
+        <Text style={styles.title2}>Enter your e-mail and</Text>
+        <Text style={styles.title3}>
+          we'll send you a link to log back into
+        </Text>
+        <Text style={styles.title4}> your account</Text>
+        {errorMessage !== "" && (
+          <Text style={styles.errorText}>{errorMessage}</Text>
+        )}
 
-      <Modal animationType="fade" transparent visible={botonSendVisible}>
-        <View style={styles.botonSendOverlay}>
-          <Pressable style={styles.botonSendBg} onPress={closeBotonSend} />
-          <MessageEmail onClose={closeBotonSend} />
+        <View style={styles.inputTitleContainer}>
+          <View style={styles.inputContainer}>
+            <Image
+              source={require("../assets/email-icon.png")}
+              style={styles.icon}
+            />
+            <Text style={styles.inputTitle}>E-mail </Text>
+          </View>
         </View>
-      </Modal>
-    </>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={(styles.input, styles.box)}
+            placeholder="   Enter e-mail address"
+            placeholderTextColor="#5e5e5e"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+        </View>
+
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: "#6e7f62" }]}
+          onPress={handleContinue}
+        >
+          <Text style={styles.buttonText}>Send access link</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleSignIn}>
+          <Text style={styles.signUpLink}>Back</Text>
+        </TouchableOpacity>
+        <CustomModal
+          isVisible={isModalVisible}
+          onClose={handleCloseModal}
+          title="E-mail sent"
+          description="We send an email to your email address with a link to regain access to your account.."
+          buttonText="Accept"
+        />
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  emailoruserFlexBox: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  fondoIconLayout: {
-    maxWidth: "100%",
-    alignSelf: "stretch",
-    overflow: "hidden",
-    width: "100%",
-  },
-  barraFlexBox: {
-    borderRadius: Border.br_3xs,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  backFlexBox: {
-    display: "flex",
-    textAlign: "center",
-    fontFamily: FontFamily.poppinsBold,
-    fontWeight: "700",
-    letterSpacing: 0,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  introPosition: {
-    left: "50%",
-    position: "absolute",
-    alignSelf: "stretch",
-  },
-  logoFlexBox: {
-    alignItems: "center",
-    alignSelf: "stretch",
-  },
-  yourFlexBox: {
-    width: 255,
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-    display: "flex",
-    textAlign: "center",
-    letterSpacing: 0,
-    justifyContent: "center",
-    alignItems: "center",
+  backgroundImage: {
     flex: 1,
-  },
-  fondoIcon: {
-    maxHeight: "100%",
-    zIndex: 0,
-    flex: 1,
-    maxWidth: "100%",
-  },
-  botonSendOverlay: {
-    flex: 1,
-    alignItems: "center",
+    resizeMode: "cover",
     justifyContent: "center",
-    backgroundColor: "rgba(113, 113, 113, 0.3)",
+    alignItems: "center",
   },
-  botonSendBg: {
-    position: "absolute",
-    width: "100%",
+  container: {
+    width: "90%",
+    padding: 16,
+    backgroundColor: "transparent",
+    alignItems: "center",
+  },
+  title: {
+    color: "black",
+    fontSize: 25,
+    justifyContent: "center",
+    alignContent: "center",
+    fontFamily: "Roboto",
+    top: 70,
+  },
+  title2: {
+    color: "white",
+    fontSize: 15,
+    justifyContent: "center",
+    alignContent: "center",
+    fontWeight: "light",
+    bottom: 80,
+  },
+  title3: {
+    color: "white",
+    fontSize: 15,
+    justifyContent: "center",
+    alignContent: "center",
+    fontWeight: "light",
+    bottom: 80,
+  },
+  title4: {
+    color: "white",
+    fontSize: 15,
+    justifyContent: "center",
+    alignContent: "center",
+    paddingBottom: 20,
+    fontWeight: "light",
+    bottom: 80,
+  },
+
+  image: {
+    width: 300,
     height: "100%",
-    left: 0,
-    top: 0,
   },
-  sendAccessLink: {
-    fontSize: FontSize.size_lg,
-    width: 161,
-    height: 43,
-    color: Color.colorWhite,
-    textAlign: "center",
-    fontFamily: FontFamily.poppinsBold,
-    fontWeight: "700",
-    letterSpacing: 0,
+
+  logoContainer: {
+    width: 300,
+    height: 100,
+    marginBottom: 25,
+    marginTop: 40,
+    bottom: 120,
+    left: -5,
   },
-  botonsend: {
-    marginTop: 137,
-    marginLeft: -90,
-    backgroundColor: Color.colorGray_100,
-    height: 45,
-    paddingHorizontal: 0,
-    paddingVertical: Padding.p_3xs,
-    zIndex: 1,
-    left: "50%",
-    position: "absolute",
-    alignSelf: "stretch",
-    top: "50%",
-  },
-  eMailOrUsername: {
-    color: Color.colorBlack,
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-    fontSize: FontSize.size_mini,
-    display: "flex",
-    textAlign: "center",
-    letterSpacing: 0,
-    alignSelf: "stretch",
+
+  button: {
+    borderRadius: 12,
+    padding: 10,
+    alignItems: "center",
+    flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
+    width: "100%",
+    marginTop: 30,
+    bottom: 10,
   },
-  examplegmailcom: {
-    fontWeight: "300",
-    fontFamily: FontFamily.poppinsLight,
-    fontSize: FontSize.size_sm,
-    alignSelf: "stretch",
+  buttonText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+    fontFamily: "Roboto",
   },
-  barra: {
-    borderStyle: "solid",
-    borderColor: Color.colorGray_100,
-    borderWidth: 2,
-    width: 223,
-    height: 38,
-    marginTop: 7,
+
+  signUpLink: {
+    color: "#6e7f62",
+    fontWeight: "bold",
+    marginLeft: 5,
+    marginTop: 45,
+    top: 100,
   },
-  emailoruser: {
-    marginTop: 49,
-    marginLeft: -116,
-    zIndex: 2,
-    top: "50%",
-    left: "50%",
-    position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
+  errorText: {
+    color: "#6e7f62",
+    fontWeight: "bold",
+    fontSize: 16,
+    marginTop: 10,
   },
-  back: {
-    fontSize: FontSize.size_smi,
-    color: Color.colorBlack,
-    textAlign: "center",
-    fontFamily: FontFamily.poppinsBold,
-    fontWeight: "700",
-    letterSpacing: 0,
-    alignSelf: "stretch",
-    flex: 1,
+
+  inputTitleContainer: {
+    width: "100%",
+    marginBottom: 5,
+    right: 50,
   },
-  botonback: {
-    marginLeft: -16,
-    bottom: 26,
-    height: 20,
-    justifyContent: "flex-end",
-    zIndex: 3,
-    position: "absolute",
-    left: "50%",
-    alignItems: "center",
+  inputTitle: {
+    color: "black",
+    fontWeight: "bold",
+    fontSize: 16,
+    right: 85,
+    bottom: -8,
   },
-  advenscapeMesaDeTrabajo11: {
-    height: 111,
-  },
-  logo: {
-    height: 131,
-    padding: Padding.p_3xs,
-    alignSelf: "stretch",
-  },
-  recoverYourAccount: {
-    fontSize: FontSize.size_xl,
-    color: Color.colorBlack,
-  },
-  enterYourEmail: {
-    fontSize: FontSize.size_mini,
-    width: 255,
-    color: Color.colorWhite,
-  },
-  descrip: {
-    height: 121,
-    alignSelf: "stretch",
-  },
-  intro: {
-    marginLeft: -133,
-    top: 32,
-    height: 261,
-    zIndex: 4,
-    position: "absolute",
-    left: "50%",
-    alignItems: "center",
-  },
-  forgotPassword: {
-    backgroundColor: Color.colorWhite,
-    height: 650,
-    overflow: "hidden",
+  inputContainer: {
+    flexDirection: "row",
+    margin: 2,
     width: "100%",
     justifyContent: "center",
-    flex: 1,
+    left: 9,
+  },
+  icon: {
+    marginTop: 8,
+    width: 20,
+    height: 20,
+    right: 80,
+    marginRight: 10,
+  },
+
+  box: {
+    borderStyle: "solid",
+    borderColor: "#6e7f62",
+    borderWidth: 2,
+    height: 45,
+    width: 223,
+    width: "100%",
+    right: 10,
+    borderRadius: 10,
   },
 });
 

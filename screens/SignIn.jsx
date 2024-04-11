@@ -1,332 +1,293 @@
-import * as React from "react";
-import { Image } from "expo-image";
-import { StyleSheet, Text, Pressable, View, TextInput } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { Color, FontSize, FontFamily, Border, Padding } from "../GlobalStyles";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+  Image,
+} from "react-native";
+import { BackHandler } from "react-native";
+import { login } from "../api/Auth/index";
 
-const SignIn = () => {
-  const navigation = useNavigation();
+const SignIn = ({ navigation }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    const backAction = () => {
+      if (navigation.isFocused()) {
+        return true;
+      }
+      return false;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => backHandler.remove();
+  }, [navigation]);
+
+  const handleLogin = async () => {
+    try {
+      const response = await login(username, password);
+
+      console.info(response);
+
+      if (response?.Message === "Success") {
+        console.log("Login successful!");
+      } else {
+        setErrorMessage(response?.Message || "Login failed");
+        return;
+      }
+    } catch (error) {
+      console.error("Error logging in:", error);
+      setErrorMessage("Network Error");
+      return;
+    }
+
+    setErrorMessage("");
+
+    if (username.trim() === "" || password.trim() === "") {
+      setErrorMessage("Username and password are required");
+      return;
+    }
+
+    navigation.navigate("Feed");
+  };
+
+  const handleForgotPassword = () => {
+    navigation.navigate("ForgotPassword");
+  };
+
+  const handleSignUp = () => {
+    navigation.navigate("SignUp");
+  };
 
   return (
-    <View style={styles.signIn}>
-      <Image
-        style={[styles.fondoIcon, styles.fondoIconPosition]}
-        contentFit="cover"
-        source={require("../assets/fondo.png")}
-      />
-      <View style={[styles.signip, styles.signipPosition]}>
-        <Text
-          style={[styles.dontHaveAn, styles.signUp1Layout]}
-        >{`Don’t have an account? `}</Text>
-        <Pressable
-          style={styles.signUp}
-          onPress={() => navigation.navigate("SignUp")}
-        >
-          <Text style={[styles.signUp1, styles.login1Typo]}>Sign Up</Text>
-        </Pressable>
-      </View>
-      <Pressable
-        style={styles.login}
-        onPress={() => navigation.navigate("Feed")}
-      >
-        <Text style={[styles.login1, styles.login1Typo]}>Login</Text>
-      </Pressable>
-      <View style={[styles.email, styles.emailPosition]}>
-        <Text style={[styles.eMailAddress, styles.passwordTypo]}>
-          E-mail address
-        </Text>
-        <View style={[styles.cajaDeEmail, styles.barraBorder]}>
-          <TextInput
-            style={[styles.examplegmailcom, styles.examplegmailcomTypo]}
-            placeholder="example@gmail.com"
-            keyboardType="email-address"
-            placeholderTextColor="#000"
+    <ImageBackground
+      source={require("../assets/fondo.png")}
+      style={styles.backgroundImage}
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Welcome </Text>
+        <Text style={styles.title}>to </Text>
+        <View style={styles.logoContainer}>
+          <Image
+            source={require("../assets/advenscape-mesa-de-trabajo-1-11.png")}
+            style={styles.image}
           />
         </View>
-      </View>
-      <Pressable
-        style={[styles.forgotpass, styles.barraPosition]}
-        onPress={() => navigation.navigate("ForgotPassword")}
-      >
-        <Pressable onPress={() => navigation.navigate("ForgotPassword")}>
-          <Text style={[styles.forgotThePassword, styles.welcomeToFlexBox]}>
-            Forgot the password?
-          </Text>
-        </Pressable>
-      </Pressable>
-      <View style={[styles.cintrasea, styles.emailPosition]}>
-        <View style={[styles.contrasea, styles.fondoIconPosition]}>
-          <Text style={styles.passwordTypo}>Password</Text>
-        </View>
-        <View style={[styles.barra, styles.barraBorder]}>
-          <TextInput
-            style={styles.examplegmailcomTypo}
-            placeholder="Enter your Password"
-            secureTextEntry={true}
-            placeholderTextColor="#000"
-          />
-          <View style={styles.mdieyeOutline}>
+
+        {errorMessage !== "" && (
+          <Text style={styles.errorText}>{errorMessage}</Text>
+        )}
+
+        <View style={styles.inputTitleContainer}>
+          <View style={styles.inputContainer}>
             <Image
-              style={styles.vectorIcon}
-              contentFit="cover"
-              source={require("../assets/vector.png")}
+              source={require("../assets/user-icon.png")}
+              style={styles.icon}
             />
+            <Text style={styles.inputTitle}>E-mail or Username</Text>
           </View>
         </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={(styles.input, styles.box)}
+            placeholder="   Example@gmail.com"
+            placeholderTextColor="#5e5e5e"
+            value={username}
+            onChangeText={(text) => setUsername(text)}
+          />
+        </View>
+
+        <View style={styles.inputTitleContainer}>
+          <View style={styles.inputContainer}>
+            <Image
+              source={require("../assets/password-icon.png")}
+              style={styles.icon}
+            />
+            <Text style={styles.inputTitle}>Password</Text>
+          </View>
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={(styles.input, styles.box)}
+            placeholder="   Password"
+            placeholderTextColor="#5e5e5e"
+            value={password}
+            secureTextEntry={true}
+            onChangeText={(text) => setPassword(text)}
+          />
+        </View>
+
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: "#6e7f62" }]}
+          onPress={handleLogin}
+        >
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+        <View style={styles.containerForgot}>
+          <TouchableOpacity onPress={handleForgotPassword}>
+            <Text style={[styles.forgotPassword, { marginLeft: "auto" }]}>
+              Forgot Password?
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.signUpText}>
+          Don't have an account?{" "}
+          <TouchableOpacity onPress={handleSignUp}>
+            <Text style={styles.signUpLink}>Sign up</Text>
+          </TouchableOpacity>
+        </Text>
       </View>
-      <View style={[styles.welcome, styles.signipPosition]}>
-        <Text style={[styles.welcomeTo, styles.welcomeToFlexBox]}>{`Welcome 
-to  `}</Text>
-        <Image
-          style={[styles.advenscapeMesaDeTrabajo11, styles.fondoIconLayout]}
-          contentFit="cover"
-          source={require("../assets/advenscape-mesa-de-trabajo-1-11.png")}
-        />
-      </View>
-    </View>
+    </ImageBackground>
   );
 };
-
 const styles = StyleSheet.create({
-  fondoIconPosition: {
-    zIndex: 0,
-    alignSelf: "stretch",
-  },
-  signipPosition: {
-    left: "50%",
-    position: "absolute",
-    alignItems: "center",
-  },
-  signUp1Layout: {
-    height: 36,
-    color: Color.colorBlack,
-    fontSize: FontSize.size_xs,
-    alignSelf: "stretch",
-  },
-  login1Typo: {
-    fontFamily: FontFamily.poppinsBold,
-    fontWeight: "700",
-    display: "flex",
-    textAlign: "center",
-    letterSpacing: 0,
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "cover",
     justifyContent: "center",
     alignItems: "center",
   },
-  emailPosition: {
-    width: 252,
-    marginLeft: -132,
-    left: "50%",
-    position: "absolute",
-    justifyContent: "center",
+  container: {
+    width: "90%",
+    padding: 16,
+    backgroundColor: "transparent",
     alignItems: "center",
   },
-  passwordTypo: {
-    fontSize: FontSize.size_mini,
-    textAlign: "center",
-    color: Color.colorBlack,
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-    letterSpacing: 0,
-  },
-  barraBorder: {
-    height: 38,
-    borderWidth: 2,
-    borderColor: Color.colorGray_100,
-    borderStyle: "solid",
-    backgroundColor: Color.colorGray_300,
-    borderRadius: Border.br_3xs,
+  title: {
+    color: "black",
+    top: -20,
+    fontSize: 30,
     justifyContent: "center",
-    alignItems: "center",
+    alignContent: "center",
+    fontWeight: "light",
+    fontFamily: "Roboto",
   },
-  examplegmailcomTypo: {
-    fontSize: FontSize.size_sm,
-    fontFamily: FontFamily.poppinsLight,
-    fontWeight: "300",
-  },
-  barraPosition: {
-    top: "50%",
-    left: "50%",
-    position: "absolute",
-  },
-  welcomeToFlexBox: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  fondoIconLayout: {
-    maxHeight: "100%",
-    maxWidth: "100%",
-    overflow: "hidden",
+
+  inputTitleContainer: {
     width: "100%",
-    flex: 1,
+    marginBottom: 5,
   },
-  fondoIcon: {
-    maxHeight: "100%",
-    maxWidth: "100%",
-    overflow: "hidden",
-    width: "100%",
-    flex: 1,
+  inputTitle: {
+    color: "black",
+    fontWeight: "bold",
+    marginBottom: 5,
+    fontSize: 16,
   },
-  dontHaveAn: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-    letterSpacing: 0,
-    height: 36,
-  },
-  signUp1: {
-    height: 36,
-    color: Color.colorBlack,
-    fontSize: FontSize.size_xs,
-    alignSelf: "stretch",
-  },
-  signUp: {
-    marginTop: 2,
-  },
-  signip: {
-    marginLeft: -93,
-    bottom: 19,
-    width: 187,
-    justifyContent: "flex-end",
-    zIndex: 1,
-  },
-  login1: {
-    fontSize: FontSize.size_lg,
-    color: Color.colorWhite,
-    width: 116,
-    height: 27,
-  },
-  login: {
-    marginTop: 100,
-    marginLeft: -101,
-    backgroundColor: Color.colorGray_100,
-    width: 203,
-    height: 47,
-    paddingHorizontal: 101,
-    paddingVertical: Padding.p_3xs,
-    zIndex: 2,
-    borderRadius: Border.br_3xs,
-    top: "50%",
-    left: "50%",
-    position: "absolute",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
-  },
-  eMailAddress: {
-    height: 23,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "stretch",
-  },
-  examplegmailcom: {
-    top: 9,
-    left: 6,
-    position: "absolute",
-    fontSize: FontSize.size_sm,
-    fontFamily: FontFamily.poppinsLight,
-    fontWeight: "300",
-    zIndex: 0,
-    flex: 1,
-  },
-  cajaDeEmail: {
-    width: 238,
-    marginTop: 12,
-  },
-  email: {
-    top: 243,
-    bottom: 334,
-    zIndex: 3,
-  },
-  forgotThePassword: {
-    height: 18,
-    textAlign: "center",
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-    letterSpacing: 0,
-    display: "flex",
-    color: Color.colorBlack,
-    alignSelf: "stretch",
-    fontSize: FontSize.size_xs,
-  },
-  forgotpass: {
-    marginTop: 160,
-    marginLeft: 21,
-    width: 92,
-    height: 59,
-    padding: Padding.p_3xs,
-    zIndex: 4,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  contrasea: {
-    height: 68,
-    alignItems: "center",
-  },
-  vectorIcon: {
-    width: 36,
-    height: 15,
-  },
-  mdieyeOutline: {
-    height: 24,
-    alignItems: "flex-end",
-    paddingHorizontal: 2,
-    paddingVertical: Padding.p_8xs,
-    marginLeft: 27,
-    justifyContent: "center",
-    overflow: "hidden",
-  },
-  barra: {
-    marginTop: -4,
-    marginLeft: -119,
+  inputContainer: {
     flexDirection: "row",
-    top: "50%",
-    left: "50%",
-    position: "absolute",
-    zIndex: 1,
-    alignSelf: "stretch",
-    overflow: "hidden",
-  },
-  cintrasea: {
-    top: 324,
-    bottom: 258,
-    zIndex: 5,
-  },
-  welcomeTo: {
-    fontSize: 28,
-    lineHeight: 33,
-    textAlign: "center",
-    fontFamily: FontFamily.poppinsMedium,
-    fontWeight: "500",
-    letterSpacing: 0,
-    display: "flex",
-    color: Color.colorBlack,
-    alignSelf: "stretch",
-    flex: 1,
-  },
-  advenscapeMesaDeTrabajo11: {
-    alignSelf: "stretch",
-  },
-  welcome: {
-    marginLeft: -111,
-    top: 31,
-    width: 222,
-    height: 141,
-    zIndex: 6,
-    justifyContent: "center",
-  },
-  signIn: {
-    backgroundColor: Color.colorWhite,
-    height: 650,
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
+    marginBottom: 1,
     width: "100%",
+    justifyContent: "center",
+  },
+  icon: {
+    marginTop: 8,
+    width: 20,
+    height: 20,
+    left: 20,
+  },
+  image: {
+    width: 300,
+    height: "100%",
+    top: -120,
+  },
+  logoContainer: {
+    width: 300,
+    height: 100,
+    marginBottom: 25,
+    marginTop: 60,
+  },
+  input: {
+    height: 35,
+    borderColor: "transparent",
+    borderWidth: 1,
+    marginBottom: 5,
+    padding: 8,
+    backgroundColor: "transparent",
+    borderRadius: 4,
+    color: "white",
     flex: 1,
+  },
+
+  button: {
+    borderRadius: 12,
+    padding: 10,
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "100%",
+    marginTop: 30,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+    fontFamily: "Roboto",
+  },
+  forgotPassword: {
+    color: "black",
+    fontWeight: "bold",
+    fontSize: 14,
+    marginTop: 30,
+    fontFamily: "Roboto",
+  },
+  signUpText: {
+    color: "black",
+    fontWeight: "bold",
+    fontSize: 14,
+    marginTop: 20,
+    bottom: -30,
+    left: -10,
+    textAlign: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  containerForgot: {
+    alignItems: "flex-end",
+    marginLeft: 170,
+  },
+
+  signUpLink: {
+    color: "#6e7f62",
+    fontWeight: "bold",
+    left: 5,
+    bottom: -4,
+  },
+  errorText: {
+    color: "#6e7f62",
+    fontWeight: "bold",
+    fontSize: 16,
+    marginTop: 10,
+  },
+  box: {
+    borderStyle: "solid",
+    borderColor: "#6e7f62",
+    borderWidth: 2,
+    height: 45,
+    width: 223,
+    width: "100%",
+    right: 10,
+    borderRadius: 10,
+  },
+
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    left: 10,
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    margin: 10,
+    marginLeft: -5,
   },
 });
 

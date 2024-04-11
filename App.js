@@ -8,19 +8,18 @@ import ResultBuscado from "./components/ResultBuscado";
 import FrontPage from "./screens/FrontPage";
 import SignUp from "./screens/SignUp";
 import ForgotPassword from "./screens/ForgotPassword";
-import MessageEmail from "./components/MessageEmail";
-import NueaPunlicacion from "./components/NueaPunlicacion";
 import EditProfile from "./screens/EditProfile";
 import ChangePassword from "./screens/ChangePassword";
-import MessageChangePassword from "./components/MessageChangePassword";
 import Serch from "./screens/Serch";
 import Fovorite from "./screens/Fovorite";
-import SaveMessage from "./components/SaveMessage";
-import MessageSignUp from "./components/MessageSignUp";
 import MenuProfile from "./components/MenuProfile";
 import SignOutMessage from "./components/SignOutMessage";
-import BarraInferior from "./components/BarraInferior";
 import Profile from "./screens/Profile";
+import Post from "./screens/Post";
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import BottomBar from "./components/BottomBar";
+
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { IconRegistry, ApplicationProvider } from "@ui-kitten/components";
 import * as eva from "@eva-design/eva";
@@ -29,11 +28,24 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   View,
   Text,
-  Pressable,
+  Pressable, StatusBar,
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
 
+const Tab = createBottomTabNavigator();
+const BottomBarScreens = () => {
+  return (
+    <Tab.Navigator tabBar={() => <BottomBar />}
+    screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="Feed" component={Feed} />
+      <Tab.Screen name="Fovorite" component={Fovorite} />
+      <Tab.Screen name="Search" component={Serch} />
+      <Tab.Screen name="Post" component={Post} />
+      <Tab.Screen name="Notification" component={Profile} />
+    </Tab.Navigator>
+  );
+};
 const App = () => {
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
 
@@ -78,6 +90,8 @@ const App = () => {
 
   return (
     <>
+          <StatusBar barStyle="light-content" />
+
       <IconRegistry icons={[MaterialIconsPack]} />
       <ApplicationProvider {...eva} theme={eva.light}>
         <NavigationContainer>
@@ -131,6 +145,18 @@ const App = () => {
                 component={Profile}
                 options={{ headerShown: false }}
               />
+              <Stack.Screen
+                name="EditProfile"
+                component={EditProfile}
+                options={{ headerShown: false }}
+              />
+            <Stack.Screen
+                name="Post"
+                component={Post}
+                options={{ headerShown: false }}
+              />
+                <Stack.Screen name="BottomBarScreens" component={BottomBarScreens} screenOptions={{ headerShown: false }}/>
+
             </Stack.Navigator>
           ) : null}
         </NavigationContainer>

@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
   signoutFlexBox: {
     flexDirection: "row",
-    left: 15,
+    left: 20,
     top: "50%",
     position: "absolute",
     alignSelf: "stretch",
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     top: 0,
     borderBottomRightRadius: Border.br_31xl,
     borderBottomLeftRadius: Border.br_31xl,
-    height: 281,
+    height: 230,
     zIndex: 2,
     width: 280,
     left: "50%",
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   menuprofileChild: {
     marginLeft: -56,
-    top: 263,
+    top: 170,
     width: 110,
     height: 114,
     zIndex: 3,
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
   },
   menuprofile: {
     backgroundColor: Color.colorWhite,
-    height: 650,
+    height: 900,
     maxHeight: "100%",
     maxWidth: "100%",
     overflow: "hidden",

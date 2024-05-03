@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 import CustomModal from "../components/CustomModal";
-import { register } from '../api/Auth';
+import { register } from "../api/Auth";
 
 const SignUp = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -204,7 +204,7 @@ const SignUp = ({ navigation }) => {
         />
       )}
     </ImageBackground>
-   );
+  );
 };
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -216,29 +216,7 @@ const styles = StyleSheet.create({
   container: {
     width: "90%",
     padding: 16,
-    backgroundColor: "transparent",},
-  signUpLayout: {
-    overflow: "hidden",
-    width: "100%",
-    flex: 1,
-  },
-  botoncreatePosition: {
-    flexDirection: "row",
-    left: "50%",
-    position: "absolute",
-  },
-  newPasswordFlexBox: {
-    textAlign: "center",
-    letterSpacing: 0,
-    color: Color.colorBlack,
-  },
-  signIn1Typo: {
-    display: "flex",
-    fontFamily: FontFamily.poppinsBold,
-    fontWeight: "500",
-    textAlign: "center",
-    letterSpacing: 0,
-    justifyContent: "center",
+    backgroundColor: "transparent",
     alignItems: "center",
   },
   title: {
@@ -276,30 +254,18 @@ const styles = StyleSheet.create({
 
     padding: 10,
   },
+  // input2: {
+  //   height: 25,
+  //   borderColor: "transparent",
+  //   backgroundColor: "transparent",
+  //   color: "white",
+  //   flex: 1,
+  // },
 
   button: {
     borderRadius: 12,
     padding: 10,
-  },
-  signIn1: {
-    height: 36,
-    marginRight:270,
-    color: Color.colorBlack,
-    display:"flex",
-    fontFamily: FontFamily.poppinsBold,
-    fontWeight: "700",
-    fontSize: FontSize.size_xs,
-    flex: 1,
-  },
-  returnsignin: {
-    marginLeft: -100,
-    bottom: 5,
-    paddingBottom: Padding.p_9xs,
-    zIndex: 1,
-    alignSelf: "stretch",
-  },
-  botonCreateOverlay: {
-    flex: 1,
+
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "center",
@@ -316,20 +282,7 @@ const styles = StyleSheet.create({
   signUpText: {
     color: "white",
     fontSize: 14,
-    marginTop: 10,},
-  createAccount: {
-    fontSize: FontSize.size_lg,
-    color: Color.colorWhite,
-    width: 166,
-  },
-  botoncreate: {
-    marginLeft: -134,
-    bottom: 71,
-    backgroundColor: Color.colorGray_100,
-    height: 47,
-    paddingHorizontal: 52,
-    paddingVertical: 11,
-    zIndex: 2,
+    marginTop: 10,
     flexDirection: "row",
     alignItems: "baseline",
   },

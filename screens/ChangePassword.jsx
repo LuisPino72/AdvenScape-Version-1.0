@@ -9,7 +9,6 @@ import {
   Image,
 } from "react-native";
 import CustomModal from "../components/CustomModal";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ChangePassword = ({ navigation }) => {
   const [newPassword, setNewPassword] = useState("");
@@ -21,19 +20,10 @@ const ChangePassword = ({ navigation }) => {
     navigation.navigate("SignIn");
   };
 
-  const savePasswordToStorage = async (password) => {
-    try {
-      await AsyncStorage.setItem("password", password);
-    } catch (error) {
-      console.error("Error saving password:", error);
-    }
-  };
-
   const handleContinue = () => {
     if (!validateInputs()) {
       return;
     }
-    savePasswordToStorage(newPassword);
     setIsModalVisible(true);
   };
 

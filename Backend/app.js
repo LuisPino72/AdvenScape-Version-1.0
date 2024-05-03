@@ -4,9 +4,6 @@ const express = require("express");
 const routes = require("./routes");
 const cors = require("cors");
 
-firebase.auth().onAuthStateChanged((user) => {
-  console.log(user);
-});
 
 require("dotenv").config();
 

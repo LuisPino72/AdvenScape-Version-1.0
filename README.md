@@ -7,3 +7,5 @@ Note: Make sure you have installed native code dependencies [here](https://react
 3. Escribir  `npx expo start`  En el terminal
 4. Run en android
     1. Presiona  `a`  para verlo en un dispositivo virtual Android o siga las instrucciones [aquí](https://docs.expo.dev/workflow/run-on-device/) para ejecutarlo en un dispositivo físico.
+
+    node app (para el backend)

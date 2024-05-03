@@ -204,9 +204,8 @@ const SignUp = ({ navigation }) => {
         />
       )}
     </ImageBackground>
-  );
+   );
 };
-
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
@@ -217,7 +216,7 @@ const styles = StyleSheet.create({
   container: {
     width: "90%",
     padding: 16,
-    backgroundColor: "transparent",
+    backgroundColor: "transparent",},
   signUpLayout: {
     overflow: "hidden",
     width: "100%",
@@ -277,18 +276,11 @@ const styles = StyleSheet.create({
 
     padding: 10,
   },
-  // input2: {
-  //   height: 25,
-  //   borderColor: "transparent",
-  //   backgroundColor: "transparent",
-  //   color: "white",
-  //   flex: 1,
-  // },
 
   button: {
     borderRadius: 12,
     padding: 10,
-
+  },
   signIn1: {
     height: 36,
     marginRight:270,
@@ -324,7 +316,7 @@ const styles = StyleSheet.create({
   signUpText: {
     color: "white",
     fontSize: 14,
-    marginTop: 10,
+    marginTop: 10,},
   createAccount: {
     fontSize: FontSize.size_lg,
     color: Color.colorWhite,

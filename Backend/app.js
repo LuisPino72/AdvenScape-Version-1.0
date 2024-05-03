@@ -1,6 +1,12 @@
+
+
 const express = require("express");
 const routes = require("./routes");
 const cors = require("cors");
+
+firebase.auth().onAuthStateChanged((user) => {
+  console.log(user);
+});
 
 require("dotenv").config();
 
@@ -22,3 +28,5 @@ app.use("/api", routes);
 const port = 4000;
 
 app.listen(port, () => console.log(`API is running on port${port}`));
+
+

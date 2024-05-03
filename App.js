@@ -17,6 +17,9 @@ import SignOutMessage from "./components/SignOutMessage";
 import Profile from "./screens/Profile";
 import Post from "./screens/Post";
 
+import firebase from "./utils/Firebase";
+import "firebase/auth";
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import BottomBar from "./components/BottomBar";
 
@@ -47,6 +50,11 @@ const BottomBarScreens = () => {
   );
 };
 const App = () => {
+
+  firebase.auth().onAuthStateChanged((user) => {
+    console.log(user);
+  });
+
   const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
 
   const [fontsLoaded, error] = useFonts({

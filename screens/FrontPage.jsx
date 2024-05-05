@@ -10,6 +10,7 @@ import {
   Color,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import Icon from "react-native-vector-icons/Ionicons";
 
 const FrontPage = ({ navigation }) => {
   const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 100 });
@@ -67,6 +68,8 @@ const FrontPage = ({ navigation }) => {
             style={[styles.button, { top: buttonPosition.y }]}
             activeOpacity={1}
           >
+            {" "}
+            <Icon name="arrow-up" size={20} color="black" />
             <Text style={styles.buttonText}>Go</Text>
           </TouchableOpacity>
         </LinearGradient>

@@ -92,13 +92,13 @@ const SignIn = ({ navigation }) => {
               source={require("../assets/user-icon.png")}
               style={styles.icon}
             />
-            <Text style={styles.inputTitle}>E-mail or Username</Text>
+            <Text style={styles.inputTitle}>Username</Text>
           </View>
         </View>
         <View style={styles.inputContainer}>
           <TextInput
             style={(styles.input, styles.box)}
-            placeholder="   Example@gmail.com"
+            placeholder="   ExampleUserName"
             placeholderTextColor="#5e5e5e"
             value={username}
             onChangeText={(text) => setUsername(text)}

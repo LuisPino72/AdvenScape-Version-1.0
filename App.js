@@ -16,7 +16,6 @@ import MenuProfile from "./components/MenuProfile";
 import SignOutMessage from "./components/SignOutMessage";
 import Profile from "./screens/Profile";
 import Post from "./screens/Post";
-
 //import firebase from "./utils/Firebase";
 //import "firebase/auth";
 

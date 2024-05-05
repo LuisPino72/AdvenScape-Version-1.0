@@ -254,13 +254,6 @@ const styles = StyleSheet.create({
 
     padding: 10,
   },
-  // input2: {
-  //   height: 25,
-  //   borderColor: "transparent",
-  //   backgroundColor: "transparent",
-  //   color: "white",
-  //   flex: 1,
-  // },
 
   button: {
     borderRadius: 12,

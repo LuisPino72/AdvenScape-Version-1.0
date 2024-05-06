@@ -16,6 +16,11 @@ app.post("/images/single", upload.single("imagenPerfil"), (req, res) => {
   res.send("termina");
 });
 
+app.post("/images/multi", upload.array("photos", 10), (req, res) => {
+  req.files.map(saveImage);
+  res.send("Terminar miltiple fotos");
+});
+
 function saveImage(file) {
   const newPath = `./uploads/${file.originalname}`;
   fs.renameSync(file.path, newPath);
@@ -34,6 +39,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use("/api", routes);
+app.get("/api", (_, res) => res.send(`Connected!`));
 
 const port = 4000;
 

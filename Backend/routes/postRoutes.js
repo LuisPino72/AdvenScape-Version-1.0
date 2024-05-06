@@ -1,22 +1,25 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const postController = require("../controllers/postController");
+const postController = require('../controllers/postController');
 
-router.post("/create", postController.createPost);
-router.get("/all", postController.getAllPosts);
+router.post('/create', postController.createPost);
+router.get('/all', postController.getAllPosts);
 
-router.get("/user/:id", postController.getPostByUser);
-router.get("/:id", postController.getPostById);
-router.put("/update/image/:id", postController.updatePostImage);
-router.put("/update/:id", postController.updatePost);
-router.delete("/delete/:id", postController.deletePost);
+router.get("/feed", postController.getFeed);
 
-router.post("/like/:id", postController.setLikePost);
-router.get("/like/:id", postController.getLikePost);
+router.get('/user/:id', postController.getPostByUser);
+router.get("/user", postController.getPostByUserLogged);
 
-router.post("/user-tag/:id", postController.setUserTag);
-router.get("/user-tag/:id", postController.getUserTagByPost);
+router.get('/:id', postController.getPostById);
+router.put('/update/image/:id', postController.updatePostImage);
+router.put('/update/:id', postController.updatePost);
+router.delete('/delete/:id', postController.deletePost);
 
-router.post("/hashtag-tag/:id", postController.setHashtagTag);
+
+
+router.post('/like/:postId', postController.setLikePost);
+
+router.get('/like/:id', postController.getLikePost);
+
 
 module.exports = router;

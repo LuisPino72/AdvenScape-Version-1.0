@@ -45,7 +45,7 @@ const SignIn = ({ navigation }) => {
       }
     } catch (error) {
       console.error("Error logging in:", error);
-      setErrorMessage("Network Error");
+      setErrorMessage("invalid data");
       return;
     }
 

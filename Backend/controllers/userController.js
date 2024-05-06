@@ -43,134 +43,105 @@ const createUser = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    console.log("Service login");
+
+    console.log("Service login")
     const { username, password } = req.body;
 
     const valUser = await User.findOne({
       where: {
-        username,
-      },
+        username
+      }
     });
 
     if (!valUser) {
-      return resp.makeResponsesError(
-        res,
-        "Incorrect credentials",
-        "ULoginError1"
-      );
+      return resp.makeResponsesError(res, 'Incorrect credentials', 'ULoginError1')
     }
 
     const { id } = valUser;
 
-    const valPass = await validate.comparePassword(password, valUser.password);
+    const valPass = await validate.comparePassword(password, valUser.password)
 
     if (!valPass) {
-      return resp.makeResponsesError(
-        res,
-        "Incorrect credentials",
-        "ULoginError2"
-      );
+      return resp.makeResponsesError(res, 'Incorrect credentials', 'ULoginError2')
     }
 
-    const secret = process.env.SECRET_KEY;
-    const token = jwt.sign({ id }, secret, { expiresIn: "1w" });
+    const secret = process.env.SECRET_KEY
+    const token = jwt.sign({ id, }, secret, { expiresIn: '1w' });
 
     const user = {
       id,
-      token,
-    };
+      token
+    }
 
-    resp.makeResponsesOkData(res, user, "Success");
+    resp.makeResponsesOkData(res, user, 'Success')
+
   } catch (error) {
     console.log(error);
-    resp.makeResponsesError(res, error, "UnexpectedError");
+    resp.makeResponsesError(res, error, 'UnexpectedError')
   }
-};
+}
 
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll({
-      order: [["createdAt", "DESC"]],
+      order: [['createdAt', 'DESC']]
     });
 
-    resp.makeResponsesOkData(res, users, "Success");
+    resp.makeResponsesOkData(res, users, 'Success')
+
   } catch (error) {
-    console.log(error);
-    resp.makeResponsesError(res, error, "UnexpectedError");
+    console.log(error)
+    resp.makeResponsesError(res, error, 'UnexpectedError')
   }
-};
+}
 
 const getUserLogged = async (req, res) => {
   try {
-    const auth = await authenticateToken(req, res);
+    const auth = await authenticateToken(req, res)
 
-    if (!auth)
-      return resp.makeResponse400(
-        res,
-        "Unauthorized user.",
-        "Unauthorized",
-        401
-      );
+    if (!auth) return resp.makeResponse400(res, 'Unauthorized user.', 'Unauthorized', 401);
 
     const user = await User.findByPk(auth.id);
 
     if (!user) {
-      return resp.makeResponsesError(
-        res,
-        `User with ID ${auth.id} not found`,
-        "UserNotFound"
-      );
+      return resp.makeResponsesError(res, `User with ID ${auth.id} not found`, 'UserNotFound');
     }
 
-    resp.makeResponsesOkData(res, user, "UserProfileImageRetrieved");
+    resp.makeResponsesOkData(res, user, 'UserProfileImageRetrieved');
   } catch (error) {
-    resp.makeResponsesError(res, error, "UnexpectedError");
+    resp.makeResponsesError(res, error, 'UnexpectedError');
   }
-};
+}
 
 const getUser = async (req, res) => {
   try {
     const id = req.params.id;
     const user = await User.findByPk(id, {
       where: {
-        status: "A",
-      },
+        status: 'A'
+      }
     });
-    resp.makeResponsesOkData(res, user, "Success");
+    resp.makeResponsesOkData(res, user, 'Success')
   } catch (error) {
-    resp.makeResponsesError(res, error, "UnexpectedError");
+    resp.makeResponsesError(res, error, 'UnexpectedError')
   }
-};
+}
 
 const getUserProfileImage = async (req, res) => {
   try {
-    const auth = await authenticateToken(req, res);
+    const auth = await authenticateToken(req, res)
 
-    if (!auth)
-      return resp.makeResponse400(
-        res,
-        "Unauthorized user.",
-        "Unauthorized",
-        401
-      );
+    if (!auth) return resp.makeResponse400(res, 'Unauthorized user.', 'Unauthorized', 401);
 
     const user = await User.findByPk(auth.id);
 
     if (!user) {
-      return resp.makeResponsesError(
-        res,
-        `User with ID ${auth.id} not found`,
-        "UserNotFound"
-      );
+      return resp.makeResponsesError(res, `User with ID ${auth.id} not found`, 'UserNotFound');
     }
 
-    resp.makeResponsesOkData(
-      res,
-      { profileImage: user.profile },
-      "UserProfileImageRetrieved"
-    );
+    resp.makeResponsesOkData(res, { profileImage: user.profile }, 'UserProfileImageRetrieved');
   } catch (error) {
-    resp.makeResponsesError(res, error, "UnexpectedError");
+    resp.makeResponsesError(res, error, 'UnexpectedError');
   }
 };
 
@@ -182,84 +153,71 @@ const updateUser = async (req, res) => {
     const user = await User.findByPk(userId);
 
     if (!user) {
-      return resp.makeResponsesError(res, `User doesn't exist`, "UNotFound");
+      return resp.makeResponsesError(res, `User doesn't exist`, 'UNotFound');
     }
 
     await user.update(userData);
 
-    resp.makeResponsesOkData(res, user, "UUpdated");
+    resp.makeResponsesOkData(res, user, 'UUpdated');
   } catch (error) {
-    resp.makeResponsesError(res, error, "UnexpectedError");
+    resp.makeResponsesError(res, error, 'UnexpectedError');
   }
 };
 
 const updateUserImage = async (req, res) => {
   try {
-    const auth = await authenticateToken(req, res);
+    const auth = await authenticateToken(req, res)
 
-    if (!auth)
-      return resp.makeResponse400(
-        res,
-        "Unauthorized user.",
-        "Unauthorized",
-        401
-      );
+    if (!auth) return resp.makeResponse400(res, 'Unauthorized user.', 'Unauthorized', 401);
 
     const user = await User.findByPk(auth.id);
 
     if (!user) {
-      return resp.makeResponsesError(
-        res,
-        `User with ID ${auth.id} not found`,
-        "UserNotFound"
-      );
+      return resp.makeResponsesError(res, `User with ID ${auth.id} not found`, 'UserNotFound');
     }
 
     const { imageUrl } = req.body;
 
     if (!imageUrl) {
-      return resp.makeResponsesError(
-        res,
-        `Image doesn't exist.`,
-        "UserNotFound"
-      );
+      return resp.makeResponsesError(res, `Image doesn't exist.`, 'UserNotFound');
     }
 
     user.profile = imageUrl;
     await user.save();
 
-    resp.makeResponsesOkData(res, user, "User image updated successfully");
+    resp.makeResponsesOkData(res, user, 'User image updated successfully');
   } catch (error) {
-    resp.makeResponsesError(res, error, "UnexpectedError");
+    resp.makeResponsesError(res, error, 'UnexpectedError');
   }
 };
 const deleteUser = async (req, res) => {
+
   try {
+
     const id = req.params.id;
 
     const user = await User.findByPk(id, {
       where: {
-        status: "A",
-      },
+        status: 'A'
+      }
     });
 
     if (!user) {
-      return response.makeResponsesError(
-        res,
-        `User doesn't exist`,
-        "UNotFound"
-      );
+      return response.makeResponsesError(res, `User doesn't exist`, 'UNotFound')
     }
 
     const saveUser = await user.update({
       status: false,
       deleted_at: Date.now(),
-      where: { id },
+      where: { id }
     });
 
-    response.makeResponsesOkData(res, saveUser, "UDeleted");
+    response.makeResponsesOkData(res, saveUser, 'UDeleted')
+
+
   } catch (error) {
-    response.makeResponsesError(res, error, "UnexpectedError");
+    response.makeResponsesError(res, error, 'UnexpectedError')
+
   }
 };
 
@@ -267,49 +225,34 @@ const changePassword = async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id, {
       where: {
-        status: "A",
-      },
+        status: 'A'
+      }
     });
 
     if (!user) {
-      return resp.makeResponsesError(res, `User don't exist`, "UNotFound");
+      return resp.makeResponsesError(res, `User don't exist`, 'UNotFound');
     }
 
-    const valPass = await validate.comparePassword(
-      req.body.password,
-      valUser.password
-    );
+    const isPasswordValid = await validate.comparePassword(req.body.password, user.password);
 
-    if (!valPass) {
-      return resp.makeResponsesError(
-        res,
-        "Incorrect credentials",
-        "UChangePasswordError"
-      );
+    if (!isPasswordValid) {
+      return resp.makeResponsesError(res, 'Incorrect credentials', 'UChangePasswordError');
     }
 
-    const valNewPass = await validate.comparePassword(
-      req.body.newPassword,
-      valUser.password
-    );
+    const isNewPasswordValid = await validate.comparePassword(req.body.newPassword, user.password);
 
-    if (valNewPass) {
-      return resp.makeResponsesError(
-        res,
-        "Incorrect credentials",
-        "UChangePasswordError1"
-      );
+    if (isNewPasswordValid) {
+      return resp.makeResponsesError(res, 'New password must be different from the old one', 'UChangePasswordError1');
     }
 
-    user.password = bcrypt.hashSync(req.body.newPassword)
-      ? bcrypt.hashSync(req.body.newPassword)
-      : user.password;
+    user.password = bcrypt.hashSync(req.body.newPassword) || user.password;
 
     await user.save();
 
-    resp.makeResponsesOkData(res, saveUser, "UChangePasswordSuccess");
+    resp.makeResponsesOkData(res, user, 'UChangePasswordSuccess');
   } catch (error) {
-    resp.makeResponsesError(res, error, "UnexpectedError");
+    console.log(error);
+    resp.makeResponsesError(res, error, 'UnexpectedError');
   }
 };
 
@@ -319,9 +262,9 @@ const setFavorite = async (req, res) => {
 
     const favorite = await Favorite.create({ user_id, post_id });
 
-    resp.makeResponsesOkData(res, favorite, "FavoriteCreated");
+    resp.makeResponsesOkData(res, favorite, 'FavoriteCreated');
   } catch (error) {
-    resp.makeResponsesError(res, error, "UnexpectedError");
+    resp.makeResponsesError(res, error, 'UnexpectedError');
   }
 };
 
@@ -331,30 +274,34 @@ const getFavoritesByUser = async (req, res) => {
 
     const favorites = await Favorite.findAll({ where: { user_id } });
 
-    resp.makeResponsesOkData(res, favorites, "FavoritesRetrieved");
+    resp.makeResponsesOkData(res, favorites, 'FavoritesRetrieved');
   } catch (error) {
-    resp.makeResponsesError(res, error, "UnexpectedError");
+    resp.makeResponsesError(res, error, 'UnexpectedError');
   }
 };
 
 const setFollow = async (req, res) => {
   try {
-    const { follower_id, following_id } = req.body;
+    
+    const auth = await authenticateToken(req, res)
 
-    const follow = await Follow.create({ follower_id, following_id });
+    if (!auth) return resp.makeResponse400(res, 'Unauthorized user.', 'Unauthorized', 401);
 
-    resp.makeResponsesOkData(res, follow, "FollowCreated");
+    const user = await User.findByPk(auth.id);
+
+    if (!user) {
+      return resp.makeResponsesError(res, `User with ID ${auth.id} not found`, 'UserNotFound');
+    }
+
+    const { followingId } = req.body;
+
+    const follow = await Follow.create({ user_id: user.id, follower_id: followingId });
+
+    resp.makeResponsesOkData(res, follow, 'FollowCreated');
   } catch (error) {
-    resp.makeResponsesError(res, error, "UnexpectedError");
+    resp.makeResponsesError(res, error, 'UnexpectedError');
   }
 };
-
-/*const setUploadImage = async (req, res) => {
-  app.post("/images/single", upload.single("imagenPerfil"), (req, res) => {
-    console.log(req.file);
-    res.sed("termina");
-  });
-};*/
 
 const getFollowersByUser = async (req, res) => {
   try {
@@ -362,9 +309,9 @@ const getFollowersByUser = async (req, res) => {
 
     const followers = await Follow.findAll({ where: { following_id } });
 
-    resp.makeResponsesOkData(res, followers, "FollowersRetrieved");
+    resp.makeResponsesOkData(res, followers, 'FollowersRetrieved');
   } catch (error) {
-    resp.makeResponsesError(res, error, "UnexpectedError");
+    resp.makeResponsesError(res, error, 'UnexpectedError');
   }
 };
 
@@ -383,5 +330,4 @@ module.exports = {
   updateUserImage,
   getUserProfileImage,
   getUserLogged,
-  //setUploadImage
 };

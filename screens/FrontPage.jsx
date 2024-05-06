@@ -68,8 +68,7 @@ const FrontPage = ({ navigation }) => {
             style={[styles.button, { top: buttonPosition.y }]}
             activeOpacity={1}
           >
-            {" "}
-            <Icon name="arrow-up" size={20} color="black" />
+            
             <Text style={styles.buttonText}>Go</Text>
           </TouchableOpacity>
         </LinearGradient>
@@ -77,7 +76,7 @@ const FrontPage = ({ navigation }) => {
     </ImageBackground>
   );
 };
-
+  //<Icon name="arrow-up" size={20} color="black" />
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
